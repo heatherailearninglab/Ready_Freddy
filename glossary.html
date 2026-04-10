@@ -292,10 +292,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 /* ════════════════════════
    GLOSSARY LAYOUT
    ════════════════════════ */
-.glossary-layout{max-width:1100px;margin:0 auto;padding:3rem 3rem 6rem;display:grid;grid-template-columns:160px 1fr;gap:2.5rem;align-items:start;}
+.glossary-layout{max-width:1100px;margin:0 auto;padding:3rem 3rem 6rem;display:grid;grid-template-columns:1fr;gap:2.5rem;align-items:start;}
 
-/* ── SIDEBAR ── */
-.glos-sidebar{position:sticky;top:130px;}
+/* ── SIDEBAR (hidden, top alpha bar handles navigation) ── */
+.glos-sidebar{display:none;}
 .sidebar-nav{display:flex;flex-direction:column;gap:2px;}
 .snav-letter{font-size:13px;font-weight:600;color:var(--text-muted);padding:5px 10px;border-radius:var(--r-sm);cursor:pointer;font-family:var(--display);transition:background 0.18s,color 0.18s;text-decoration:none;display:flex;align-items:center;justify-content:space-between;}
 .snav-letter:hover{background:var(--mint-ghost);color:var(--mint);}
@@ -387,9 +387,12 @@ footer{border-top:1px solid var(--mint-border);background:rgba(4,14,11,0.92);bac
    ═══════════════════════════════════════════════════════ */
 
 /* Prevent ANY horizontal overflow */
-html, body {
+body {
   overflow-x: hidden !important;
   max-width: 100vw !important;
+}
+html {
+  overflow-x: clip;
 }
 *, *::before, *::after {
   max-width: 100%;

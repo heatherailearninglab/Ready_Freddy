@@ -761,7 +761,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
     </div>
     <div class="alpha-bar" id="alpha-bar"></div>
-    <div class="result-count"><strong id="visible-count">50</strong> terms</div>
+    
   </div>
 </div>
 
@@ -1033,13 +1033,13 @@ LETTERS.forEach(l=>{
   const a = document.createElement('a');
   a.href = '#letter-'+l;
   a.className = 'snav-letter';
-  a.innerHTML = `${l} <span class="snav-count">${letterCounts[l]}</span>`;
+  a.innerHTML = `${l}`;
   sidebar.appendChild(a);
 });
 
 // total count
 document.getElementById('total-count').textContent = TERMS.length;
-document.getElementById('visible-count').textContent = TERMS.length;
+// counts removed
 
 // render all
 function renderTerms(filtered, query=''){
@@ -1055,7 +1055,7 @@ function renderTerms(filtered, query=''){
     const section = document.createElement('div');
     section.className = 'letter-section';
     section.id = 'letter-'+l;
-    section.innerHTML = `<div class="letter-heading"><div class="letter-h">${l}</div><div class="letter-rule"></div><div class="letter-count">${byLetter[l].length} term${byLetter[l].length>1?'s':''}</div></div>`;
+    section.innerHTML = `<div class="letter-heading"><div class="letter-h">${l}</div><div class="letter-rule"></div></div>`;
 
     const list = document.createElement('div');
     list.className = 'terms-list';
@@ -1083,7 +1083,7 @@ function renderTerms(filtered, query=''){
     main.appendChild(section);
   });
 
-  document.getElementById('visible-count').textContent = filtered.length;
+  // counts removed
 }
 
 function hl(text, query){

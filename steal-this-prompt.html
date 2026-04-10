@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steal This Prompt — AI • Kairos Learning Lab</title>
+
+
+<style>
+/* === INTER FONT RESET === */
+:root { --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+html, body { font-family: var(--font-sans); }
+body, button, input, select, textarea, nav, h1, h2, h3, h4, h5, h6, p, a, li, span, label { font-family: var(--font-sans); }
+/* === END INTER RESET === */
+
+/* ── LOCKED DESIGN SYSTEM v1.0 ── */
+:root {
+  /* ═══ LOCKED DESIGN SYSTEM v2.0 ═══════════════════════════════════════════
+     AI • Kairos Learning Lab — mature, accessible, universal AI literacy
+     Dark cinematic tech-forward. Credible, calm, polished, futuristic.
+     ════════════════════════════════════════════════════════════════════════ */
+
+  /* Backgrounds */
+  --bg:          #041012;
+  --bg-2:        #07131A;
+  --bg-card:     rgba(7,19,26,0.78);
+  --bg-card-hov: rgba(10,28,38,0.96);
+
+  /* Brand accent colors */
+  --mint:        #1CC9A0;
+  --mint-bright: #5de8c8;
+  --mint-dim:    #0d7a62;
+  --mint-ghost:  rgba(28,201,160,0.08);
+  --mint-border: rgba(28,201,160,0.22);
+
+  --blue:        #38B6FF;
+  --blue-bright: #7fd4ff;
+  --blue-ghost:  rgba(56,182,255,0.08);
+  --blue-border: rgba(56,182,255,0.22);
+
+  --amber:       #f0a030;
+  --amber-ghost: rgba(240,160,48,0.09);
+  --amber-border:rgba(240,160,48,0.22);
+
+  --purple:      #a855f7;
+  --purple-ghost:rgba(168,85,247,0.08);
+  --purple-border:rgba(168,85,247,0.22);
+
+  --red:         #e24b4a;
+  --red-ghost:   rgba(226,75,74,0.08);
+  --red-border:  rgba(226,75,74,0.22);
+
+  /* Text hierarchy — WCAG AA minimum 4.5:1 on dark bg */
+  --text:        #F8FBFF;                    /* primary — near-white, high contrast  */
+  --text-mid:    rgba(248,251,255,0.88);     /* secondary body text                  */
+  --text-muted:  rgba(248,251,255,0.62);     /* supporting / caption text            */
+
+  /* Typography */
+  --display: var(--font-sans);
+  --sans: var(--font-sans);
+
+  /* Spacing base: 8px system */
+  --sp-1: 8px;  --sp-2: 16px; --sp-3: 24px; --sp-4: 32px;
+  --sp-6: 48px; --sp-8: 64px; --sp-12: 96px;
+
+  /* Radius */
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   18px;
+  --r-xl:   24px;
+  --r-pill: 999px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── GLOBAL TYPOGRAPHY BASELINE ── */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hero headline sizing — locked responsive scale */
+.hero-h1, .sh-h1, .ah-h1, .page-title, .ts-h1 {
+  font-size: clamp(3rem, 7vw, 6.4rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.1 !important;
+}
+@media(max-width: 768px) {
+  .hero-h1, .sh-h1, .ah-h1, .page-title, .ts-h1 {
+    font-size: clamp(2.4rem, 10vw, 3.2rem) !important;
+  }
+}
+
+/* Body text — readable at all ages */
+body, p, .p-body, .sec-sub, .hero-sub, .sh-sub {
+  font-size: 1.0rem;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  color: var(--text-mid);
+}
+
+/* Large supporting paragraph in heroes */
+.hero-sub, .sh-sub, .fc-desc, .page-sub {
+  font-size: 1.1rem;
+  line-height: 1.72;
+  font-weight: 400;
+  max-width: 600px;
+  color: var(--text-mid);
+}
+@media(min-width: 900px) {
+  .hero-sub, .sh-sub, .fc-desc, .page-sub { font-size: 1.15rem; }
+}
+
+/* Primary CTA button — finger-friendly, strong contrast */
+.btn-mint {
+  min-height: 52px;
+  padding: 14px 32px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  background: linear-gradient(135deg, #1CC9A0, #38B6FF) !important;
+  color: #041012 !important;
+  box-shadow: 0 0 24px rgba(28,201,160,0.28), 0 2px 8px rgba(0,0,0,0.35) !important;
+  border: none !important;
+}
+.btn-mint:hover {
+  background: linear-gradient(135deg, #5de8c8, #7fd4ff) !important;
+  box-shadow: 0 0 36px rgba(28,201,160,0.45), 0 4px 16px rgba(0,0,0,0.4) !important;
+  transform: translateY(-2px) !important;
+  color: #041012 !important;
+}
+
+/* Ghost button — visible, not faint */
+.btn-ghost {
+  min-height: 52px;
+  padding: 14px 28px !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  border: 1.5px solid rgba(28,201,160,0.4) !important;
+  color: rgba(248,251,255,0.85) !important;
+  background: rgba(28,201,160,0.06) !important;
+}
+.btn-ghost:hover {
+  border-color: var(--mint) !important;
+  color: var(--mint) !important;
+  background: rgba(28,201,160,0.1) !important;
+}
+
+/* Eyebrow / badge pill */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  padding: 6px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(28,201,160,0.3);
+  background: rgba(28,201,160,0.07);
+  color: var(--mint) !important;
+  margin-bottom: 1.2rem !important;
+}
+
+/* Focus states — accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Card glass effect — updated to new bg */
+.pc, .product-card, .ch-card, .feature-card, .faq-item {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Section headings */
+.sec-title, h2 {
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+/* Section supporting text */
+.sec-sub {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  line-height: 1.72;
+  font-weight: 400;
+  max-width: 580px;
+}
+
+/* Nav links — better contrast */
+.nav-links a { color: rgba(248,251,255,0.6); }
+.nav-links a:hover, .nav-links a.active { color: var(--mint); }
+
+/* Body text in cards — never too faint */
+.p-desc, .ep-text, .faq-a-inner, .cc-desc, .fc-desc, .prod-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.72;
+  font-weight: 400;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.site{position:relative;z-index:1;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(4,14,11,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--mint-border);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+/* ── LOGO IMAGE ── */
+.nav-logo-img{height:36px;width:auto;display:block;}
+
+.logo-mark{width:34px;height:34px;border:1.5px solid var(--mint);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;position:relative;}
+.logo-mark::before{content:'';width:10px;height:10px;background:var(--mint);border-radius:50%;}
+.logo-mark::after{content:'';position:absolute;width:18px;height:1px;background:var(--blue);bottom:8px;}
+.logo-text{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.02em;line-height:1.2;}
+.logo-text .dot{color:var(--mint);}.logo-text .kairos{color:var(--blue);}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{font-size:13.5px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--mint);}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:14px;font-weight:500;padding:10px 22px;border-radius:var(--r-pill);text-decoration:none;border:none;cursor:pointer;transition:background 0.2s,transform 0.15s,color 0.2s,border-color 0.2s;white-space:nowrap;}
+.btn svg{width:14px;height:14px;flex-shrink:0;}
+.btn-mint{background:var(--mint);color:var(--bg);}.btn-mint:hover{background:var(--mint-bright);transform:translateY(-2px);}
+.btn-blue{background:var(--blue);color:var(--bg);}.btn-blue:hover{background:var(--blue-bright);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--text-mid);border:1px solid var(--mint-border);}.btn-ghost:hover{color:var(--mint);border-color:var(--mint);transform:translateY(-2px);}
+.btn-amber{background:var(--amber);color:#1a0a00;}.btn-amber:hover{background:#f5b050;transform:translateY(-2px);}
+
+/* ── ANIMATIONS ── */
+@keyframes rise{to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.65);}}
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.fade-up:nth-child(2){transition-delay:0.1s;}
+.fade-up:nth-child(3){transition-delay:0.2s;}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);margin-bottom:1rem;}
+.breadcrumb a{color:var(--text-muted);text-decoration:none;transition:color 0.2s;}.breadcrumb a:hover{color:var(--mint);}
+.breadcrumb-sep{color:var(--mint-border);}
+
+/* ════════════════════════
+   PAGE HERO
+   ════════════════════════ */
+.page-hero{padding:9rem 3rem 4rem;border-bottom:1px solid var(--amber-border);background:rgba(4,14,11,0.5);backdrop-filter:blur(4px);}
+.page-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:2rem;flex-wrap:wrap;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:0.7rem;}
+.page-title{font-family:var(--display);font-size:clamp(2.6rem,5.5vw,4.2rem);font-weight:800;letter-spacing:-0.03em;line-height:1.0;color:var(--text);margin-bottom:0.9rem;}
+.page-title .t-amber{color:var(--amber);}
+.page-title .t-mint{color:var(--mint);}
+.page-sub{font-size:16px;color:var(--text-muted);line-height:1.7;font-weight:300;max-width:520px;}
+.hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px;flex-shrink:0;}
+.hero-stat{text-align:right;}
+.hs-num{font-family:var(--display);font-size:2.8rem;font-weight:800;color:var(--amber);line-height:1;letter-spacing:-0.02em;}
+.hs-label{font-size:12px;color:var(--text-muted);}
+
+/* ════════════════════════
+   WHY PROMPTS MATTER BAND
+   ════════════════════════ */
+.why-band{background:rgba(6,22,16,0.88);border-bottom:1px solid var(--mint-border);backdrop-filter:blur(10px);padding:3rem;}
+.why-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--mint-border);border:1px solid var(--mint-border);border-radius:var(--r-lg);overflow:hidden;}
+.why-card{background:rgba(6,22,16,0.95);padding:1.6rem 1.5rem;display:flex;flex-direction:column;gap:0.7rem;}
+.wc-num{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--amber);opacity:0.5;line-height:1;}
+.wc-title{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);letter-spacing:-0.01em;}
+.wc-desc{font-size:13px;color:var(--text-muted);line-height:1.65;font-weight:300;}
+
+/* ════════════════════════
+   FILTER BAR
+   ════════════════════════ */
+.filter-bar{background:rgba(4,14,11,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--mint-border);position:sticky;top:65px;z-index:90;}
+.filter-bar-inner{max-width:1100px;margin:0 auto;padding:0.9rem 3rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.fb-label{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);}
+.fpills{display:flex;gap:6px;flex-wrap:wrap;}
+.fpill{font-size:12px;font-weight:500;padding:6px 14px;border-radius:var(--r-pill);cursor:pointer;border:1px solid var(--mint-border);color:var(--text-muted);background:transparent;font-family:var(--sans);transition:all 0.18s;white-space:nowrap;}
+.fpill:hover{border-color:var(--text-muted);color:var(--text-mid);}
+.fpill.active{background:var(--amber-ghost);color:var(--amber);border-color:var(--amber);}
+.fb-count{font-size:12px;color:var(--text-muted);margin-left:auto;white-space:nowrap;}
+.fb-count strong{color:var(--text-mid);font-weight:500;}
+
+/* ════════════════════════
+   PROMPT CARDS GRID
+   ════════════════════════ */
+.prompts-section{max-width:1100px;margin:0 auto;padding:3rem 3rem 6rem;}
+
+/* FEATURED PROMPT CARD — large format */
+.prompt-featured{
+  background:var(--bg-card);border:1px solid var(--amber-border);border-radius:var(--r-lg);
+  overflow:hidden;backdrop-filter:blur(10px);margin-bottom:2rem;
+  display:grid;grid-template-columns:1fr 1fr;
+  transition:border-color 0.2s;
+}
+.prompt-featured:hover{border-color:var(--amber);}
+
+.pf-image{position:relative;overflow:hidden;min-height:420px;}
+.pf-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;}
+.prompt-featured:hover .pf-image img{transform:scale(1.03);}
+.pf-image-overlay{position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,rgba(4,14,11,0.5) 100%);}
+.pf-featured-badge{position:absolute;top:14px;left:14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:var(--r-pill);background:var(--amber);color:#1a0a00;}
+
+.pf-body{padding:2rem 2rem;display:flex;flex-direction:column;gap:1rem;}
+.pf-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.pf-category{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);}
+.pf-tool{font-size:10px;font-weight:500;padding:2px 9px;border-radius:var(--r-pill);background:var(--blue-ghost);color:var(--blue);border:1px solid var(--blue-border);}
+.pf-title{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--text);letter-spacing:-0.02em;line-height:1.2;}
+.pf-desc{font-size:14px;color:var(--text-muted);line-height:1.7;font-weight:300;}
+
+/* PROMPT BOX */
+.prompt-box{background:rgba(0,0,0,0.35);border:1px solid var(--amber-border);border-radius:var(--r-md);overflow:hidden;}
+.pb-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--amber-border);background:rgba(240,160,48,0.05);}
+.pb-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:6px;}
+.pb-dot{width:7px;height:7px;background:var(--amber);border-radius:50%;}
+.pb-copy{font-size:11px;font-weight:500;color:var(--text-muted);background:transparent;border:1px solid var(--mint-border);border-radius:var(--r-pill);padding:3px 10px;cursor:pointer;font-family:var(--sans);transition:all 0.18s;display:flex;align-items:center;gap:5px;}
+.pb-copy svg{width:11px;height:11px;stroke:currentColor;fill:none;}
+.pb-copy:hover{color:var(--mint);border-color:var(--mint);}
+.pb-copy.copied{color:var(--mint);border-color:var(--mint);background:var(--mint-ghost);}
+.pb-text{padding:14px;font-size:13px;color:var(--text-mid);line-height:1.75;font-weight:300;font-family:var(--sans);}
+.pb-text .highlight{color:var(--amber);font-weight:500;}
+.pb-text .variable{color:var(--blue);font-weight:500;font-style:italic;}
+
+.pf-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.tag{font-size:10px;font-weight:500;padding:3px 9px;border-radius:var(--r-pill);}
+.tag.amber{background:var(--amber-ghost);color:var(--amber);border:1px solid var(--amber-border);}
+.tag.mint{background:var(--mint-ghost);color:var(--mint);border:1px solid var(--mint-border);}
+.tag.blue{background:var(--blue-ghost);color:var(--blue);border:1px solid var(--blue-border);}
+
+.pf-breakdown{background:rgba(28,201,160,0.04);border:1px solid var(--mint-border);border-radius:var(--r-sm);padding:12px 14px;}
+.pb-bk-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mint);margin-bottom:8px;}
+.pb-bk-list{display:flex;flex-direction:column;gap:5px;}
+.pb-bk-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-muted);}
+.pb-bk-key{color:var(--mint);font-weight:600;min-width:70px;flex-shrink:0;}
+.pb-bk-val{line-height:1.5;}
+
+/* STANDARD PROMPT CARD */
+.prompts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+.prompt-card{
+  background:var(--bg-card);border:1px solid var(--mint-border);border-radius:var(--r-lg);
+  overflow:hidden;backdrop-filter:blur(10px);display:flex;flex-direction:column;
+  transition:border-color 0.2s,transform 0.2s;
+}
+.prompt-card:hover{border-color:var(--mint);transform:translateY(-3px);}
+.prompt-card.blue-card{border-color:var(--blue-border);}
+.prompt-card.blue-card:hover{border-color:var(--blue);}
+.prompt-card.amber-card{border-color:var(--amber-border);}
+.prompt-card.amber-card:hover{border-color:var(--amber);}
+
+.pc-image{position:relative;height:220px;overflow:hidden;}
+.pc-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;}
+.prompt-card:hover .pc-image img{transform:scale(1.05);}
+.pc-no-image{height:220px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(28,201,160,0.06) 0%,rgba(56,182,255,0.04) 100%);border-bottom:1px solid var(--mint-border);}
+.pc-no-image.blue-bg{background:linear-gradient(135deg,rgba(56,182,255,0.08) 0%,rgba(56,182,255,0.03) 100%);border-bottom-color:var(--blue-border);}
+.pc-placeholder-icon{width:56px;height:56px;border-radius:var(--r-md);background:var(--mint-ghost);border:1.5px solid var(--mint-border);display:flex;align-items:center;justify-content:center;}
+.pc-placeholder-icon svg{width:26px;height:26px;stroke:var(--mint);fill:none;stroke-width:1.4;}
+.pc-placeholder-icon.blue{background:var(--blue-ghost);border-color:var(--blue-border);}
+.pc-placeholder-icon.blue svg{stroke:var(--blue);}
+.pc-img-badge{position:absolute;top:10px;left:10px;font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border-radius:var(--r-pill);}
+.pc-img-badge.coming{background:rgba(4,14,11,0.8);color:var(--text-muted);border:1px solid rgba(255,255,255,0.1);}
+.pc-body{padding:1.3rem;flex:1;display:flex;flex-direction:column;gap:0.8rem;}
+.pc-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.pc-cat{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;}
+.pc-cat.mint{color:var(--mint);}
+.pc-cat.blue{color:var(--blue);}
+.pc-cat.amber{color:var(--amber);}
+.pc-tool-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:var(--r-pill);background:var(--blue-ghost);color:var(--blue);border:1px solid var(--blue-border);}
+.pc-title{font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-0.01em;line-height:1.2;}
+.pc-prompt-box{background:rgba(0,0,0,0.3);border:1px solid var(--mint-border);border-radius:var(--r-sm);overflow:hidden;}
+.pc-prompt-box.blue-pb{border-color:var(--blue-border);}
+.pc-prompt-box.amber-pb{border-color:var(--amber-border);}
+.pc-pb-header{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-bottom:1px solid var(--mint-border);background:var(--mint-ghost);}
+.pc-prompt-box.blue-pb .pc-pb-header{border-bottom-color:var(--blue-border);background:var(--blue-ghost);}
+.pc-prompt-box.amber-pb .pc-pb-header{border-bottom-color:var(--amber-border);background:var(--amber-ghost);}
+.pc-pb-label{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--mint);}
+.pc-prompt-box.blue-pb .pc-pb-label{color:var(--blue);}
+.pc-prompt-box.amber-pb .pc-pb-label{color:var(--amber);}
+.pc-copy{font-size:10px;color:var(--text-muted);background:transparent;border:none;cursor:pointer;font-family:var(--sans);transition:color 0.18s;display:flex;align-items:center;gap:4px;padding:0;}
+.pc-copy:hover{color:var(--mint);}
+.pc-copy svg{width:10px;height:10px;stroke:currentColor;fill:none;}
+.pc-pb-text{padding:10px;font-size:12px;color:var(--text-mid);line-height:1.7;font-weight:300;}
+.pc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:auto;}
+
+/* ════════════════════════
+   WHY A PROMPT JOURNAL BAND
+   ════════════════════════ */
+.journal-band{background:rgba(6,22,16,0.85);border-top:1px solid var(--mint-border);border-bottom:1px solid var(--mint-border);backdrop-filter:blur(10px);padding:4.5rem 3rem;}
+.jb-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.jb-left{}
+.jb-right{display:flex;flex-direction:column;gap:14px;}
+.jb-step{background:var(--bg-card);border-radius:var(--r-lg);padding:1.1rem 1.3rem;display:flex;align-items:flex-start;gap:12px;border:1px solid var(--mint-border);transition:border-color 0.2s;}
+.jb-step:hover{border-color:var(--mint);}
+.jb-step-num{font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--mint);min-width:28px;line-height:1.2;}
+.jb-step-body{}
+.jb-step-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.jb-step-desc{font-size:12px;color:var(--text-muted);line-height:1.55;}
+.jb-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--mint);margin-bottom:0.8rem;}
+.jb-title{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--text);letter-spacing:-0.025em;line-height:1.1;margin-bottom:0.8rem;}
+.jb-title .t-mint{color:var(--mint);}
+.jb-desc{font-size:14px;color:var(--text-muted);line-height:1.75;font-weight:300;margin-bottom:1.5rem;}
+.jb-cta{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* ════════════════════════
+   SUBMIT CTA
+   ════════════════════════ */
+.submit-band{padding:5rem 3rem;text-align:center;max-width:780px;margin:0 auto;}
+.sb-title{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:var(--text);letter-spacing:-0.025em;margin-bottom:1rem;line-height:1.1;}
+.sb-title .t-amber{color:var(--amber);}
+.sb-title .t-mint{color:var(--mint);}
+.sb-sub{font-size:15px;color:var(--text-muted);line-height:1.7;font-weight:300;max-width:460px;margin:0 auto 2rem;}
+.sb-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--mint-border);background:rgba(4,14,11,0.92);backdrop-filter:blur(10px);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text-muted);}
+.footer-logo .dot{color:var(--mint);}.footer-logo .kairos{color:var(--blue);}
+.footer-links{display:flex;gap:1.5rem;list-style:none;}
+.footer-links a{font-size:13px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}.footer-links a:hover{color:var(--mint);}
+.footer-copy{font-size:12px;color:#2a4a3e;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}.nav-links{display:none;}
+  .page-hero{padding:8rem 1.5rem 3rem;}.page-hero-inner{grid-template-columns:1fr;}
+  .why-inner{grid-template-columns:1fr;}
+  .filter-bar-inner{padding:0.9rem 1.5rem;}
+  .prompts-section{padding:2rem 1.5rem 4rem;}
+  .prompt-featured{grid-template-columns:1fr;}
+  .pf-image{min-height:260px;}
+  .prompts-grid{grid-template-columns:1fr;}
+  .jb-inner{grid-template-columns:1fr;}
+  .journal-band{padding:3rem 1.5rem;}
+  .submit-band{padding:4rem 1.5rem;}
+  footer{flex-direction:column;text-align:center;padding:1.5rem;}.footer-links{justify-content:center;}
+}
+
+/* ═══════════════════════════════════════════════════════
+   GLOBAL MOBILE FIXES v1.0 — applies to all pages
+   ═══════════════════════════════════════════════════════ */
+
+/* Prevent ANY horizontal overflow */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+*, *::before, *::after {
+  max-width: 100%;
+}
+
+/* ── NAV — mobile ── */
+@media(max-width: 900px) {
+
+  nav {
+    padding: 0.75rem 1rem !important;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  /* Logo — shrink gracefully */
+  .nav-logo-img {
+    height: 28px !important;
+    flex-shrink: 0;
+  }
+
+  /* Hide nav links (already done on most pages, enforce here) */
+  .nav-links { display: none !important; }
+
+  /* Nav actions — show ONE button max on small screens */
+  .nav-actions {
+    display: flex !important;
+    gap: 6px !important;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  /* Hide the ghost (secondary) nav button on mobile */
+  .nav-actions .btn-ghost {
+    display: none !important;
+  }
+  /* Primary nav button — compact */
+  .nav-actions .btn-mint,
+  .nav-actions .btn {
+    font-size: 12px !important;
+    padding: 8px 14px !important;
+    min-height: 36px !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media(max-width: 480px) {
+  nav { padding: 0.7rem 0.9rem !important; }
+  .nav-logo-img { height: 24px !important; }
+  .nav-actions .btn-mint,
+  .nav-actions .btn { font-size: 11px !important; padding: 7px 12px !important; }
+}
+
+/* ── EMAIL / SUBSCRIBE ROWS — stack on mobile ── */
+@media(max-width: 700px) {
+  .email-row, .erow, .nc-right .email-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .email-row .ein,
+  .erow .ein,
+  .email-in {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  .email-row .btn,
+  .erow .btn,
+  .email-row a.btn,
+  .erow a.btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 13px 20px !important;
+    font-size: 14px !important;
+  }
+
+  /* Connect/notify cards — single column */
+  .connect-card,
+  .notify-card,
+  .nc-card {
+    grid-template-columns: 1fr !important;
+    padding: 1.8rem !important;
+  }
+  .cc-right,
+  .nc-right {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* ── CARDS & GRIDS — prevent overflow ── */
+@media(max-width: 900px) {
+  /* Any 2-col or 3-col grid → single column */
+  .pgrid-4, .pgrid-3, .pgrid-2,
+  .products-grid, .fz-grid,
+  .series-grid, .infographic-grid,
+  .merch-grid, .channel-grid-2, .channel-grid-3,
+  .bc-bundle-visual {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  
+  /* FAQ two-col layout → single column */
+  .faq-layout {
+    grid-template-columns: 1fr !important;
+    padding: 2rem 1rem 3rem !important;
+  }
+  .faq-sidebar { display: none !important; }
+
+  /* Bundle card */
+  .bundle-card {
+    grid-template-columns: 1fr !important;
+    padding: 1.8rem !important;
+  }
+  .bc-chars { display: none !important; }
+
+  /* Featured channel card */
+  .featured-channel {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Accordion items — no overflow */
+  .faq-item, .accordion-item {
+    overflow: hidden !important;
+  }
+  .faq-a-inner, .ep-body, .faq-a {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Hero inner grids */
+  .hero-inner, .sh-inner .sh-top,
+  .page-hero-inner, .ah-inner {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Podcast grid */
+  .podcast-grid { grid-template-columns: 1fr !important; }
+  
+  /* App section */
+  .as-inner { grid-template-columns: 1fr !important; }
+  
+  /* Section padding */
+  .sec, .products-section, .faq-layout,
+  .bundle-section, .notify-section,
+  .channels-section, .podcast-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media(max-width: 600px) {
+  .pgrid-4, .pgrid-3,
+  .products-grid, .fz-grid,
+  .series-grid, .infographic-grid,
+  .merch-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Filter pills — scroll horizontally instead of wrapping weirdly */
+  .fpills, .cat-pills, .era-pills {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 4px !important;
+  }
+  .fpill, .cpill, .era-pill {
+    flex-shrink: 0 !important;
+  }
+  
+  /* Section padding tight on small phones */
+  section, .sec, [class*="-section"],
+  .collab-band, .bundle-band, .philosophy {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .fb-inner, .faq-bar-inner, .era-bar-inner {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    flex-wrap: wrap !important;
+  }
+  
+  /* Text — no overflow */
+  h1, h2, h3, p, li, span, div {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+  
+  /* Hero heading — tighter on tiny phones */
+  .hero-h1, .sh-h1, .page-title, .ts-h1 {
+    font-size: clamp(2.2rem, 9vw, 3rem) !important;
+  }
+}
+
+
+/* ── DROPDOWN NAV SYSTEM ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(4,14,11,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--mint-border);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.nav-logo-img{height:32px;width:auto;display:block;}
+.nav-links{display:flex;align-items:center;gap:0;list-style:none;margin:0;padding:0;}
+.nav-links > li{position:relative;}
+.nav-links > li > a{display:flex;align-items:center;font-family:var(--sans);font-size:13.5px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:20px 14px;transition:color 0.2s;white-space:nowrap;}
+.nav-links > li > a:hover,.nav-links > li > a.active{color:var(--mint);}
+.nav-links > li > a svg{opacity:0.5;transition:transform 0.2s,opacity 0.2s;}
+.nav-links > li:hover > a svg{opacity:1;transform:rotate(180deg);}
+
+/* Dropdown panel */
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(4px);min-width:280px;background:rgba(7,19,26,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--mint-border);border-radius:var(--r-lg);padding:8px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 0.2s,transform 0.2s,visibility 0.2s;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 30px rgba(28,201,160,0.05);}
+.dropdown-wide{min-width:320px;}
+.has-dropdown:hover .dropdown{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+
+/* Dropdown items */
+.dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r-md);text-decoration:none;color:var(--text-mid);transition:background 0.15s,color 0.15s;}
+.dd-item:hover{background:var(--mint-ghost);color:var(--text);}
+.dd-icon{font-size:1.2rem;flex-shrink:0;width:28px;text-align:center;}
+.dd-title{display:block;font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--text);line-height:1.3;}
+.dd-desc{display:block;font-size:11.5px;color:var(--text-muted);line-height:1.4;margin-top:1px;}
+.dd-item:hover .dd-title{color:var(--mint);}
+
+/* Nav actions */
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+
+/* Mobile toggle */
+.mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
+.mobile-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.2s;}
+
+/* Mobile responsive */
+@media(max-width:1024px){
+  nav{padding:0 1.5rem;}
+  .nav-links > li > a{padding:20px 10px;font-size:12.5px;}
+}
+@media(max-width:768px){
+  .mobile-toggle{display:flex;}
+  .nav-links,.nav-actions .btn{display:none;}
+  nav{height:56px;}
+  
+  /* Mobile menu open state */
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;bottom:0;background:rgba(4,14,11,0.98);backdrop-filter:blur(20px);padding:1.5rem;gap:0;overflow-y:auto;z-index:999;}
+  .nav-links.open > li > a{padding:14px 0;font-size:15px;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .nav-links.open .dropdown{position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;min-width:100%;background:transparent;border:none;box-shadow:none;padding:0 0 8px 16px;display:none;}
+  .nav-links.open .has-dropdown.open .dropdown{display:block;}
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="site">
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="ai-kairos-logo.png" alt="AI • Kairos Learning Lab" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Free Resources <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="assets/downloads/ai-prompt-pack-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📄</span>
+          <div><span class="dd-title">Download Free Prompt Pack</span><span class="dd-desc">20 prompts for grades 6-8</span></div>
+        </a>
+        <a href="assets/downloads/ai-glossary-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">Download Glossary</span><span class="dd-desc">30 AI terms in plain language</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Shop <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="bundles.html" class="dd-item">
+          <span class="dd-icon">📦</span>
+          <div><span class="dd-title">Bundles</span><span class="dd-desc">Curated packs for teachers, families, teens</span></div>
+        </a>
+        <a href="bundles.html#journals" class="dd-item">
+          <span class="dd-icon">📓</span>
+          <div><span class="dd-title">Prompt Journals</span><span class="dd-desc">Guided journals for every age</span></div>
+        </a>
+        <a href="middle-school-kit.html" class="dd-item">
+          <span class="dd-icon">🏫</span>
+          <div><span class="dd-title">Middle School Kit</span><span class="dd-desc">Featured product — $29</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Explore <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown dropdown-wide">
+        <a href="focus.html" class="dd-item">
+          <span class="dd-icon">🎯</span>
+          <div><span class="dd-title">FOCUS Framework</span><span class="dd-desc">Structured prompting guide</span></div>
+        </a>
+        <a href="ready.html" class="dd-item">
+          <span class="dd-icon">⚖️</span>
+          <div><span class="dd-title">READY Framework</span><span class="dd-desc">Responsible AI decision tool</span></div>
+        </a>
+        <a href="steal-this-prompt.html" class="dd-item">
+          <span class="dd-icon">✏️</span>
+          <div><span class="dd-title">Steal This Prompt</span><span class="dd-desc">Copy-and-use prompt examples</span></div>
+        </a>
+        <a href="whatisanllm.html" class="dd-item">
+          <span class="dd-icon">🤖</span>
+          <div><span class="dd-title">What Is an LLM?</span><span class="dd-desc">Visual walkthrough</span></div>
+        </a>
+        <a href="llmexplainer.html" class="dd-item">
+          <span class="dd-icon">⚙️</span>
+          <div><span class="dd-title">LLM Text Generation</span><span class="dd-desc">Tokenization and attention explained</span></div>
+        </a>
+        <a href="llm-short-film.html" class="dd-item">
+          <span class="dd-icon">🎬</span>
+          <div><span class="dd-title">What It's Like to Be an LLM</span><span class="dd-desc">Interactive film experience</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Learn <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="glossary.html" class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">AI Glossary</span><span class="dd-desc">Every term you need</span></div>
+        </a>
+        <a href="history.html" class="dd-item">
+          <span class="dd-icon">📜</span>
+          <div><span class="dd-title">History of AI</span><span class="dd-desc">Timeline from 1950 to today</span></div>
+        </a>
+      </div>
+    </li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="bundles.html" class="btn btn-mint">Get Started</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="resources.html">Resources</a>
+        <span class="breadcrumb-sep">/</span>
+        <span style="color:var(--text-mid);">Steal This Prompt</span>
+      </div>
+      <div class="eyebrow">Prompt showcase</div>
+      <h1 class="page-title">
+        <span class="t-amber">Steal</span> This<br>
+        <span class="t-mint">Prompt.</span>
+      </h1>
+      <p class="page-sub">Real prompts that got real results. Copy them, remix them, learn from them. Each one comes with a breakdown of what made it work — and why that matters for how you think about AI.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hs-num">1</div>
+        <div class="hs-label">Prompt this week</div>
+      </div>
+      <a href="#submit" class="btn btn-amber" style="font-size:13px;">
+        Submit a prompt
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- WHY PROMPTS MATTER -->
+<div class="why-band">
+  <div class="why-inner">
+    <div class="why-card fade-up">
+      <div class="wc-num">01</div>
+      <div class="wc-title">Prompts are instructions</div>
+      <div class="wc-desc">Every word you include shapes what AI produces. Vague instructions produce vague results. Specific, structured prompts produce specific, useful results. The skill is learnable.</div>
+    </div>
+    <div class="why-card fade-up">
+      <div class="wc-num">02</div>
+      <div class="wc-title">Good prompts have anatomy</div>
+      <div class="wc-desc">The best prompts include a subject, a style, a context, constraints, and an audience. Not all at once — but understanding what each element does lets you add only what you need.</div>
+    </div>
+    <div class="why-card fade-up">
+      <div class="wc-num">03</div>
+      <div class="wc-title">You learn by doing and recording</div>
+      <div class="wc-desc">A prompt journal tracks what worked, what did not, and what you changed. That record is how you go from lucky results to reliable results. It turns experimentation into knowledge.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <span class="fb-label">Filter:</span>
+    <div class="fpills">
+      <button class="fpill active" onclick="setFilter('all',this)">All prompts</button>
+      <button class="fpill" onclick="setFilter('image',this)">Image generation</button>
+      <button class="fpill" onclick="setFilter('writing',this)">Writing</button>
+      <button class="fpill" onclick="setFilter('education',this)">Education</button>
+      <button class="fpill" onclick="setFilter('creative',this)">Creative</button>
+    </div>
+    <div class="fb-count"><strong id="prompt-count">1</strong> prompt</div>
+  </div>
+</div>
+
+<!-- PROMPT CARDS -->
+<section class="prompts-section">
+
+  <!-- FEATURED PROMPT #1 — THE FIGURINE PROMPT -->
+  <div class="prompt-featured fade-up" data-filter="image creative">
+    <div class="pf-image">
+      <img src="assets/images/lizzie-bee-figurine.png" alt="AI-generated 1/7 scale figurine of Lizzie Bee — a German Shorthaired Pointer in a red and grey coat — on a computer desk with 3D modeling software on screen and Scaled Collectibles packaging box beside it">
+      <div class="pf-image-overlay"></div>
+      <span class="pf-featured-badge">Featured prompt</span>
+    </div>
+    <div class="pf-body">
+      <div class="pf-meta">
+        <span class="pf-category">Image generation</span>
+        <span class="pf-tool">Gemini / ChatGPT Image</span>
+      </div>
+      <div class="pf-title">The Collectible Figurine Prompt</div>
+      <div class="pf-desc">This prompt turns any photo into a polished product concept — a 1/7 scale collectible figurine complete with packaging, a display base, and 3D modeling software on screen. The result looks like a real product ready to ship. The trick is the layered scene-setting: figurine + desk + packaging + screen content, all specified in sequence.</div>
+
+      <div class="prompt-box">
+        <div class="pb-header">
+          <span class="pb-label"><span class="pb-dot"></span>The prompt</span>
+          <button class="pb-copy" onclick="copyPrompt(this,'figurine-prompt')">
+            <svg viewBox="0 0 16 16"><rect x="5" y="5" width="8" height="8" rx="1"/><path d="M3 11V3h8"/></svg>
+            Copy
+          </button>
+        </div>
+        <div class="pb-text" id="figurine-prompt">Create a <span class="highlight">1/7 scale commercialized figurine</span> of the characters in the picture, in a <span class="highlight">realistic style</span>, in a real environment. The figurine is placed on a <span class="highlight">computer desk</span>. The figurine has a <span class="highlight">round transparent acrylic base, with no text on the base</span>. The content on the computer screen is a <span class="highlight">3D modeling process</span> of this figurine. Next to the computer screen is a <span class="highlight">toy packaging box, designed in a style reminiscent of high-quality collectible figures</span>, printed with original artwork. The packaging features <span class="highlight">two-dimensional flat illustrations</span>. <span class="variable">[upload a picture of your subject]</span></div>
+      </div>
+
+      <div class="pf-breakdown">
+        <div class="pb-bk-label">Why this works — FOCUS breakdown</div>
+        <div class="pb-bk-list">
+          <div class="pb-bk-item"><span class="pb-bk-key">Function:</span><span class="pb-bk-val">Commercial product visualization — tells AI the output category before anything else</span></div>
+          <div class="pb-bk-item"><span class="pb-bk-key">Object:</span><span class="pb-bk-val">1/7 scale figurine with acrylic base — the scale and material anchor it in reality</span></div>
+          <div class="pb-bk-item"><span class="pb-bk-key">Context:</span><span class="pb-bk-val">Computer desk environment + screen showing 3D modeling process — builds the full scene</span></div>
+          <div class="pb-bk-item"><span class="pb-bk-key">Constraints:</span><span class="pb-bk-val">"No text on base," realistic style, flat illustration packaging — negative constraints prevent common AI defaults</span></div>
+          <div class="pb-bk-item"><span class="pb-bk-key">Variable:</span><span class="pb-bk-val">Upload any photo — subject, pet, character, person — and the scene rebuilds around it</span></div>
+        </div>
+      </div>
+
+      <div class="pf-tags">
+        <span class="tag amber">Image generation</span>
+        <span class="tag mint">Product design</span>
+        <span class="tag blue">Photo input required</span>
+        <span class="tag">Collectibles</span>
+        <span class="tag">Creative</span>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:0.5rem;border-top:1px solid var(--mint-border);">
+        <div style="flex:1;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Try it with:</div>
+          <div style="font-size:13px;color:var(--text-mid);">Your pet, a friend, a character you drew, a plush toy, a real person — anything you can photograph.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;">
+          <button class="pb-copy" style="font-size:12px;padding:7px 16px;border-radius:var(--r-pill);border:1px solid var(--amber-border);color:var(--amber);background:var(--amber-ghost);" onclick="copyPromptFull(this)">
+            <svg viewBox="0 0 16 16" width="12" height="12" stroke="currentColor" fill="none"><rect x="5" y="5" width="8" height="8" rx="1"/><path d="M3 11V3h8"/></svg>
+            Copy full prompt
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORE PROMPTS COMING ROW -->
+  <div style="margin-bottom:1.5rem;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.2rem;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;">Coming soon</div>
+      <div style="flex:1;height:1px;background:var(--mint-border);"></div>
+      <div style="font-size:11px;color:var(--text-muted);">More prompts added regularly</div>
+    </div>
+
+    <div class="prompts-grid">
+      <!-- PLACEHOLDER 2 -->
+      <div class="prompt-card blue-card fade-up" data-filter="writing education">
+        <div class="pc-no-image blue-bg">
+          <div class="pc-placeholder-icon blue">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <span class="pc-img-badge coming">Result coming soon</span>
+        </div>
+        <div class="pc-body">
+          <div class="pc-meta">
+            <span class="pc-cat blue">Writing</span>
+            <span class="pc-tool-badge">ChatGPT / Claude</span>
+          </div>
+          <div class="pc-title">The Lesson Explainer Prompt</div>
+          <div class="pc-prompt-box blue-pb">
+            <div class="pc-pb-header">
+              <span class="pc-pb-label" style="color:var(--blue);">The prompt</span>
+              <button class="pc-copy" style="color:var(--text-muted);" onclick="copyText(this,'Explain [topic] to a [grade level] student. Use an analogy they would recognize from everyday life. Keep it under [X] sentences. End with one question they could think about on their own.')">
+                <svg viewBox="0 0 16 16"><rect x="5" y="5" width="8" height="8" rx="1"/><path d="M3 11V3h8"/></svg> Copy
+              </button>
+            </div>
+            <div class="pc-pb-text">Explain <span style="color:var(--blue);font-style:italic;">[topic]</span> to a <span style="color:var(--blue);font-style:italic;">[grade level]</span> student. Use an analogy they would recognize from everyday life. Keep it under <span style="color:var(--blue);font-style:italic;">[X]</span> sentences. End with one question they could think about on their own.</div>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Turns any concept into a grade-appropriate explanation with a built-in reflection question. Works across every subject.</div>
+          <div class="pc-tags">
+            <span class="tag blue">Education</span>
+            <span class="tag mint">Any grade</span>
+            <span class="tag">Writing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER 3 -->
+      <div class="prompt-card fade-up" data-filter="image creative">
+        <div class="pc-no-image">
+          <div class="pc-placeholder-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <span class="pc-img-badge coming">Result coming soon</span>
+        </div>
+        <div class="pc-body">
+          <div class="pc-meta">
+            <span class="pc-cat mint">Image generation</span>
+            <span class="pc-tool-badge">Midjourney / Gemini</span>
+          </div>
+          <div class="pc-title">The Children's Book Illustration Prompt</div>
+          <div class="pc-prompt-box">
+            <div class="pc-pb-header">
+              <span class="pc-pb-label">The prompt</span>
+              <button class="pc-copy" onclick="copyText(this,'A children\'s book illustration of [subject], in a [style] style with soft colors and gentle lighting. The scene shows [brief description]. No text. Full bleed illustration suitable for a picture book page.')">
+                <svg viewBox="0 0 16 16"><rect x="5" y="5" width="8" height="8" rx="1"/><path d="M3 11V3h8"/></svg> Copy
+              </button>
+            </div>
+            <div class="pc-pb-text">A children's book illustration of <span style="color:var(--mint);font-style:italic;">[subject]</span>, in a <span style="color:var(--mint);font-style:italic;">[style]</span> style with soft colors and gentle lighting. The scene shows <span style="color:var(--mint);font-style:italic;">[brief description]</span>. No text. Full bleed illustration suitable for a picture book page.</div>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Consistent, warm-toned illustrations for classroom use, story prompts, or student publishing projects.</div>
+          <div class="pc-tags">
+            <span class="tag mint">Image generation</span>
+            <span class="tag">Creative</span>
+            <span class="tag blue">K–6</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER 4 -->
+      <div class="prompt-card amber-card fade-up" data-filter="education">
+        <div class="pc-no-image" style="background:linear-gradient(135deg,rgba(240,160,48,0.08) 0%,rgba(240,160,48,0.03) 100%);border-bottom-color:var(--amber-border);">
+          <div class="pc-placeholder-icon" style="background:var(--amber-ghost);border-color:var(--amber-border);">
+            <svg viewBox="0 0 24 24" style="stroke:var(--amber)"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <span class="pc-img-badge coming">Result coming soon</span>
+        </div>
+        <div class="pc-body">
+          <div class="pc-meta">
+            <span class="pc-cat amber">Education</span>
+            <span class="pc-tool-badge">Claude / ChatGPT</span>
+          </div>
+          <div class="pc-title">The Discussion Question Generator</div>
+          <div class="pc-prompt-box amber-pb">
+            <div class="pc-pb-header">
+              <span class="pc-pb-label" style="color:var(--amber);">The prompt</span>
+              <button class="pc-copy" onclick="copyText(this,'Generate 5 open-ended discussion questions about [topic] for [grade level] students. Each question should have no single right answer, encourage critical thinking, and connect the topic to students\' own experiences. Avoid yes/no questions.')">
+                <svg viewBox="0 0 16 16"><rect x="5" y="5" width="8" height="8" rx="1"/><path d="M3 11V3h8"/></svg> Copy
+              </button>
+            </div>
+            <div class="pc-pb-text">Generate 5 open-ended discussion questions about <span style="color:var(--amber);font-style:italic;">[topic]</span> for <span style="color:var(--amber);font-style:italic;">[grade level]</span> students. Each question should have no single right answer, encourage critical thinking, and connect the topic to students' own experiences. Avoid yes/no questions.</div>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Saves significant prep time while producing questions that are actually worth discussing. Works for any subject, any grade.</div>
+          <div class="pc-tags">
+            <span class="tag amber">Discussion</span>
+            <span class="tag mint">Educators</span>
+            <span class="tag">Any subject</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER 5 — ADD YOURS -->
+      <div class="prompt-card fade-up" style="border-style:dashed;background:rgba(28,201,160,0.02);" data-filter="">
+        <div class="pc-no-image" style="background:transparent;border-bottom-color:var(--mint-border);">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;">
+            <div style="width:52px;height:52px;border:1.5px dashed var(--mint-border);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="var(--text-muted)" stroke-width="1.5"><path d="M11 4v14M4 11h14"/></svg>
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);">Your prompt here</div>
+          </div>
+        </div>
+        <div class="pc-body" style="text-align:center;align-items:center;justify-content:center;">
+          <div class="pc-title" style="text-align:center;">Share a prompt that worked for you</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Got a prompt that produced something surprising, useful, or just really good? Submit it and we will feature it here with a full breakdown.</div>
+          <a href="#submit" class="btn btn-ghost" style="font-size:13px;margin-top:0.5rem;">
+            Submit your prompt
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- WHY A PROMPT JOURNAL -->
+<div class="journal-band">
+  <div class="jb-inner">
+    <div class="jb-left">
+      <div class="jb-eyebrow">The prompt journal</div>
+      <h2 class="jb-title">Why writing it down<br>changes <span class="t-mint">everything.</span></h2>
+      <p class="jb-desc">Most people try a prompt, get a result, and move on. The ones who get consistently great results write down what they did. A prompt journal turns random luck into repeatable skill. It takes two minutes per session and compounds over time.</p>
+      <div class="jb-cta">
+        <a href="shop.html" class="btn btn-mint">
+          Get the student journal
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a href="resources.html" class="btn btn-ghost">Free resources</a>
+      </div>
+    </div>
+    <div class="jb-right">
+      <div class="jb-step">
+        <div class="jb-step-num">01</div>
+        <div class="jb-step-body">
+          <div class="jb-step-title">Write the prompt you used</div>
+          <div class="jb-step-desc">Exact words, not a summary. Small differences in wording produce very different results.</div>
+        </div>
+      </div>
+      <div class="jb-step">
+        <div class="jb-step-num">02</div>
+        <div class="jb-step-body">
+          <div class="jb-step-title">Note what the AI was</div>
+          <div class="jb-step-desc">ChatGPT, Claude, Gemini, Midjourney — each has different defaults. A great prompt on one tool may behave differently on another.</div>
+        </div>
+      </div>
+      <div class="jb-step">
+        <div class="jb-step-num">03</div>
+        <div class="jb-step-body">
+          <div class="jb-step-title">Rate the result honestly</div>
+          <div class="jb-step-desc">Did it do what you wanted? What was missing? What was surprising? Three sentences is enough.</div>
+        </div>
+      </div>
+      <div class="jb-step">
+        <div class="jb-step-num">04</div>
+        <div class="jb-step-body">
+          <div class="jb-step-title">Write what you would change</div>
+          <div class="jb-step-desc">This is the most valuable step. The edit you make next time is where the learning actually happens.</div>
+        </div>
+      </div>
+      <div class="jb-step">
+        <div class="jb-step-num">05</div>
+        <div class="jb-step-body">
+          <div class="jb-step-title">Keep the ones that worked</div>
+          <div class="jb-step-desc">Your personal prompt library. Over time, it becomes a set of reliable templates you can remix faster than anyone starting from scratch.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT CTA -->
+<section class="submit-band" id="submit">
+  <h2 class="sb-title">Got a prompt that<br>worked? <span class="t-amber">Share it.</span></h2>
+  <p class="sb-sub">We feature community-submitted prompts with full breakdowns and credit. Send the prompt, the AI tool you used, and the result image or output.</p>
+  <div class="sb-btns">
+    <a href="contact.html" class="btn btn-amber">
+      Submit your prompt
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+    <a href="resources.html" class="btn btn-ghost">Browse all resources</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AI <span class="dot">•</span> <span class="kairos">Kairos</span> Learning Lab</div>
+  <ul class="footer-links">
+    <li><a href="index.html#tools">Tools</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-copy">&copy; 2025 AI &bull; Kairos Learning Lab</div>
+</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ── LOCKED THREE.JS BACKGROUND ── */
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x041012, 1);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 200);
+camera.position.set(0, 0, 38);
+const N=80, posArr=new Float32Array(N*3), velArr=new Float32Array(N*3);
+for(let i=0;i<N;i++){posArr[i*3]=(Math.random()-.5)*70;posArr[i*3+1]=(Math.random()-.5)*45;posArr[i*3+2]=(Math.random()-.5)*25;velArr[i*3]=(Math.random()-.5)*0.015;velArr[i*3+1]=(Math.random()-.5)*0.010;velArr[i*3+2]=(Math.random()-.5)*0.007;}
+const pGeo=new THREE.BufferGeometry();
+pGeo.setAttribute('position',new THREE.BufferAttribute(posArr.slice(),3));
+scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x1cc9a0,size:0.24,transparent:true,opacity:0.7,sizeAttenuation:true})));
+const posB=new Float32Array(N*3);
+for(let i=0;i<N;i++){posB[i*3]=(Math.random()-.5)*80;posB[i*3+1]=(Math.random()-.5)*50;posB[i*3+2]=(Math.random()-.5)*20;}
+const pGeoB=new THREE.BufferGeometry();
+pGeoB.setAttribute('position',new THREE.BufferAttribute(posB.slice(),3));
+scene.add(new THREE.Points(pGeoB,new THREE.PointsMaterial({color:0x38b6ff,size:0.16,transparent:true,opacity:0.4,sizeAttenuation:true})));
+const MAX_LINES=N*N, linePos=new Float32Array(MAX_LINES*6), lGeo=new THREE.BufferGeometry();
+lGeo.setAttribute('position',new THREE.BufferAttribute(linePos,3));
+scene.add(new THREE.LineSegments(lGeo,new THREE.LineBasicMaterial({color:0x1cc9a0,transparent:true,opacity:0.08})));
+const wireShapes=[];
+[{geo:new THREE.IcosahedronGeometry(3.5,0),pos:[14,6,-9],rot:[0.002,0.003,0.001],col:0x1cc9a0},{geo:new THREE.OctahedronGeometry(2.6,0),pos:[-14,-5,-5],rot:[-0.003,0.002,0.001],col:0x38b6ff},{geo:new THREE.TetrahedronGeometry(2.8,0),pos:[1,-11,-12],rot:[0.001,-0.002,0.003],col:0x1cc9a0}].forEach(d=>{const m=new THREE.Mesh(d.geo,new THREE.MeshBasicMaterial({color:d.col,wireframe:true,transparent:true,opacity:0.06}));m.position.set(...d.pos);m.userData.rot=d.rot;scene.add(m);wireShapes.push(m);});
+let mouseX=0,mouseY=0,targetX=0,targetY=0;
+document.addEventListener('mousemove',e=>{mouseX=(e.clientX/window.innerWidth-.5)*2;mouseY=(e.clientY/window.innerHeight-.5)*2;});
+const cur=pGeo.attributes.position.array;let t=0;
+function animate(){
+  requestAnimationFrame(animate);t+=0.007;
+  for(let i=0;i<N;i++){cur[i*3]=posArr[i*3]+Math.sin(t*.65+i*.31)*.36;cur[i*3+1]=posArr[i*3+1]+Math.cos(t*.48+i*.27)*.26;cur[i*3+2]=posArr[i*3+2]+Math.sin(t*.28+i*.19)*.16;posArr[i*3]+=velArr[i*3];posArr[i*3+1]+=velArr[i*3+1];posArr[i*3+2]+=velArr[i*3+2];if(Math.abs(posArr[i*3])>36)velArr[i*3]*=-1;if(Math.abs(posArr[i*3+1])>23)velArr[i*3+1]*=-1;if(Math.abs(posArr[i*3+2])>14)velArr[i*3+2]*=-1;}
+  pGeo.attributes.position.needsUpdate=true;
+  let lc=0;for(let i=0;i<N;i++){for(let j=i+1;j<N;j++){const dx=cur[i*3]-cur[j*3],dy=cur[i*3+1]-cur[j*3+1],dz=cur[i*3+2]-cur[j*3+2];if(dx*dx+dy*dy+dz*dz<13*13){linePos[lc*6]=cur[i*3];linePos[lc*6+1]=cur[i*3+1];linePos[lc*6+2]=cur[i*3+2];linePos[lc*6+3]=cur[j*3];linePos[lc*6+4]=cur[j*3+1];linePos[lc*6+5]=cur[j*3+2];lc++;if(lc>=MAX_LINES-1)break;}}if(lc>=MAX_LINES-1)break;}
+  lGeo.setDrawRange(0,lc*2);lGeo.attributes.position.needsUpdate=true;
+  wireShapes.forEach(s=>{s.rotation.x+=s.userData.rot[0];s.rotation.y+=s.userData.rot[1];s.rotation.z+=s.userData.rot[2];});
+  targetX+=(mouseX*2.2-targetX)*.03;targetY+=(-mouseY*1.6-targetY)*.03;
+  camera.position.x=targetX;camera.position.y=targetY;camera.lookAt(0,0,0);
+  renderer.render(scene,camera);
+}
+animate();
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));});
+
+/* ── SCROLL ANIMATIONS ── */
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+/* ── FILTER ── */
+let activeFilter='all';
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.fpill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const featured=document.querySelector('.prompt-featured');
+  const cards=document.querySelectorAll('.prompt-card[data-filter]');
+  let count=0;
+  if(featured){
+    const ff=featured.dataset.filter||'';
+    const show=f==='all'||ff.includes(f);
+    featured.style.display=show?'':'none';
+    if(show)count++;
+  }
+  cards.forEach(c=>{
+    const cf=c.dataset.filter||'';
+    const show=f==='all'||cf.includes(f)||cf==='';
+    c.style.display=show?'':'none';
+    if(show&&cf!=='')count++;
+  });
+  document.getElementById('prompt-count').textContent=count||'—';
+}
+
+/* ── COPY PROMPT ── */
+const FULL_PROMPT = `Create a 1/7 scale commercialized figurine of the characters in the picture, in a realistic style, in a real environment. The figurine is placed on a computer desk. The figurine has a round transparent acrylic base, with no text on the base. The content on the computer screen is a 3D modeling process of this figurine. Next to the computer screen is a toy packaging box, designed in a style reminiscent of high-quality collectible figures, printed with original artwork. The packaging features two-dimensional flat illustrations. [upload a picture of your subject]`;
+
+function copyPrompt(btn, id) {
+  navigator.clipboard.writeText(FULL_PROMPT).then(()=>{
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.innerHTML='<svg viewBox="0 0 16 16" style="width:11px;height:11px;stroke:currentColor;fill:none"><rect x="5" y="5" width="8" height="8" rx="1"/><path d="M3 11V3h8"/></svg> Copy';btn.classList.remove('copied');},2200);
+  });
+}
+
+function copyPromptFull(btn) {
+  navigator.clipboard.writeText(FULL_PROMPT).then(()=>{
+    const orig=btn.innerHTML;
+    btn.textContent='Copied to clipboard!';
+    setTimeout(()=>{btn.innerHTML=orig;},2200);
+  });
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=btn.innerHTML;
+    btn.textContent='Copied!';
+    setTimeout(()=>{btn.innerHTML=orig;},2200);
+  });
+}
+</script>
+
+<script>
+/* ── DROPDOWN NAV — MOBILE SUPPORT ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  const toggle=document.querySelector('.mobile-toggle');
+  const links=document.querySelector('.nav-links');
+  if(toggle&&links){
+    toggle.addEventListener('click',()=>{
+      links.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    // Mobile accordion dropdowns
+    links.querySelectorAll('.has-dropdown > a').forEach(a=>{
+      a.addEventListener('click',e=>{
+        if(window.innerWidth<=768){
+          e.preventDefault();
+          a.parentElement.classList.toggle('open');
+        }
+      });
+    });
+  }
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+});
+
+</script>
+</body>
+</html>

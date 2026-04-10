@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Glossary — AI • Kairos Learning Lab</title>
+
+
+<style>
+/* === INTER FONT RESET === */
+:root { --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+html, body { font-family: var(--font-sans); }
+body, button, input, select, textarea, nav, h1, h2, h3, h4, h5, h6, p, a, li, span, label { font-family: var(--font-sans); }
+/* === END INTER RESET === */
+
+/* ── LOCKED DESIGN SYSTEM v1.0 ── */
+:root {
+  /* ═══ LOCKED DESIGN SYSTEM v2.0 ═══════════════════════════════════════════
+     AI • Kairos Learning Lab — mature, accessible, universal AI literacy
+     Dark cinematic tech-forward. Credible, calm, polished, futuristic.
+     ════════════════════════════════════════════════════════════════════════ */
+
+  /* Backgrounds */
+  --bg:          #041012;
+  --bg-2:        #07131A;
+  --bg-card:     rgba(7,19,26,0.78);
+  --bg-card-hov: rgba(10,28,38,0.96);
+
+  /* Brand accent colors */
+  --mint:        #1CC9A0;
+  --mint-bright: #5de8c8;
+  --mint-dim:    #0d7a62;
+  --mint-ghost:  rgba(28,201,160,0.08);
+  --mint-border: rgba(28,201,160,0.22);
+
+  --blue:        #38B6FF;
+  --blue-bright: #7fd4ff;
+  --blue-ghost:  rgba(56,182,255,0.08);
+  --blue-border: rgba(56,182,255,0.22);
+
+  --amber:       #f0a030;
+  --amber-ghost: rgba(240,160,48,0.09);
+  --amber-border:rgba(240,160,48,0.22);
+
+  --purple:      #a855f7;
+  --purple-ghost:rgba(168,85,247,0.08);
+  --purple-border:rgba(168,85,247,0.22);
+
+  --red:         #e24b4a;
+  --red-ghost:   rgba(226,75,74,0.08);
+  --red-border:  rgba(226,75,74,0.22);
+
+  /* Text hierarchy — WCAG AA minimum 4.5:1 on dark bg */
+  --text:        #F8FBFF;                    /* primary — near-white, high contrast  */
+  --text-mid:    rgba(248,251,255,0.88);     /* secondary body text                  */
+  --text-muted:  rgba(248,251,255,0.62);     /* supporting / caption text            */
+
+  /* Typography */
+  --display: var(--font-sans);
+  --sans: var(--font-sans);
+
+  /* Spacing base: 8px system */
+  --sp-1: 8px;  --sp-2: 16px; --sp-3: 24px; --sp-4: 32px;
+  --sp-6: 48px; --sp-8: 64px; --sp-12: 96px;
+
+  /* Radius */
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   18px;
+  --r-xl:   24px;
+  --r-pill: 999px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── GLOBAL TYPOGRAPHY BASELINE ── */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hero headline sizing — locked responsive scale */
+.hero-h1, .sh-h1, .ah-h1, .page-title, .ts-h1 {
+  font-size: clamp(3rem, 7vw, 6.4rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.1 !important;
+}
+@media(max-width: 768px) {
+  .hero-h1, .sh-h1, .ah-h1, .page-title, .ts-h1 {
+    font-size: clamp(2.4rem, 10vw, 3.2rem) !important;
+  }
+}
+
+/* Body text — readable at all ages */
+body, p, .p-body, .sec-sub, .hero-sub, .sh-sub {
+  font-size: 1.0rem;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  color: var(--text-mid);
+}
+
+/* Large supporting paragraph in heroes */
+.hero-sub, .sh-sub, .fc-desc, .page-sub {
+  font-size: 1.1rem;
+  line-height: 1.72;
+  font-weight: 400;
+  max-width: 600px;
+  color: var(--text-mid);
+}
+@media(min-width: 900px) {
+  .hero-sub, .sh-sub, .fc-desc, .page-sub { font-size: 1.15rem; }
+}
+
+/* Primary CTA button — finger-friendly, strong contrast */
+.btn-mint {
+  min-height: 52px;
+  padding: 14px 32px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  background: linear-gradient(135deg, #1CC9A0, #38B6FF) !important;
+  color: #041012 !important;
+  box-shadow: 0 0 24px rgba(28,201,160,0.28), 0 2px 8px rgba(0,0,0,0.35) !important;
+  border: none !important;
+}
+.btn-mint:hover {
+  background: linear-gradient(135deg, #5de8c8, #7fd4ff) !important;
+  box-shadow: 0 0 36px rgba(28,201,160,0.45), 0 4px 16px rgba(0,0,0,0.4) !important;
+  transform: translateY(-2px) !important;
+  color: #041012 !important;
+}
+
+/* Ghost button — visible, not faint */
+.btn-ghost {
+  min-height: 52px;
+  padding: 14px 28px !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  border: 1.5px solid rgba(28,201,160,0.4) !important;
+  color: rgba(248,251,255,0.85) !important;
+  background: rgba(28,201,160,0.06) !important;
+}
+.btn-ghost:hover {
+  border-color: var(--mint) !important;
+  color: var(--mint) !important;
+  background: rgba(28,201,160,0.1) !important;
+}
+
+/* Eyebrow / badge pill */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  padding: 6px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(28,201,160,0.3);
+  background: rgba(28,201,160,0.07);
+  color: var(--mint) !important;
+  margin-bottom: 1.2rem !important;
+}
+
+/* Focus states — accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Card glass effect — updated to new bg */
+.pc, .product-card, .ch-card, .feature-card, .faq-item {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Section headings */
+.sec-title, h2 {
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+/* Section supporting text */
+.sec-sub {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  line-height: 1.72;
+  font-weight: 400;
+  max-width: 580px;
+}
+
+/* Nav links — better contrast */
+.nav-links a { color: rgba(248,251,255,0.6); }
+.nav-links a:hover, .nav-links a.active { color: var(--mint); }
+
+/* Body text in cards — never too faint */
+.p-desc, .ep-text, .faq-a-inner, .cc-desc, .fc-desc, .prod-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.72;
+  font-weight: 400;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.site{position:relative;z-index:1;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(4,14,11,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--mint-border);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+/* ── LOGO IMAGE ── */
+.nav-logo-img{height:36px;width:auto;display:block;}
+
+.logo-mark{width:34px;height:34px;border:1.5px solid var(--mint);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;position:relative;}
+.logo-mark::before{content:'';width:10px;height:10px;background:var(--mint);border-radius:50%;}
+.logo-mark::after{content:'';position:absolute;width:18px;height:1px;background:var(--blue);bottom:8px;}
+.logo-text{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.02em;line-height:1.2;}
+.logo-text .dot{color:var(--mint);}.logo-text .kairos{color:var(--blue);}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{font-size:13.5px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--mint);}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:14px;font-weight:500;padding:10px 22px;border-radius:var(--r-pill);text-decoration:none;border:none;cursor:pointer;transition:background 0.2s,transform 0.15s,color 0.2s,border-color 0.2s;white-space:nowrap;}
+.btn svg{width:14px;height:14px;flex-shrink:0;}
+.btn-mint{background:var(--mint);color:var(--bg);}.btn-mint:hover{background:var(--mint-bright);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--text-mid);border:1px solid var(--mint-border);}.btn-ghost:hover{color:var(--mint);border-color:var(--mint);transform:translateY(-2px);}
+
+/* ── ANIMATIONS ── */
+@keyframes rise{to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.65);}}
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);margin-bottom:1rem;}
+.breadcrumb a{color:var(--text-muted);text-decoration:none;transition:color 0.2s;}.breadcrumb a:hover{color:var(--mint);}
+.breadcrumb-sep{color:var(--mint-border);}
+
+/* ════════════════════════
+   PAGE HERO
+   ════════════════════════ */
+.page-hero{padding:9rem 3rem 3.5rem;border-bottom:1px solid var(--mint-border);background:rgba(4,14,11,0.55);backdrop-filter:blur(4px);}
+.page-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:2rem;flex-wrap:wrap;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--mint);margin-bottom:0.7rem;}
+.page-title{font-family:var(--display);font-size:clamp(2.4rem,5vw,3.8rem);font-weight:800;letter-spacing:-0.03em;line-height:1.0;color:var(--text);margin-bottom:0.8rem;}
+.page-title span{color:var(--mint);}
+.page-sub{font-size:16px;color:var(--text-muted);line-height:1.7;font-weight:300;max-width:520px;}
+.hero-stats{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.hstat{text-align:right;}
+.hstat-num{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--mint);line-height:1;letter-spacing:-0.02em;}
+.hstat-label{font-size:11px;color:var(--text-muted);}
+
+/* ════════════════════════
+   SEARCH + ALPHA BAR
+   ════════════════════════ */
+.search-bar{background:rgba(4,14,11,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--mint-border);position:sticky;top:65px;z-index:90;}
+.search-bar-inner{max-width:1100px;margin:0 auto;padding:0.9rem 3rem;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+
+.search-wrap{position:relative;flex:1;max-width:380px;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--text-muted);fill:none;pointer-events:none;}
+.search-input{width:100%;background:var(--mint-ghost);border:1px solid var(--mint-border);border-radius:var(--r-pill);padding:8px 12px 8px 36px;font-size:13px;color:var(--text);font-family:var(--sans);outline:none;transition:border-color 0.2s,background 0.2s;}
+.search-input::placeholder{color:var(--text-muted);}
+.search-input:focus{border-color:var(--mint);background:rgba(28,201,160,0.1);}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:16px;height:16px;background:transparent;border:none;cursor:pointer;color:var(--text-muted);font-size:14px;display:none;line-height:1;}
+.search-clear.show{display:block;}
+
+.alpha-bar{display:flex;gap:3px;flex-wrap:wrap;}
+.alpha-btn{width:26px;height:26px;border-radius:var(--r-sm);font-size:11px;font-weight:700;font-family:var(--display);color:var(--text-muted);background:transparent;border:1px solid transparent;cursor:pointer;transition:all 0.18s;display:flex;align-items:center;justify-content:center;}
+.alpha-btn:hover{color:var(--mint);border-color:var(--mint-border);}
+.alpha-btn.active{background:var(--mint-ghost);color:var(--mint);border-color:var(--mint);}
+.alpha-btn.has-terms{color:var(--text-mid);}
+.alpha-btn.no-terms{color:var(--text-muted);opacity:0.35;pointer-events:none;}
+
+.result-count{font-size:12px;color:var(--text-muted);margin-left:auto;white-space:nowrap;}
+.result-count strong{color:var(--text-mid);font-weight:500;}
+
+/* ════════════════════════
+   GLOSSARY LAYOUT
+   ════════════════════════ */
+.glossary-layout{max-width:1100px;margin:0 auto;padding:3rem 3rem 6rem;display:grid;grid-template-columns:160px 1fr;gap:2.5rem;align-items:start;}
+
+/* ── SIDEBAR ── */
+.glos-sidebar{position:sticky;top:130px;}
+.sidebar-nav{display:flex;flex-direction:column;gap:2px;}
+.snav-letter{font-size:13px;font-weight:600;color:var(--text-muted);padding:5px 10px;border-radius:var(--r-sm);cursor:pointer;font-family:var(--display);transition:background 0.18s,color 0.18s;text-decoration:none;display:flex;align-items:center;justify-content:space-between;}
+.snav-letter:hover{background:var(--mint-ghost);color:var(--mint);}
+.snav-letter.active{background:var(--mint-ghost);color:var(--mint);border-left:2px solid var(--mint);padding-left:8px;}
+.snav-count{font-size:10px;background:rgba(255,255,255,0.05);color:var(--text-muted);padding:1px 6px;border-radius:var(--r-pill);}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:4rem 2rem;display:none;}
+.empty-state.show{display:block;}
+.empty-state h3{font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;}
+.empty-state p{font-size:14px;color:var(--text-muted);}
+
+/* ── LETTER SECTION ── */
+.letter-section{margin-bottom:3rem;}
+.letter-heading{
+  display:flex;align-items:center;gap:12px;margin-bottom:1rem;
+  padding-bottom:8px;border-bottom:1px solid var(--mint-border);
+}
+.letter-h{font-family:var(--display);font-size:2.2rem;font-weight:900;color:var(--mint);line-height:1;letter-spacing:-0.02em;opacity:0.7;}
+.letter-rule{flex:1;height:1px;background:var(--mint-border);}
+.letter-count{font-size:11px;color:var(--text-muted);}
+
+/* ── TERM CARDS ── */
+.terms-list{display:flex;flex-direction:column;gap:1px;background:var(--mint-border);border:1px solid var(--mint-border);border-radius:var(--r-lg);overflow:hidden;}
+
+.term-card{
+  background:var(--bg-card);backdrop-filter:blur(8px);
+  padding:1.2rem 1.5rem;position:relative;
+  transition:background 0.2s;
+}
+.term-card:hover{background:var(--bg-card-hov);}
+.term-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--mint);transition:width 0.2s;opacity:0.7;}
+.term-card:hover::before{width:3px;}
+.term-card.blue-card::before{background:var(--blue);}
+.term-card.amber-card::before{background:var(--amber);}
+
+.term-header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+.term-word{font-family:var(--display);font-size:1rem;font-weight:800;color:var(--text);letter-spacing:-0.01em;}
+.term-abbr{font-size:11px;font-weight:600;color:var(--text-muted);font-family:var(--sans);}
+.term-tags{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto;}
+.ttag{font-size:9px;font-weight:600;padding:2px 8px;border-radius:var(--r-pill);}
+.ttag.mint{background:var(--mint-ghost);color:var(--mint);border:1px solid var(--mint-border);}
+.ttag.blue{background:var(--blue-ghost);color:var(--blue);border:1px solid var(--blue-border);}
+.ttag.amber{background:var(--amber-ghost);color:var(--amber);border:1px solid var(--amber-border);}
+.ttag.gray{background:rgba(255,255,255,0.04);color:var(--text-muted);border:1px solid rgba(255,255,255,0.08);}
+
+.term-def{font-size:13.5px;color:var(--text-muted);line-height:1.75;font-weight:300;}
+.term-def strong{color:var(--text-mid);font-weight:500;}
+.term-def .t-mint{color:var(--mint);}
+.term-def .t-blue{color:var(--blue);}
+.term-def .t-amber{color:var(--amber);}
+
+.term-example{margin-top:8px;padding:8px 12px;background:rgba(28,201,160,0.04);border-left:2px solid var(--mint-border);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:12.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+.term-card.blue-card .term-example{background:rgba(56,182,255,0.04);border-left-color:var(--blue-border);}
+.term-card.amber-card .term-example{background:rgba(240,160,48,0.04);border-left-color:var(--amber-border);}
+
+/* ── HIGHLIGHT SEARCH ── */
+.highlight{background:rgba(28,201,160,0.2);color:var(--mint);border-radius:2px;padding:0 2px;}
+
+/* ── CTA BAND ── */
+.cta-band{background:rgba(6,22,16,0.85);border-top:1px solid var(--mint-border);border-bottom:1px solid var(--mint-border);backdrop-filter:blur(10px);padding:4rem 3rem;text-align:center;}
+.cta-band h2{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--text);letter-spacing:-0.025em;margin-bottom:0.8rem;line-height:1.1;}
+.cta-band h2 .t-mint{color:var(--mint);}
+.cta-band p{font-size:15px;color:var(--text-muted);line-height:1.7;font-weight:300;max-width:440px;margin:0 auto 1.8rem;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--mint-border);background:rgba(4,14,11,0.92);backdrop-filter:blur(10px);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text-muted);}
+.footer-logo .dot{color:var(--mint);}.footer-logo .kairos{color:var(--blue);}
+.footer-links{display:flex;gap:1.5rem;list-style:none;}
+.footer-links a{font-size:13px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}.footer-links a:hover{color:var(--mint);}
+.footer-copy{font-size:12px;color:#2a4a3e;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}.nav-links{display:none;}
+  .page-hero{padding:8rem 1.5rem 3rem;}.page-hero-inner{grid-template-columns:1fr;}
+  .search-bar-inner{padding:0.9rem 1.5rem;overflow-x:auto;}
+  .alpha-bar{display:none;}
+  .glossary-layout{grid-template-columns:1fr;padding:2rem 1.5rem 4rem;}
+  .glos-sidebar{display:none;}
+  .cta-band{padding:3rem 1.5rem;}
+  footer{flex-direction:column;text-align:center;padding:1.5rem;}.footer-links{justify-content:center;}
+}
+
+/* ═══════════════════════════════════════════════════════
+   GLOBAL MOBILE FIXES v1.0 — applies to all pages
+   ═══════════════════════════════════════════════════════ */
+
+/* Prevent ANY horizontal overflow */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+*, *::before, *::after {
+  max-width: 100%;
+}
+
+/* ── NAV — mobile ── */
+@media(max-width: 900px) {
+
+  nav {
+    padding: 0.75rem 1rem !important;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  /* Logo — shrink gracefully */
+  .nav-logo-img {
+    height: 28px !important;
+    flex-shrink: 0;
+  }
+
+  /* Hide nav links (already done on most pages, enforce here) */
+  .nav-links { display: none !important; }
+
+  /* Nav actions — show ONE button max on small screens */
+  .nav-actions {
+    display: flex !important;
+    gap: 6px !important;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  /* Hide the ghost (secondary) nav button on mobile */
+  .nav-actions .btn-ghost {
+    display: none !important;
+  }
+  /* Primary nav button — compact */
+  .nav-actions .btn-mint,
+  .nav-actions .btn {
+    font-size: 12px !important;
+    padding: 8px 14px !important;
+    min-height: 36px !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media(max-width: 480px) {
+  nav { padding: 0.7rem 0.9rem !important; }
+  .nav-logo-img { height: 24px !important; }
+  .nav-actions .btn-mint,
+  .nav-actions .btn { font-size: 11px !important; padding: 7px 12px !important; }
+}
+
+/* ── EMAIL / SUBSCRIBE ROWS — stack on mobile ── */
+@media(max-width: 700px) {
+  .email-row, .erow, .nc-right .email-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .email-row .ein,
+  .erow .ein,
+  .email-in {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  .email-row .btn,
+  .erow .btn,
+  .email-row a.btn,
+  .erow a.btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 13px 20px !important;
+    font-size: 14px !important;
+  }
+
+  /* Connect/notify cards — single column */
+  .connect-card,
+  .notify-card,
+  .nc-card {
+    grid-template-columns: 1fr !important;
+    padding: 1.8rem !important;
+  }
+  .cc-right,
+  .nc-right {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* ── CARDS & GRIDS — prevent overflow ── */
+@media(max-width: 900px) {
+  /* Any 2-col or 3-col grid → single column */
+  .pgrid-4, .pgrid-3, .pgrid-2,
+  .products-grid, .fz-grid,
+  .series-grid, .infographic-grid,
+  .merch-grid, .channel-grid-2, .channel-grid-3,
+  .bc-bundle-visual {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  
+  /* FAQ two-col layout → single column */
+  .faq-layout {
+    grid-template-columns: 1fr !important;
+    padding: 2rem 1rem 3rem !important;
+  }
+  .faq-sidebar { display: none !important; }
+
+  /* Bundle card */
+  .bundle-card {
+    grid-template-columns: 1fr !important;
+    padding: 1.8rem !important;
+  }
+  .bc-chars { display: none !important; }
+
+  /* Featured channel card */
+  .featured-channel {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Accordion items — no overflow */
+  .faq-item, .accordion-item {
+    overflow: hidden !important;
+  }
+  .faq-a-inner, .ep-body, .faq-a {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Hero inner grids */
+  .hero-inner, .sh-inner .sh-top,
+  .page-hero-inner, .ah-inner {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Podcast grid */
+  .podcast-grid { grid-template-columns: 1fr !important; }
+  
+  /* App section */
+  .as-inner { grid-template-columns: 1fr !important; }
+  
+  /* Section padding */
+  .sec, .products-section, .faq-layout,
+  .bundle-section, .notify-section,
+  .channels-section, .podcast-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media(max-width: 600px) {
+  .pgrid-4, .pgrid-3,
+  .products-grid, .fz-grid,
+  .series-grid, .infographic-grid,
+  .merch-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Filter pills — scroll horizontally instead of wrapping weirdly */
+  .fpills, .cat-pills, .era-pills {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 4px !important;
+  }
+  .fpill, .cpill, .era-pill {
+    flex-shrink: 0 !important;
+  }
+  
+  /* Section padding tight on small phones */
+  section, .sec, [class*="-section"],
+  .collab-band, .bundle-band, .philosophy {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .fb-inner, .faq-bar-inner, .era-bar-inner {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    flex-wrap: wrap !important;
+  }
+  
+  /* Text — no overflow */
+  h1, h2, h3, p, li, span, div {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+  
+  /* Hero heading — tighter on tiny phones */
+  .hero-h1, .sh-h1, .page-title, .ts-h1 {
+    font-size: clamp(2.2rem, 9vw, 3rem) !important;
+  }
+}
+
+
+/* ── DROPDOWN NAV SYSTEM ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(4,14,11,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--mint-border);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.nav-logo-img{height:32px;width:auto;display:block;}
+.nav-links{display:flex;align-items:center;gap:0;list-style:none;margin:0;padding:0;}
+.nav-links > li{position:relative;}
+.nav-links > li > a{display:flex;align-items:center;font-family:var(--sans);font-size:13.5px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:20px 14px;transition:color 0.2s;white-space:nowrap;}
+.nav-links > li > a:hover,.nav-links > li > a.active{color:var(--mint);}
+.nav-links > li > a svg{opacity:0.5;transition:transform 0.2s,opacity 0.2s;}
+.nav-links > li:hover > a svg{opacity:1;transform:rotate(180deg);}
+
+/* Dropdown panel */
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(4px);min-width:280px;background:rgba(7,19,26,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--mint-border);border-radius:var(--r-lg);padding:8px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 0.2s,transform 0.2s,visibility 0.2s;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 30px rgba(28,201,160,0.05);}
+.dropdown-wide{min-width:320px;}
+.has-dropdown:hover .dropdown{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+
+/* Dropdown items */
+.dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r-md);text-decoration:none;color:var(--text-mid);transition:background 0.15s,color 0.15s;}
+.dd-item:hover{background:var(--mint-ghost);color:var(--text);}
+.dd-icon{font-size:1.2rem;flex-shrink:0;width:28px;text-align:center;}
+.dd-title{display:block;font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--text);line-height:1.3;}
+.dd-desc{display:block;font-size:11.5px;color:var(--text-muted);line-height:1.4;margin-top:1px;}
+.dd-item:hover .dd-title{color:var(--mint);}
+
+/* Nav actions */
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+
+/* Mobile toggle */
+.mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
+.mobile-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.2s;}
+
+/* Mobile responsive */
+@media(max-width:1024px){
+  nav{padding:0 1.5rem;}
+  .nav-links > li > a{padding:20px 10px;font-size:12.5px;}
+}
+@media(max-width:768px){
+  .mobile-toggle{display:flex;}
+  .nav-links,.nav-actions .btn{display:none;}
+  nav{height:56px;}
+  
+  /* Mobile menu open state */
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;bottom:0;background:rgba(4,14,11,0.98);backdrop-filter:blur(20px);padding:1.5rem;gap:0;overflow-y:auto;z-index:999;}
+  .nav-links.open > li > a{padding:14px 0;font-size:15px;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .nav-links.open .dropdown{position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;min-width:100%;background:transparent;border:none;box-shadow:none;padding:0 0 8px 16px;display:none;}
+  .nav-links.open .has-dropdown.open .dropdown{display:block;}
+}
+
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="site">
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="ai-kairos-logo.png" alt="AI • Kairos Learning Lab" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Free Resources <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="assets/downloads/ai-prompt-pack-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📄</span>
+          <div><span class="dd-title">Download Free Prompt Pack</span><span class="dd-desc">20 prompts for grades 6-8</span></div>
+        </a>
+        <a href="assets/downloads/ai-glossary-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">Download Glossary</span><span class="dd-desc">30 AI terms in plain language</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Shop <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="bundles.html" class="dd-item">
+          <span class="dd-icon">📦</span>
+          <div><span class="dd-title">Bundles</span><span class="dd-desc">Curated packs for teachers, families, teens</span></div>
+        </a>
+        <a href="bundles.html#journals" class="dd-item">
+          <span class="dd-icon">📓</span>
+          <div><span class="dd-title">Prompt Journals</span><span class="dd-desc">Guided journals for every age</span></div>
+        </a>
+        <a href="middle-school-kit.html" class="dd-item">
+          <span class="dd-icon">🏫</span>
+          <div><span class="dd-title">Middle School Kit</span><span class="dd-desc">Featured product — $29</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Explore <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown dropdown-wide">
+        <a href="focus.html" class="dd-item">
+          <span class="dd-icon">🎯</span>
+          <div><span class="dd-title">FOCUS Framework</span><span class="dd-desc">Structured prompting guide</span></div>
+        </a>
+        <a href="ready.html" class="dd-item">
+          <span class="dd-icon">⚖️</span>
+          <div><span class="dd-title">READY Framework</span><span class="dd-desc">Responsible AI decision tool</span></div>
+        </a>
+        <a href="steal-this-prompt.html" class="dd-item">
+          <span class="dd-icon">✏️</span>
+          <div><span class="dd-title">Steal This Prompt</span><span class="dd-desc">Copy-and-use prompt examples</span></div>
+        </a>
+        <a href="whatisanllm.html" class="dd-item">
+          <span class="dd-icon">🤖</span>
+          <div><span class="dd-title">What Is an LLM?</span><span class="dd-desc">Visual walkthrough</span></div>
+        </a>
+        <a href="llmexplainer.html" class="dd-item">
+          <span class="dd-icon">⚙️</span>
+          <div><span class="dd-title">LLM Text Generation</span><span class="dd-desc">Tokenization and attention explained</span></div>
+        </a>
+        <a href="llm-short-film.html" class="dd-item">
+          <span class="dd-icon">🎬</span>
+          <div><span class="dd-title">What It's Like to Be an LLM</span><span class="dd-desc">Interactive film experience</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Learn <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="glossary.html" class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">AI Glossary</span><span class="dd-desc">Every term you need</span></div>
+        </a>
+        <a href="history.html" class="dd-item">
+          <span class="dd-icon">📜</span>
+          <div><span class="dd-title">History of AI</span><span class="dd-desc">Timeline from 1950 to today</span></div>
+        </a>
+      </div>
+    </li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="bundles.html" class="btn btn-mint">Get Started</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="resources.html">Resources</a>
+        <span class="breadcrumb-sep">/</span>
+        <span style="color:var(--text-mid);">AI Glossary</span>
+      </div>
+      <div class="eyebrow">Plain-language glossary</div>
+      <h1 class="page-title">Words everyone<br>should know about <span>AI.</span></h1>
+      <p class="page-sub">No jargon, no assumptions. Every term defined clearly so you can follow any AI conversation, read any article, and ask better questions.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num" id="total-count">50</div>
+        <div class="hstat-label">Terms defined</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH + ALPHA BAR -->
+<div class="search-bar">
+  <div class="search-bar-inner">
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-input" type="text" placeholder="Search a word…" id="search-input" oninput="onSearch(this.value)">
+      <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
+    </div>
+    <div class="alpha-bar" id="alpha-bar"></div>
+    <div class="result-count"><strong id="visible-count">50</strong> terms</div>
+  </div>
+</div>
+
+<!-- GLOSSARY LAYOUT -->
+<div class="glossary-layout">
+  <nav class="glos-sidebar" id="glos-sidebar"></nav>
+  <main id="glossary-main">
+    <div class="empty-state" id="empty-state">
+      <h3>No terms found</h3>
+      <p>Try a different search or browse all terms by letter above.</p>
+    </div>
+  </main>
+</div>
+
+<!-- CTA -->
+<div class="cta-band fade-up">
+  <h2>Ready to put these words <span class="t-mint">to work?</span></h2>
+  <p>Free tools, classroom journals, and prompt guides — built around the concepts in this glossary.</p>
+  <div class="cta-btns">
+    <a href="resources.html" class="btn btn-mint">
+      Browse free resources
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+    <a href="steal-this-prompt.html" class="btn btn-ghost">Steal This Prompt</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AI <span class="dot">•</span> <span class="kairos">Kairos</span> Learning Lab</div>
+  <ul class="footer-links">
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="steal-this-prompt.html">Steal This Prompt</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-copy">&copy; 2025 AI &bull; Kairos Learning Lab</div>
+</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ─────────────────────────────────────────
+   GLOSSARY DATA
+   tag colors: mint = AI concept, blue = technical, amber = ethics/society, gray = general
+   ───────────────────────────────────────── */
+const TERMS = [
+  // A
+  { word:'AGI', full:'Artificial General Intelligence', letter:'A', tags:[{l:'Concept',c:'mint'},{l:'Future',c:'amber'}],
+    def:'A hypothetical AI that could perform any intellectual task a human can — reasoning across subjects, learning new skills on its own, and adapting to entirely new situations. <strong>AGI does not currently exist.</strong> Every AI tool available today is "narrow" — it is good at specific tasks but cannot generalize the way humans do.',
+    ex:'Example: A chess-playing AI beats grandmasters but cannot write a poem or cook dinner. That is narrow AI, not AGI.' },
+
+  { word:'AI', full:'Artificial Intelligence', letter:'A', tags:[{l:'Foundational',c:'mint'}],
+    def:'Software designed to perform tasks that typically require human intelligence — like recognizing patterns, generating text, translating languages, or making decisions. <strong>AI does not think or feel.</strong> It processes inputs and produces outputs based on patterns it learned during training.',
+    ex:'Example: When your phone autocorrects a word, recommends a video, or lets you talk to a voice assistant — that is AI at work.' },
+
+  { word:'Algorithm', full:'', letter:'A', tags:[{l:'Technical',c:'blue'},{l:'Foundational',c:'mint'}],
+    def:'A set of rules or instructions a computer follows to complete a task. Every AI system runs on algorithms. Think of it like a recipe — specific steps in a specific order that produce a predictable result. The quality of an AI system depends heavily on the algorithms behind it.',
+    ex:'Example: An algorithm that decides what shows up in your social media feed is following rules about what content gets you to keep scrolling.' },
+
+  { word:'Automation', full:'', letter:'A', tags:[{l:'Society',c:'amber'}],
+    def:'Using technology to do tasks that humans used to do manually — especially repetitive or predictable work. AI has expanded what can be automated to include tasks that require language, pattern recognition, and judgment calls. This does not always mean jobs disappear; it often means <strong>the tasks within a job change.</strong>',
+    ex:'Example: A customer service chatbot handles basic FAQs automatically, freeing human agents for more complex issues.' },
+
+  // B
+  { word:'Bias', full:'', letter:'B', tags:[{l:'Ethics',c:'amber'},{l:'Critical',c:'mint'}],
+    def:'When an AI system produces consistently unfair, skewed, or inaccurate results for certain groups of people. Bias usually comes from the <strong>training data</strong> — if the data reflected existing inequalities in the world, the AI will learn to replicate them. Bias in AI can affect hiring decisions, medical diagnoses, loan approvals, and more.',
+    ex:'Example: A hiring AI trained mostly on resumes from male candidates may unfairly rank female applicants lower — not because it was programmed to, but because it learned from biased data.' },
+
+  { word:'Black Box', full:'', letter:'B', tags:[{l:'Technical',c:'blue'},{l:'Ethics',c:'amber'}],
+    def:'An AI system where you can see the inputs and outputs but <strong>cannot see or understand what happens in between.</strong> Most large AI models are black boxes — even their creators cannot fully explain exactly why they produced a specific output. This makes it hard to audit for errors or bias.',
+    ex:'Example: You type a question and get an answer, but you cannot see the billions of calculations the model ran to get there.' },
+
+  // C
+  { word:'Chatbot', full:'', letter:'C', tags:[{l:'Tool type',c:'mint'}],
+    def:'An AI system designed to have text or voice conversations with people. Simple chatbots follow preset scripts. Modern AI chatbots like ChatGPT, Claude, and Gemini use large language models to generate flexible, context-aware responses. <strong>They do not understand your conversation</strong> — they predict what a relevant response would look like.',
+    ex:'Example: A chatbot on a retail website that answers shipping questions is a simple chatbot. ChatGPT having a nuanced conversation is a much more advanced version.' },
+
+  { word:'Context Window', full:'', letter:'C', tags:[{l:'Technical',c:'blue'}],
+    def:'The maximum amount of text an AI model can "see" and consider at one time — including your conversation history, any documents you upload, and your instructions. Think of it like <strong>short-term memory.</strong> Once your conversation exceeds the context window, the AI effectively forgets the earlier parts.',
+    ex:'Example: If you are working on a long document and the AI starts giving advice that contradicts what it said earlier, you may have hit the context window limit.' },
+
+  { word:'Computer Vision', full:'', letter:'C', tags:[{l:'Technical',c:'blue'},{l:'Application',c:'mint'}],
+    def:'A type of AI that allows computers to interpret and understand images and video. It is how AI can identify faces in photos, read text from a picture, or analyze medical scans. Computer vision models are trained on millions of labeled images.',
+    ex:'Example: When you upload a photo and ask an AI to describe what is in it, that is computer vision in action.' },
+
+  // D
+  { word:'Data', full:'', letter:'D', tags:[{l:'Foundational',c:'mint'}],
+    def:'The raw material AI learns from. Data can be text, images, audio, numbers, videos, or any other recorded information. <strong>The quality and quantity of data shapes everything about an AI model</strong> — what it knows, what it gets wrong, and who it may treat unfairly. Garbage data in, garbage results out.',
+    ex:'Example: A language model trained mostly on English-language internet text will be far more capable in English than in languages with less online presence.' },
+
+  { word:'Deep Learning', full:'', letter:'D', tags:[{l:'Technical',c:'blue'}],
+    def:'A type of machine learning that uses neural networks with many layers to learn from data. The "deep" refers to the many layers, not depth of understanding. Deep learning is what powers most modern AI breakthroughs — image recognition, speech synthesis, large language models, and more.',
+    ex:'Example: The AI that generates photorealistic images from text descriptions uses deep learning to understand the relationship between words and visual features.' },
+
+  { word:'Deepfake', full:'', letter:'D', tags:[{l:'Ethics',c:'amber'},{l:'Risk',c:'amber'}],
+    def:'AI-generated video, audio, or images that make it appear someone said or did something they never actually did. Deepfakes can be used for entertainment but are increasingly used to spread misinformation, impersonate people, and create non-consensual content. <strong>They are a serious and growing risk to truth and trust.</strong>',
+    ex:'Example: A video that appears to show a politician making a statement they never made, created using AI to convincingly replicate their face and voice.' },
+
+  // E
+  { word:'Embeddings', full:'', letter:'E', tags:[{l:'Technical',c:'blue'}],
+    def:'A way of converting words, images, or other data into lists of numbers (called vectors) so that an AI can work with them mathematically. Words with similar meanings end up with similar numbers. This is how AI understands that "dog" and "puppy" are related, even though they look completely different as text.',
+    ex:'Example: Embeddings are why a search engine can return results about "automobiles" when you search for "cars" — the two words are mathematically close.' },
+
+  { word:'Ethics (AI)', full:'', letter:'E', tags:[{l:'Ethics',c:'amber'},{l:'Critical',c:'mint'}],
+    def:'The study of right and wrong in the design, development, and use of AI systems. AI ethics asks: Who benefits? Who is harmed? Who is accountable when something goes wrong? <strong>Ethical AI is not just a technical problem</strong> — it is a social, political, and human one that requires diverse voices, not just engineers.',
+    ex:'Example: Deciding whether an AI should be used to make bail decisions in criminal courts is an AI ethics question — it involves fairness, accountability, and human rights.' },
+
+  // F
+  { word:'Fine-tuning', full:'', letter:'F', tags:[{l:'Technical',c:'blue'}],
+    def:'Taking a pre-trained AI model and training it further on a smaller, specific dataset so it performs better in a particular domain. A general-purpose model can be fine-tuned to become a specialized medical, legal, or educational assistant. It is like an expert who already knows a lot and then specializes in one field.',
+    ex:'Example: A large language model trained on the entire internet might be fine-tuned on medical literature to create a more accurate healthcare assistant.' },
+
+  { word:'FOCUS Framework', full:'Function, Objective, Context, User, Specifics', letter:'F', tags:[{l:'Prompting',c:'mint'},{l:'Kairos original',c:'amber'}],
+    def:'A prompting framework developed by AI • Kairos Learning Lab to help students and educators write better AI prompts. <strong>Function</strong> — what role should AI play? <strong>Objective</strong> — what is the goal? <strong>Context</strong> — what background matters? <strong>User</strong> — who is the audience? <strong>Specifics</strong> — what constraints or details should AI follow? Using FOCUS turns vague questions into clear instructions.',
+    ex:'Example: Instead of "write a poem," a FOCUS prompt might be: "Act as a creative writing coach (Function) and help me write (Objective) a short rhyming poem about autumn for a grade 3 class (User) — keep it under 8 lines (Specifics)."' },
+
+  // G
+  { word:'Generative AI', full:'', letter:'G', tags:[{l:'Foundational',c:'mint'}],
+    def:'AI that creates new content — text, images, audio, video, or code — rather than just analyzing existing content. When you ask ChatGPT to write an essay, ask Midjourney to create an image, or ask an AI to compose music, you are using generative AI. <strong>The output is created fresh every time,</strong> not retrieved from a database.',
+    ex:'Example: A search engine finds existing web pages. A generative AI writes a brand new response. That is the key difference.' },
+
+  { word:'GPT', full:'Generative Pre-trained Transformer', letter:'G', tags:[{l:'Technical',c:'blue'},{l:'Model type',c:'mint'}],
+    def:'A type of large language model architecture developed by OpenAI. GPT models are trained on huge amounts of text and are designed to predict and generate the next word in a sequence. The architecture has become highly influential — many modern language models are built on similar ideas.',
+    ex:'Example: ChatGPT is built on GPT models. The "G" in GPT stands for Generative — it generates new text.' },
+
+  // H
+  { word:'Hallucination', full:'', letter:'H', tags:[{l:'Critical',c:'mint'},{l:'Risk',c:'amber'}],
+    def:'When an AI confidently states something that is <strong>completely made up or factually wrong.</strong> It is called hallucination because the model generates plausible-sounding information that does not exist. This happens because AI models predict what a likely response looks like — not what is actually true. Always verify important AI-generated facts.',
+    ex:'Example: You ask an AI for a citation for an article, and it gives you an author name, journal, and year — but the article never existed. The AI invented it convincingly.' },
+
+  // I
+  { word:'Inference', full:'', letter:'I', tags:[{l:'Technical',c:'blue'}],
+    def:'The process of using a trained AI model to generate a response or prediction. Training is when the model learns. Inference is when the model does its job. When you send a message to a chatbot and it responds, that response is produced through inference.',
+    ex:'Example: Every time you send a prompt and get an answer, the AI is running inference — using everything it learned during training to produce that specific output.' },
+
+  { word:'Input', full:'', letter:'I', tags:[{l:'Foundational',c:'mint'}],
+    def:'What you give an AI model to work with. This could be text, an image, audio, or a document. The quality and specificity of your input directly affects the quality of the output. <strong>A vague input produces a vague output.</strong> This is why learning to write good prompts matters.',
+    ex:'Example: "Tell me about dogs" is an input. "List three health risks for large-breed dogs that live in hot climates, in plain language for a middle-school student" is a much more useful input.' },
+
+  // L
+  { word:'Large Language Model', full:'LLM', letter:'L', tags:[{l:'Foundational',c:'mint'},{l:'Technical',c:'blue'}],
+    def:'A type of AI trained on massive amounts of text data that can understand and generate human language. LLMs learn by predicting what word comes next, billions of times, until they get very good at it. ChatGPT, Claude, and Gemini are all powered by LLMs. <strong>They do not "know" things the way humans do</strong> — they predict statistically likely responses.',
+    ex:'Example: When you ask an LLM a question, it does not look up the answer. It predicts the most likely sequence of words to follow your question, based on patterns in its training data.' },
+
+  // M
+  { word:'Machine Learning', full:'ML', letter:'M', tags:[{l:'Foundational',c:'mint'},{l:'Technical',c:'blue'}],
+    def:'A branch of AI where systems learn from data and improve their performance without being explicitly programmed for each task. Instead of a programmer writing rules for every situation, the model discovers patterns by processing examples. <strong>Most modern AI is built on machine learning.</strong>',
+    ex:'Example: A spam filter that gets better at catching spam emails over time — because it learns from which emails you mark as junk — is using machine learning.' },
+
+  { word:'Model', full:'', letter:'M', tags:[{l:'Technical',c:'blue'},{l:'Foundational',c:'mint'}],
+    def:'The trained AI system itself — the thing you interact with when you use an AI tool. A model is produced by the training process: feed it huge amounts of data, adjust billions of internal settings over time, and end up with a system that can perform specific tasks. Different models have different strengths, limits, and behaviors.',
+    ex:'Example: Claude, GPT-4, and Gemini are all different AI models — trained differently, on different data, by different companies, with different design priorities.' },
+
+  { word:'Multimodal AI', full:'', letter:'M', tags:[{l:'Technical',c:'blue'},{l:'Application',c:'mint'}],
+    def:'An AI that can process and generate more than one type of data — for example, text and images together. Early AI tools only handled one type. Modern multimodal models can look at a photo and describe it, or read a document and generate a diagram from it.',
+    ex:'Example: Uploading a photo of your dinner and asking an AI to estimate the calories is a multimodal task — it involves both image understanding and text generation.' },
+
+  // N
+  { word:'Natural Language Processing', full:'NLP', letter:'N', tags:[{l:'Technical',c:'blue'},{l:'Application',c:'mint'}],
+    def:'A branch of AI focused on enabling computers to understand, interpret, and generate human language — including nuance, context, grammar, and meaning. NLP is the foundation of chatbots, translation tools, grammar checkers, voice assistants, and search engines.',
+    ex:'Example: When a voice assistant understands that "set a timer for 10 minutes" and "remind me in 10 minutes" mean the same thing, that is NLP at work.' },
+
+  { word:'Neural Network', full:'', letter:'N', tags:[{l:'Technical',c:'blue'}],
+    def:'A type of AI architecture loosely inspired by the structure of the human brain — made up of layers of connected "nodes" that process and pass information. Neural networks learn by adjusting the strength of connections based on training data. They are the core architecture behind most modern AI, including LLMs and image generators.',
+    ex:'Example: A neural network learning to recognize cats is shown millions of labeled photos and gradually adjusts its internal connections until it can reliably identify cat features.' },
+
+  // O
+  { word:'Output', full:'', letter:'O', tags:[{l:'Foundational',c:'mint'}],
+    def:'What an AI model produces in response to your input. Output can be text, an image, code, audio, or a decision. The output is shaped by three things: the model\'s training, the input you gave it, and any system instructions set by the platform. <strong>Output is not truth</strong> — it is a prediction.',
+    ex:'Example: An essay, a poem, a code snippet, a translated sentence, a generated image — these are all outputs. Always evaluate them critically rather than accepting them at face value.' },
+
+  { word:'Overfitting', full:'', letter:'O', tags:[{l:'Technical',c:'blue'}],
+    def:'When an AI model learns its training data too well — including the noise and quirks — and then performs poorly on new data it has never seen. It is like a student who memorizes every answer from last year\'s test but cannot apply the concepts to a new problem.',
+    ex:'Example: A model trained only on news articles from one country may "overfit" to that country\'s writing style and struggle to understand news from other regions.' },
+
+  // P
+  { word:'Parameters', full:'', letter:'P', tags:[{l:'Technical',c:'blue'}],
+    def:'The internal numerical settings inside an AI model that get adjusted during training. More parameters generally means a more capable model — but also more computing power needed. When you hear "a model with 70 billion parameters," this refers to the 70 billion individual numerical values the model uses to make predictions.',
+    ex:'Example: GPT-3 had 175 billion parameters. You do not need to understand what each one does — just know that parameters are the learned knowledge stored inside the model.' },
+
+  { word:'Prompt', full:'', letter:'P', tags:[{l:'Foundational',c:'mint'},{l:'Skill',c:'amber'}],
+    def:'The instruction, question, or input you give to an AI model. The quality of your prompt directly shapes the quality of the response. <strong>Prompting is a learnable skill.</strong> Clear, specific, context-rich prompts produce dramatically better results than vague or ambiguous ones. See also: FOCUS Framework.',
+    ex:'Example: "Write a poem" is a prompt. So is "Write a 4-stanza rhyming poem about learning to read, in a tone that is encouraging and warm, for a 7-year-old who just finished their first book."' },
+
+  { word:'Prompt Engineering', full:'', letter:'P', tags:[{l:'Skill',c:'mint'},{l:'Technical',c:'blue'}],
+    def:'The practice of deliberately designing prompts to get better, more reliable results from AI models. It is part craft, part science. Prompt engineers test different phrasings, structures, and levels of detail to optimize outputs for specific use cases. The term "engineering" is a bit fancy — anyone can learn to write better prompts.',
+    ex:'Example: Adding "think step by step" to a math problem prompt often significantly improves an LLM\'s accuracy, because it forces the model to break the problem into stages.' },
+
+  // R
+  { word:'READY Framework', full:'Recognize, Evaluate, Apply, Develop, You are in control', letter:'R', tags:[{l:'Literacy',c:'mint'},{l:'Kairos original',c:'amber'}],
+    def:'An AI literacy framework developed by AI • Kairos Learning Lab. <strong>Recognize</strong> — understand what AI is and is not. <strong>Evaluate</strong> — think critically about AI outputs. <strong>Apply</strong> — use AI purposefully as a tool. <strong>Develop</strong> — build your own thinking skills alongside AI. <strong>You are in control</strong> — your judgment, your responsibility. Used in the student journals and educator training resources.',
+    ex:'Example: A student using READY asks: "Does this AI answer make sense? What would I need to check? Am I still thinking for myself?" — not just copying the output.' },
+
+  { word:'Reinforcement Learning', full:'RL', letter:'R', tags:[{l:'Technical',c:'blue'}],
+    def:'A type of machine learning where an AI learns by trial and error, receiving rewards for good actions and penalties for bad ones — like training an animal with treats. It is used to teach AI to play games, control robots, and optimize complex decisions. ChatGPT was refined using a version called RLHF (Reinforcement Learning from Human Feedback).',
+    ex:'Example: AlphaGo learned to play the board game Go at superhuman level through reinforcement learning — playing millions of games against itself and learning from wins and losses.' },
+
+  { word:'Responsible AI', full:'', letter:'R', tags:[{l:'Ethics',c:'amber'},{l:'Society',c:'amber'}],
+    def:'The practice of designing, deploying, and using AI in ways that are fair, transparent, accountable, and safe. Responsible AI means asking who is affected, what could go wrong, who is accountable, and whether humans are still meaningfully in the loop. <strong>It is not just a company policy — it is a mindset anyone using AI can adopt.</strong>',
+    ex:'Example: A school that uses AI to personalize learning but requires a teacher to review all recommendations before they are acted on is practicing responsible AI.' },
+
+  // S
+  { word:'Synthetic Data', full:'', letter:'S', tags:[{l:'Technical',c:'blue'}],
+    def:'Artificial data generated by AI or other algorithms, rather than collected from real-world events. It is used to train AI models when real data is scarce, private, or expensive to collect. The risk is that synthetic data may not fully reflect the messy reality of the actual world.',
+    ex:'Example: A healthcare AI might train on synthetic patient records that mimic real data without violating actual patients\' privacy.' },
+
+  // T
+  { word:'Token', full:'', letter:'T', tags:[{l:'Technical',c:'blue'}],
+    def:'The unit that AI language models use to process text. A token is roughly a word or part of a word. When you send a message to an AI, it is broken into tokens before being processed. Token limits define how much text a model can handle at once — this is related to the <strong>context window.</strong>',
+    ex:'Example: The word "learning" might be one token. "Unbelievable" might be split into two or three tokens. A conversation of 2,000 words is roughly 2,500–3,000 tokens.' },
+
+  { word:'Training', full:'', letter:'T', tags:[{l:'Foundational',c:'mint'},{l:'Technical',c:'blue'}],
+    def:'The process by which an AI model learns from data. During training, the model is fed enormous amounts of data and adjusts its internal parameters billions of times to minimize errors. Training a large model requires massive computing power, months of time, and huge datasets. <strong>The training data shapes everything the model knows and how it behaves.</strong>',
+    ex:'Example: A language model trained primarily on English-language internet text from 2019 will reflect the knowledge, biases, and blind spots of that particular slice of human writing.' },
+
+  { word:'Training Data', full:'', letter:'T', tags:[{l:'Foundational',c:'mint'},{l:'Ethics',c:'amber'}],
+    def:'The dataset used to teach an AI model. What goes into the training data determines what the model knows, what it can do, and what biases it carries. Most large language models are trained on huge portions of the internet — which includes both valuable knowledge and harmful, biased, or false content.',
+    ex:'Example: If training data underrepresents certain languages, cultures, or viewpoints, the model will perform worse for people from those groups — a serious equity concern.' },
+
+  { word:'Transformer', full:'', letter:'T', tags:[{l:'Technical',c:'blue'}],
+    def:'A neural network architecture introduced in 2017 that became the foundation of modern large language models. Transformers process all parts of an input simultaneously (instead of one word at a time), allowing them to capture long-range relationships in text far more effectively than earlier models. The "T" in GPT stands for Transformer.',
+    ex:'Example: Every major language model in use today — GPT, Claude, Gemini, LLaMA — is built on the Transformer architecture.' },
+
+  // U
+  { word:'Underfitting', full:'', letter:'U', tags:[{l:'Technical',c:'blue'}],
+    def:'When an AI model is too simple to capture the patterns in its training data, so it performs poorly on both old and new data. The opposite of overfitting. A model that underfits has not learned enough — it generalizes too broadly and misses important distinctions.',
+    ex:'Example: A sentiment classifier that labels every review as "neutral" rather than detecting positive or negative emotions is underfitting — it has not learned the patterns well enough.' },
+
+  // V
+  { word:'Vector', full:'', letter:'V', tags:[{l:'Technical',c:'blue'}],
+    def:'A list of numbers that represents a word, image, or concept inside an AI model. AI cannot work directly with words — it converts everything into numbers first. Words with similar meanings end up as vectors that are mathematically close to each other. This is the foundation of how AI "understands" language.',
+    ex:'Example: The vector for "king" minus the vector for "man" plus the vector for "woman" produces something very close to the vector for "queen" — a famous example of how vector math captures meaning.' },
+
+  // W
+  { word:'Weight', full:'', letter:'W', tags:[{l:'Technical',c:'blue'}],
+    def:'A numerical value inside a neural network that determines how strongly one node influences another. Weights are adjusted during training — increasing when a connection leads to good predictions, decreasing when it leads to errors. A trained model is essentially a huge set of carefully tuned weights. Also called parameters.',
+    ex:'Example: When people say a model "has learned" something, what they mean is that the relevant weights in its neural network have been adjusted to reflect that knowledge.' },
+
+  // Z
+  { word:'Zero-shot Learning', full:'', letter:'Z', tags:[{l:'Technical',c:'blue'},{l:'Application',c:'mint'}],
+    def:'When an AI model successfully performs a task it was never explicitly trained on, using only a description or a single example. It shows that well-trained models can generalize beyond their training data — though not always reliably. <strong>Few-shot learning</strong> is the related technique of giving the model a few examples to learn from before asking it to perform.',
+    ex:'Example: Asking an LLM to translate a sentence into a language it saw very rarely in training — and it manages a reasonable attempt — is zero-shot learning.' },
+];
+
+/* ─── BUILD PAGE ─── */
+const LETTERS = [...new Set(TERMS.map(t=>t.letter))].sort();
+const main = document.getElementById('glossary-main');
+const sidebar = document.getElementById('glos-sidebar');
+const alphaBar = document.getElementById('alpha-bar');
+
+// count per letter
+const letterCounts = {};
+TERMS.forEach(t=>{ letterCounts[t.letter] = (letterCounts[t.letter]||0)+1; });
+
+// alpha bar
+'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(l=>{
+  const btn = document.createElement('button');
+  btn.className = 'alpha-btn' + (letterCounts[l]?' has-terms':' no-terms');
+  btn.textContent = l;
+  btn.dataset.letter = l;
+  if(letterCounts[l]) btn.addEventListener('click',()=>jumpToLetter(l));
+  alphaBar.appendChild(btn);
+});
+
+// sidebar
+LETTERS.forEach(l=>{
+  const a = document.createElement('a');
+  a.href = '#letter-'+l;
+  a.className = 'snav-letter';
+  a.innerHTML = `${l} <span class="snav-count">${letterCounts[l]}</span>`;
+  sidebar.appendChild(a);
+});
+
+// total count
+document.getElementById('total-count').textContent = TERMS.length;
+document.getElementById('visible-count').textContent = TERMS.length;
+
+// render all
+function renderTerms(filtered, query=''){
+  main.querySelectorAll('.letter-section').forEach(el=>el.remove());
+  document.getElementById('empty-state').classList.remove('show');
+
+  if(filtered.length===0){ document.getElementById('empty-state').classList.add('show'); return; }
+
+  const byLetter = {};
+  filtered.forEach(t=>{ (byLetter[t.letter]||(byLetter[t.letter]=[])).push(t); });
+
+  Object.keys(byLetter).sort().forEach(l=>{
+    const section = document.createElement('div');
+    section.className = 'letter-section';
+    section.id = 'letter-'+l;
+    section.innerHTML = `<div class="letter-heading"><div class="letter-h">${l}</div><div class="letter-rule"></div><div class="letter-count">${byLetter[l].length} term${byLetter[l].length>1?'s':''}</div></div>`;
+
+    const list = document.createElement('div');
+    list.className = 'terms-list';
+
+    byLetter[l].forEach(t=>{
+      const cardColor = t.tags.some(tg=>tg.c==='amber')&&!t.tags.some(tg=>tg.l==='Foundational') ? 'amber-card' : t.tags.some(tg=>tg.c==='blue')&&!t.tags.some(tg=>tg.c==='mint') ? 'blue-card' : '';
+      const tagsHTML = t.tags.map(tg=>`<span class="ttag ${tg.c}">${tg.l}</span>`).join('');
+      const fullHTML = t.full ? `<span class="term-abbr">${t.full}</span>` : '';
+      const exHTML = t.ex ? `<div class="term-example">${hl(t.ex,query)}</div>` : '';
+
+      const card = document.createElement('div');
+      card.className = `term-card ${cardColor}`;
+      card.innerHTML = `
+        <div class="term-header">
+          <span class="term-word">${hl(t.word,query)}</span>
+          ${fullHTML}
+          <div class="term-tags">${tagsHTML}</div>
+        </div>
+        <div class="term-def">${hl(t.def,query)}</div>
+        ${exHTML}`;
+      list.appendChild(card);
+    });
+
+    section.appendChild(list);
+    main.appendChild(section);
+  });
+
+  document.getElementById('visible-count').textContent = filtered.length;
+}
+
+function hl(text, query){
+  if(!query) return text;
+  const safe = query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return text.replace(new RegExp(`(${safe})`, 'gi'), '<span class="highlight">$1</span>');
+}
+
+renderTerms(TERMS);
+
+/* ─── SEARCH ─── */
+function onSearch(q){
+  const qLower = q.toLowerCase().trim();
+  document.getElementById('search-clear').classList.toggle('show', q.length>0);
+  const filtered = qLower ? TERMS.filter(t=>
+    t.word.toLowerCase().includes(qLower) ||
+    (t.full&&t.full.toLowerCase().includes(qLower)) ||
+    t.def.toLowerCase().includes(qLower) ||
+    (t.ex&&t.ex.toLowerCase().includes(qLower)) ||
+    t.tags.some(tg=>tg.l.toLowerCase().includes(qLower))
+  ) : TERMS;
+  renderTerms(filtered, qLower);
+}
+
+function clearSearch(){
+  document.getElementById('search-input').value='';
+  document.getElementById('search-clear').classList.remove('show');
+  renderTerms(TERMS);
+}
+
+/* ─── JUMP TO LETTER ─── */
+function jumpToLetter(l){
+  const el = document.getElementById('letter-'+l);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.alpha-btn').forEach(b=>b.classList.toggle('active',b.dataset.letter===l));
+}
+
+/* ─── ACTIVE LETTER TRACKING ─── */
+const ioLetter = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const l = e.target.id.replace('letter-','');
+      document.querySelectorAll('.alpha-btn').forEach(b=>b.classList.toggle('active',b.dataset.letter===l));
+      document.querySelectorAll('.snav-letter').forEach(a=>a.classList.toggle('active',a.textContent.trim().startsWith(l)));
+    }
+  });
+},{threshold:0.2});
+
+// observe after short delay to allow render
+setTimeout(()=>{
+  document.querySelectorAll('.letter-section').forEach(el=>ioLetter.observe(el));
+},200);
+
+/* ── SCROLL ANIMATIONS ── */
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+/* ── THREE.JS BACKGROUND ── */
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x041012, 1);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 200);
+camera.position.set(0, 0, 38);
+const N=80, posArr=new Float32Array(N*3), velArr=new Float32Array(N*3);
+for(let i=0;i<N;i++){posArr[i*3]=(Math.random()-.5)*70;posArr[i*3+1]=(Math.random()-.5)*45;posArr[i*3+2]=(Math.random()-.5)*25;velArr[i*3]=(Math.random()-.5)*0.015;velArr[i*3+1]=(Math.random()-.5)*0.010;velArr[i*3+2]=(Math.random()-.5)*0.007;}
+const pGeo=new THREE.BufferGeometry();
+pGeo.setAttribute('position',new THREE.BufferAttribute(posArr.slice(),3));
+scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x1cc9a0,size:0.24,transparent:true,opacity:0.7,sizeAttenuation:true})));
+const posB=new Float32Array(N*3);
+for(let i=0;i<N;i++){posB[i*3]=(Math.random()-.5)*80;posB[i*3+1]=(Math.random()-.5)*50;posB[i*3+2]=(Math.random()-.5)*20;}
+const pGeoB=new THREE.BufferGeometry();
+pGeoB.setAttribute('position',new THREE.BufferAttribute(posB.slice(),3));
+scene.add(new THREE.Points(pGeoB,new THREE.PointsMaterial({color:0x38b6ff,size:0.16,transparent:true,opacity:0.4,sizeAttenuation:true})));
+const MAX_LINES=N*N, linePos=new Float32Array(MAX_LINES*6), lGeo=new THREE.BufferGeometry();
+lGeo.setAttribute('position',new THREE.BufferAttribute(linePos,3));
+scene.add(new THREE.LineSegments(lGeo,new THREE.LineBasicMaterial({color:0x1cc9a0,transparent:true,opacity:0.08})));
+const wireShapes=[];
+[{geo:new THREE.IcosahedronGeometry(3.5,0),pos:[14,6,-9],rot:[0.002,0.003,0.001],col:0x1cc9a0},{geo:new THREE.OctahedronGeometry(2.6,0),pos:[-14,-5,-5],rot:[-0.003,0.002,0.001],col:0x38b6ff},{geo:new THREE.TetrahedronGeometry(2.8,0),pos:[1,-11,-12],rot:[0.001,-0.002,0.003],col:0x1cc9a0}].forEach(d=>{const m=new THREE.Mesh(d.geo,new THREE.MeshBasicMaterial({color:d.col,wireframe:true,transparent:true,opacity:0.06}));m.position.set(...d.pos);m.userData.rot=d.rot;scene.add(m);wireShapes.push(m);});
+let mouseX=0,mouseY=0,targetX=0,targetY=0;
+document.addEventListener('mousemove',e=>{mouseX=(e.clientX/window.innerWidth-.5)*2;mouseY=(e.clientY/window.innerHeight-.5)*2;});
+const cur=pGeo.attributes.position.array;let t=0;
+function animate(){
+  requestAnimationFrame(animate);t+=0.007;
+  for(let i=0;i<N;i++){cur[i*3]=posArr[i*3]+Math.sin(t*.65+i*.31)*.36;cur[i*3+1]=posArr[i*3+1]+Math.cos(t*.48+i*.27)*.26;cur[i*3+2]=posArr[i*3+2]+Math.sin(t*.28+i*.19)*.16;posArr[i*3]+=velArr[i*3];posArr[i*3+1]+=velArr[i*3+1];posArr[i*3+2]+=velArr[i*3+2];if(Math.abs(posArr[i*3])>36)velArr[i*3]*=-1;if(Math.abs(posArr[i*3+1])>23)velArr[i*3+1]*=-1;if(Math.abs(posArr[i*3+2])>14)velArr[i*3+2]*=-1;}
+  pGeo.attributes.position.needsUpdate=true;
+  let lc=0;for(let i=0;i<N;i++){for(let j=i+1;j<N;j++){const dx=cur[i*3]-cur[j*3],dy=cur[i*3+1]-cur[j*3+1],dz=cur[i*3+2]-cur[j*3+2];if(dx*dx+dy*dy+dz*dz<13*13){linePos[lc*6]=cur[i*3];linePos[lc*6+1]=cur[i*3+1];linePos[lc*6+2]=cur[i*3+2];linePos[lc*6+3]=cur[j*3];linePos[lc*6+4]=cur[j*3+1];linePos[lc*6+5]=cur[j*3+2];lc++;if(lc>=MAX_LINES-1)break;}}if(lc>=MAX_LINES-1)break;}
+  lGeo.setDrawRange(0,lc*2);lGeo.attributes.position.needsUpdate=true;
+  wireShapes.forEach(s=>{s.rotation.x+=s.userData.rot[0];s.rotation.y+=s.userData.rot[1];s.rotation.z+=s.userData.rot[2];});
+  targetX+=(mouseX*2.2-targetX)*.03;targetY+=(-mouseY*1.6-targetY)*.03;
+  camera.position.x=targetX;camera.position.y=targetY;camera.lookAt(0,0,0);
+  renderer.render(scene,camera);
+}
+animate();
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));});
+</script>
+
+<script>
+/* ── DROPDOWN NAV — MOBILE SUPPORT ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  const toggle=document.querySelector('.mobile-toggle');
+  const links=document.querySelector('.nav-links');
+  if(toggle&&links){
+    toggle.addEventListener('click',()=>{
+      links.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    // Mobile accordion dropdowns
+    links.querySelectorAll('.has-dropdown > a').forEach(a=>{
+      a.addEventListener('click',e=>{
+        if(window.innerWidth<=768){
+          e.preventDefault();
+          a.parentElement.classList.toggle('open');
+        }
+      });
+    });
+  }
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+});
+
+</script>
+</body>
+</html>

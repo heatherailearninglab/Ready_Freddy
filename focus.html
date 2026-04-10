@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOCUS Framework — AI • Kairos Learning Lab</title>
+
+<style>
+/* === INTER FONT RESET === */
+:root { --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+html, body { font-family: var(--font-sans); }
+body, button, input, select, textarea, nav, h1, h2, h3, h4, h5, h6, p, a, li, span, label { font-family: var(--font-sans); }
+/* === END INTER RESET === */
+
+:root{
+  --bg:#041012;--bg2:#07131A;--bg-card:rgba(7,19,26,0.82);
+  --mint:#1CC9A0;--mint-g:rgba(28,201,160,0.1);--mint-b:rgba(28,201,160,0.22);
+  --blue:#38B6FF;--blue-g:rgba(56,182,255,0.1);--blue-b:rgba(56,182,255,0.22);
+  --amber:#f0a030;--amber-g:rgba(240,160,48,0.1);--amber-b:rgba(240,160,48,0.22);
+  --purple:#a855f7;--pur-g:rgba(168,85,247,0.1);--pur-b:rgba(168,85,247,0.22);
+  --red:#e24b4a;
+  --text:#F8FBFF;--text-mid:rgba(248,251,255,0.85);--text-muted:rgba(248,251,255,0.55);
+  --display: var(--font-sans);--sans: var(--font-sans);
+  --r:12px;--r-pill:999px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.site{position:relative;z-index:1;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0.9rem 3rem;background:rgba(4,16,18,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--mint-b);}
+.nav-logo{text-decoration:none;display:flex;align-items:center;}
+.nav-logo-img{height:34px;width:auto;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{font-size:13px;color:var(--text-muted);text-decoration:none;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--mint);}
+.nav-actions{display:flex;gap:8px;}
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:14px;font-weight:500;padding:10px 22px;border-radius:var(--r-pill);text-decoration:none;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-mint{background:linear-gradient(135deg,var(--mint),var(--blue));color:#041012;font-weight:600;box-shadow:0 0 20px rgba(28,201,160,0.25);}
+.btn-mint:hover{box-shadow:0 0 32px rgba(28,201,160,0.45);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--text-mid);border:1px solid var(--mint-b);}
+.btn-ghost:hover{color:var(--mint);border-color:var(--mint);transform:translateY(-2px);}
+
+/* ANIMATIONS */
+@keyframes rise{to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.6);}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.delay-1{transition-delay:.08s;}.delay-2{transition-delay:.16s;}.delay-3{transition-delay:.24s;}.delay-4{transition-delay:.32s;}.delay-5{transition-delay:.4s;}
+
+/* ══ HERO ══ */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:7rem 3rem 4rem;position:relative;text-align:center;border-bottom:1px solid var(--mint-b);overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(28,201,160,0.07) 0%,transparent 65%);pointer-events:none;}
+.hero-inner{max-width:900px;width:100%;opacity:0;transform:translateY(28px);animation:rise .9s ease forwards .1s;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--mint);padding:6px 18px;border:1px solid var(--mint-b);border-radius:var(--r-pill);background:var(--mint-g);margin-bottom:1.2rem;letter-spacing:.01em;}
+.hero-h1{font-family:var(--display);font-size:clamp(3.2rem,7vw,6rem);font-weight:900;letter-spacing:-.04em;line-height:.96;color:var(--text);margin-bottom:1.1rem;}
+.hero-h1 .focus-word{background:linear-gradient(135deg,var(--mint),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:1.1rem;color:var(--text-mid);line-height:1.75;max-width:580px;margin:0 auto 2rem;font-weight:400;}
+.hero-letters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem;}
+.hero-letter{width:56px;height:56px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1.5rem;font-weight:900;transition:transform .3s;}
+.hero-letter:hover{transform:translateY(-5px) scale(1.1);}
+
+/* ══ LETTERS SECTION (big infographic) ══ */
+.letters-section{padding:5rem 3rem;max-width:1100px;margin:0 auto;}
+.ls-title{font-family:var(--display);font-size:clamp(1.8rem,3vw,2.4rem);font-weight:800;letter-spacing:-.025em;text-align:center;margin-bottom:.5rem;}
+.ls-sub{font-size:15px;color:var(--text-muted);text-align:center;max-width:560px;margin:0 auto 3rem;line-height:1.7;}
+
+.letter-card{
+  display:grid;grid-template-columns:auto 1fr;gap:0;
+  border-radius:18px;overflow:hidden;margin-bottom:16px;
+  background:var(--bg-card);border:1px solid rgba(255,255,255,.06);
+  backdrop-filter:blur(12px);
+  transition:border-color .2s,transform .18s;
+  cursor:default;
+}
+.letter-card:hover{transform:translateX(4px);}
+.lc-accent{width:6px;flex-shrink:0;}
+.lc-body{padding:1.6rem 2rem;display:grid;grid-template-columns:80px 1fr;gap:1.5rem;align-items:start;}
+.lc-letter-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.lc-big{font-family:var(--display);font-size:4rem;font-weight:900;line-height:1;letter-spacing:-.04em;}
+.lc-word{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);}
+.lc-right{}
+.lc-q{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem;line-height:1.3;}
+.lc-desc{font-size:14px;color:var(--text-muted);line-height:1.7;font-weight:300;margin-bottom:.8rem;}
+.lc-examples{display:flex;flex-direction:column;gap:5px;}
+.lc-ex{font-size:12.5px;color:var(--text-muted);padding:6px 12px;border-radius:6px;border-left:2px solid;line-height:1.5;}
+
+/* ══ LIVE DEMO ══ */
+.demo-section{padding:4rem 3rem;max-width:1100px;margin:0 auto;}
+.demo-card{background:var(--bg-card);border:1px solid var(--mint-b);border-radius:18px;overflow:hidden;backdrop-filter:blur(12px);}
+.demo-header{padding:1.5rem 2rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.demo-title{font-family:var(--display);font-size:1.15rem;font-weight:800;color:var(--text);}
+.demo-sub{font-size:13px;color:var(--text-muted);}
+.demo-body{padding:1.8rem 2rem;}
+.demo-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.2rem;}
+.demo-field{display:flex;flex-direction:column;gap:5px;}
+.df-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+.df-input{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:9px 12px;font-size:13px;color:var(--text);font-family:var(--sans);outline:none;transition:border-color .2s;resize:vertical;min-height:36px;}
+.df-input:focus{border-color:var(--mint);}
+.df-input::placeholder{color:var(--text-muted);}
+.demo-generate{width:100%;padding:13px;border-radius:var(--r-pill);border:none;background:linear-gradient(135deg,var(--mint),var(--blue));color:#041012;font-family:var(--display);font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.02em;transition:all .2s;margin-bottom:1.2rem;}
+.demo-generate:hover{box-shadow:0 0 28px rgba(28,201,160,.4);transform:translateY(-2px);}
+.demo-output{background:rgba(4,16,18,.9);border:1px solid rgba(28,201,160,.2);border-radius:var(--r);padding:1.2rem;min-height:60px;display:none;}
+.demo-output.show{display:block;}
+.do-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);margin-bottom:.6rem;}
+.do-prompt{font-size:14px;color:var(--text-mid);line-height:1.75;font-family:var(--sans);}
+.do-prompt .hl-f{color:var(--mint);font-weight:600;}
+.do-prompt .hl-o{color:var(--blue);font-weight:600;}
+.do-prompt .hl-c{color:var(--amber);font-weight:600;}
+.do-prompt .hl-u{color:var(--purple);font-weight:600;}
+.do-prompt .hl-s{color:var(--red);font-weight:600;}
+.do-copy{margin-top:.8rem;font-size:11px;color:var(--text-muted);cursor:pointer;transition:color .2s;background:none;border:none;font-family:var(--sans);display:flex;align-items:center;gap:5px;}
+.do-copy:hover{color:var(--mint);}
+
+/* ══ COMPARISON ══ */
+.compare-section{padding:4rem 3rem;max-width:1100px;margin:0 auto;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.compare-card{border-radius:var(--r);padding:1.5rem;backdrop-filter:blur(10px);}
+.cc-bad{background:rgba(226,75,74,.07);border:1px solid rgba(226,75,74,.25);}
+.cc-good{background:rgba(28,201,160,.07);border:1px solid var(--mint-b);}
+.cc-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;}
+.cc-bad .cc-label{color:var(--red);}
+.cc-good .cc-label{color:var(--mint);}
+.cc-prompt{font-size:14px;line-height:1.7;color:var(--text-mid);margin-bottom:.8rem;font-style:italic;}
+.cc-result{font-size:12px;color:var(--text-muted);line-height:1.6;border-top:1px solid rgba(255,255,255,.06);padding-top:.7rem;}
+.cc-result strong{color:var(--text-mid);font-weight:500;}
+
+/* ══ USE CASES ══ */
+.usecases-section{padding:4rem 3rem;max-width:1100px;margin:0 auto;}
+.uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.uc-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:1.4rem;backdrop-filter:blur(10px);transition:border-color .2s,transform .18s;}
+.uc-card:hover{border-color:var(--mint-b);transform:translateY(-3px);}
+.uc-icon{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;margin-bottom:.8rem;font-size:20px;}
+.uc-title{font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.4rem;}
+.uc-desc{font-size:13px;color:var(--text-muted);line-height:1.65;}
+.uc-prompt{margin-top:.8rem;font-size:11.5px;color:var(--text-muted);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:8px 10px;line-height:1.6;font-style:italic;}
+
+/* ══ QUICK REF CARD ══ */
+.quickref{padding:3rem 3rem 5rem;max-width:1100px;margin:0 auto;}
+.qr-card{background:linear-gradient(135deg,rgba(7,19,26,.95),rgba(4,16,18,.98));border:1px solid var(--mint-b);border-radius:18px;padding:2.5rem;position:relative;overflow:hidden;}
+.qr-card::before{content:'FOCUS';position:absolute;right:-20px;top:-20px;font-family:var(--display);font-size:10rem;font-weight:900;color:rgba(28,201,160,.04);letter-spacing:-.04em;pointer-events:none;}
+.qr-title{font-family:var(--display);font-size:1.5rem;font-weight:800;margin-bottom:.4rem;}
+.qr-sub{font-size:14px;color:var(--text-muted);margin-bottom:2rem;max-width:480px;}
+.qr-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.qr-item{text-align:center;padding:.8rem .5rem;border-radius:var(--r);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);}
+.qr-l{font-family:var(--display);font-size:1.8rem;font-weight:900;margin-bottom:2px;}
+.qr-w{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.qr-q{font-size:10.5px;color:var(--text-muted);line-height:1.4;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--mint-b);background:rgba(4,16,18,.92);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.f-logo{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text-muted);}
+.f-links{display:flex;gap:1.5rem;list-style:none;}
+.f-links a{font-size:13px;color:var(--text-muted);text-decoration:none;transition:color .2s;}.f-links a:hover{color:var(--mint);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:.75rem 1.2rem;}.nav-links{display:none;}
+  .hero,.letters-section,.demo-section,.compare-section,.usecases-section,.quickref{padding-left:1.2rem;padding-right:1.2rem;}
+  .lc-body{grid-template-columns:60px 1fr;gap:1rem;padding:1.2rem;}
+  .lc-big{font-size:3rem;}
+  .demo-fields{grid-template-columns:1fr;}
+  .compare-grid{grid-template-columns:1fr;}
+  .uc-grid{grid-template-columns:1fr 1fr;}
+  .qr-row{grid-template-columns:repeat(5,1fr);}
+  footer{flex-direction:column;text-align:center;}.f-links{justify-content:center;}
+}
+@media(max-width:560px){
+  .uc-grid{grid-template-columns:1fr;}
+  .qr-row{grid-template-columns:repeat(3,1fr);}
+  .hero-h1{font-size:clamp(2.4rem,10vw,3.2rem);}
+}
+
+/* ── DROPDOWN NAV SYSTEM ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(4,14,11,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--mint-border);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.nav-logo-img{height:32px;width:auto;display:block;}
+.nav-links{display:flex;align-items:center;gap:0;list-style:none;margin:0;padding:0;}
+.nav-links > li{position:relative;}
+.nav-links > li > a{display:flex;align-items:center;font-family:var(--sans);font-size:13.5px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:20px 14px;transition:color 0.2s;white-space:nowrap;}
+.nav-links > li > a:hover,.nav-links > li > a.active{color:var(--mint);}
+.nav-links > li > a svg{opacity:0.5;transition:transform 0.2s,opacity 0.2s;}
+.nav-links > li:hover > a svg{opacity:1;transform:rotate(180deg);}
+
+/* Dropdown panel */
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(4px);min-width:280px;background:rgba(7,19,26,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--mint-border);border-radius:var(--r-lg);padding:8px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 0.2s,transform 0.2s,visibility 0.2s;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 30px rgba(28,201,160,0.05);}
+.dropdown-wide{min-width:320px;}
+.has-dropdown:hover .dropdown{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+
+/* Dropdown items */
+.dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r-md);text-decoration:none;color:var(--text-mid);transition:background 0.15s,color 0.15s;}
+.dd-item:hover{background:var(--mint-ghost);color:var(--text);}
+.dd-icon{font-size:1.2rem;flex-shrink:0;width:28px;text-align:center;}
+.dd-title{display:block;font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--text);line-height:1.3;}
+.dd-desc{display:block;font-size:11.5px;color:var(--text-muted);line-height:1.4;margin-top:1px;}
+.dd-item:hover .dd-title{color:var(--mint);}
+
+/* Nav actions */
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+
+/* Mobile toggle */
+.mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
+.mobile-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.2s;}
+
+/* Mobile responsive */
+@media(max-width:1024px){
+  nav{padding:0 1.5rem;}
+  .nav-links > li > a{padding:20px 10px;font-size:12.5px;}
+}
+@media(max-width:768px){
+  .mobile-toggle{display:flex;}
+  .nav-links,.nav-actions .btn{display:none;}
+  nav{height:56px;}
+  
+  /* Mobile menu open state */
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;bottom:0;background:rgba(4,14,11,0.98);backdrop-filter:blur(20px);padding:1.5rem;gap:0;overflow-y:auto;z-index:999;}
+  .nav-links.open > li > a{padding:14px 0;font-size:15px;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .nav-links.open .dropdown{position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;min-width:100%;background:transparent;border:none;box-shadow:none;padding:0 0 8px 16px;display:none;}
+  .nav-links.open .has-dropdown.open .dropdown{display:block;}
+}
+
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="site">
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="ai-kairos-logo.png" alt="AI • Kairos Learning Lab" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Free Resources <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="assets/downloads/ai-prompt-pack-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📄</span>
+          <div><span class="dd-title">Download Free Prompt Pack</span><span class="dd-desc">20 prompts for grades 6-8</span></div>
+        </a>
+        <a href="assets/downloads/ai-glossary-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">Download Glossary</span><span class="dd-desc">30 AI terms in plain language</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Shop <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="bundles.html" class="dd-item">
+          <span class="dd-icon">📦</span>
+          <div><span class="dd-title">Bundles</span><span class="dd-desc">Curated packs for teachers, families, teens</span></div>
+        </a>
+        <a href="bundles.html#journals" class="dd-item">
+          <span class="dd-icon">📓</span>
+          <div><span class="dd-title">Prompt Journals</span><span class="dd-desc">Guided journals for every age</span></div>
+        </a>
+        <a href="middle-school-kit.html" class="dd-item">
+          <span class="dd-icon">🏫</span>
+          <div><span class="dd-title">Middle School Kit</span><span class="dd-desc">Featured product — $29</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Explore <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown dropdown-wide">
+        <a href="focus.html" class="dd-item">
+          <span class="dd-icon">🎯</span>
+          <div><span class="dd-title">FOCUS Framework</span><span class="dd-desc">Structured prompting guide</span></div>
+        </a>
+        <a href="ready.html" class="dd-item">
+          <span class="dd-icon">⚖️</span>
+          <div><span class="dd-title">READY Framework</span><span class="dd-desc">Responsible AI decision tool</span></div>
+        </a>
+        <a href="steal-this-prompt.html" class="dd-item">
+          <span class="dd-icon">✏️</span>
+          <div><span class="dd-title">Steal This Prompt</span><span class="dd-desc">Copy-and-use prompt examples</span></div>
+        </a>
+        <a href="whatisanllm.html" class="dd-item">
+          <span class="dd-icon">🤖</span>
+          <div><span class="dd-title">What Is an LLM?</span><span class="dd-desc">Visual walkthrough</span></div>
+        </a>
+        <a href="llmexplainer.html" class="dd-item">
+          <span class="dd-icon">⚙️</span>
+          <div><span class="dd-title">LLM Text Generation</span><span class="dd-desc">Tokenization and attention explained</span></div>
+        </a>
+        <a href="llm-short-film.html" class="dd-item">
+          <span class="dd-icon">🎬</span>
+          <div><span class="dd-title">What It's Like to Be an LLM</span><span class="dd-desc">Interactive film experience</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Learn <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="glossary.html" class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">AI Glossary</span><span class="dd-desc">Every term you need</span></div>
+        </a>
+        <a href="history.html" class="dd-item">
+          <span class="dd-icon">📜</span>
+          <div><span class="dd-title">History of AI</span><span class="dd-desc">Timeline from 1950 to today</span></div>
+        </a>
+      </div>
+    </li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="bundles.html" class="btn btn-mint">Get Started</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--mint);animation:pulse 2s ease infinite;flex-shrink:0;"></span>
+      AI Kairos Learning Lab — Prompt Framework
+    </div>
+    <h1 class="hero-h1">The <span class="focus-word">FOCUS</span><br>Framework</h1>
+    <p class="hero-sub">Five questions that transform vague AI requests into clear, useful instructions. Better prompts. Better outputs. Every time.</p>
+    <div class="hero-letters">
+      <div class="hero-letter" style="background:rgba(28,201,160,.15);border:1.5px solid rgba(28,201,160,.4);color:var(--mint);">F</div>
+      <div class="hero-letter" style="background:rgba(56,182,255,.15);border:1.5px solid rgba(56,182,255,.4);color:var(--blue);">O</div>
+      <div class="hero-letter" style="background:rgba(240,160,48,.15);border:1.5px solid rgba(240,160,48,.4);color:var(--amber);">C</div>
+      <div class="hero-letter" style="background:rgba(168,85,247,.15);border:1.5px solid rgba(168,85,247,.4);color:var(--purple);">U</div>
+      <div class="hero-letter" style="background:rgba(226,75,74,.15);border:1.5px solid rgba(226,75,74,.4);color:var(--red);">S</div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <a href="#demo" class="btn btn-mint">Try the builder →</a>
+      <a href="#letters" class="btn btn-ghost">How it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- LETTERS INFOGRAPHIC -->
+<section id="letters">
+  <div class="letters-section">
+    <p class="hero-eyebrow" style="display:inline-flex;margin:0 auto 1rem;display:flex;justify-content:center;font-size:11px;">How FOCUS works</p>
+    <h2 class="ls-title">Five questions. Infinite clarity.</h2>
+    <p class="ls-sub">Before you type a single prompt, answer these five questions. The quality of your AI output is directly tied to how clearly you can answer them.</p>
+
+    <!-- F -->
+    <div class="letter-card fade-up" style="border-color:rgba(28,201,160,.2);">
+      <div class="lc-accent" style="background:var(--mint);"></div>
+      <div class="lc-body">
+        <div class="lc-letter-wrap"><div class="lc-big" style="color:var(--mint);">F</div><div class="lc-word">Function</div></div>
+        <div class="lc-right">
+          <div class="lc-q">What role should AI play in this task?</div>
+          <div class="lc-desc">Defining the function sets the entire tone and approach of the response. AI can be a teacher, editor, researcher, brainstorm partner, code reviewer, devil's advocate, and hundreds of other roles — but it needs to know which one you need.</div>
+          <div class="lc-examples">
+            <div class="lc-ex" style="background:rgba(28,201,160,.05);border-color:var(--mint);color:var(--text-mid);">Act as an experienced science teacher explaining to a curious 10-year-old…</div>
+            <div class="lc-ex" style="background:rgba(28,201,160,.05);border-color:var(--mint);color:var(--text-mid);">You are a strict academic editor reviewing my essay for clarity…</div>
+            <div class="lc-ex" style="background:rgba(28,201,160,.05);border-color:var(--mint);color:var(--text-mid);">You are a senior software engineer doing a code review…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- O -->
+    <div class="letter-card fade-up delay-1" style="border-color:rgba(56,182,255,.2);">
+      <div class="lc-accent" style="background:var(--blue);"></div>
+      <div class="lc-body">
+        <div class="lc-letter-wrap"><div class="lc-big" style="color:var(--blue);">O</div><div class="lc-word">Objective</div></div>
+        <div class="lc-right">
+          <div class="lc-q">What is the actual goal of this task?</div>
+          <div class="lc-desc">The objective is not just the topic — it is the desired outcome. What do you want the reader to understand, feel, or do after reading the output? Clear objectives prevent AI from giving technically correct but practically useless responses.</div>
+          <div class="lc-examples">
+            <div class="lc-ex" style="background:rgba(56,182,255,.05);border-color:var(--blue);color:var(--text-mid);">The goal is to help my students understand why AI can be wrong, without making them afraid of it.</div>
+            <div class="lc-ex" style="background:rgba(56,182,255,.05);border-color:var(--blue);color:var(--text-mid);">I need to convince my principal to support a new AI literacy unit.</div>
+            <div class="lc-ex" style="background:rgba(56,182,255,.05);border-color:var(--blue);color:var(--text-mid);">Write a function that validates email format and returns true/false.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C -->
+    <div class="letter-card fade-up delay-2" style="border-color:rgba(240,160,48,.2);">
+      <div class="lc-accent" style="background:var(--amber);"></div>
+      <div class="lc-body">
+        <div class="lc-letter-wrap"><div class="lc-big" style="color:var(--amber);">C</div><div class="lc-word">Context</div></div>
+        <div class="lc-right">
+          <div class="lc-q">What background does AI need to give a useful answer?</div>
+          <div class="lc-desc">AI cannot read your mind or know your situation. Context bridges the gap between a generic response and one that actually fits your reality. Include what you have tried, what constraints you are working under, and any relevant background.</div>
+          <div class="lc-examples">
+            <div class="lc-ex" style="background:rgba(240,160,48,.05);border-color:var(--amber);color:var(--text-mid);">My students are in grade 4, have never used AI tools, and our school policy prohibits using AI in class.</div>
+            <div class="lc-ex" style="background:rgba(240,160,48,.05);border-color:var(--amber);color:var(--text-mid);">I am writing a cover letter for a nonprofit role after 10 years in corporate finance.</div>
+            <div class="lc-ex" style="background:rgba(240,160,48,.05);border-color:var(--amber);color:var(--text-mid);">I am using React with TypeScript and the project uses Tailwind CSS for styling.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- U -->
+    <div class="letter-card fade-up delay-3" style="border-color:rgba(168,85,247,.2);">
+      <div class="lc-accent" style="background:var(--purple);"></div>
+      <div class="lc-body">
+        <div class="lc-letter-wrap"><div class="lc-big" style="color:var(--purple);">U</div><div class="lc-word">User</div></div>
+        <div class="lc-right">
+          <div class="lc-q">Who is the audience for this output?</div>
+          <div class="lc-desc">The same information explained for a kindergarten teacher reads completely differently than the same information for a university professor. Defining the user shapes vocabulary, tone, assumed knowledge, and length. This single element is responsible for most of the difference between generic and truly useful AI output.</div>
+          <div class="lc-examples">
+            <div class="lc-ex" style="background:rgba(168,85,247,.05);border-color:var(--purple);color:var(--text-mid);">The audience is elementary school teachers who are not tech-savvy and may be nervous about AI.</div>
+            <div class="lc-ex" style="background:rgba(168,85,247,.05);border-color:var(--purple);color:var(--text-mid);">This is for a 14-year-old who is curious but skeptical about AI.</div>
+            <div class="lc-ex" style="background:rgba(168,85,247,.05);border-color:var(--purple);color:var(--text-mid);">The reader is a CFO with no technical background but strong financial literacy.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S -->
+    <div class="letter-card fade-up delay-4" style="border-color:rgba(226,75,74,.2);">
+      <div class="lc-accent" style="background:var(--red);"></div>
+      <div class="lc-body">
+        <div class="lc-letter-wrap"><div class="lc-big" style="color:var(--red);">S</div><div class="lc-word">Specifics</div></div>
+        <div class="lc-right">
+          <div class="lc-q">What format, length, and constraints apply?</div>
+          <div class="lc-desc">Specifics eliminate guesswork. Word count, format, tone, what to include, what to avoid — all of this belongs in your prompt. AI will make its best guess about these things if you leave them out, and its guess is often wrong.</div>
+          <div class="lc-examples">
+            <div class="lc-ex" style="background:rgba(226,75,74,.05);border-color:var(--red);color:var(--text-mid);">Keep it under 300 words, use bullet points, avoid jargon, and do not mention specific AI brands.</div>
+            <div class="lc-ex" style="background:rgba(226,75,74,.05);border-color:var(--red);color:var(--text-mid);">One paragraph only. Active voice. Written in first person. Professional but warm.</div>
+            <div class="lc-ex" style="background:rgba(226,75,74,.05);border-color:var(--red);color:var(--text-mid);">Return only the function, no explanation, comments, or markdown fences.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare-section fade-up">
+  <p class="hero-eyebrow" style="display:flex;justify-content:center;font-size:11px;margin-bottom:1rem;">The difference FOCUS makes</p>
+  <h2 class="ls-title" style="text-align:center;margin-bottom:.5rem;">Before and after.</h2>
+  <p class="ls-sub">Same request. Completely different results. The only change is applying FOCUS.</p>
+  <div class="compare-grid" style="margin-top:2rem;">
+    <div class="compare-card cc-bad">
+      <div class="cc-label">❌ Without FOCUS</div>
+      <div class="cc-prompt">"Explain AI to my students."</div>
+      <div class="cc-result"><strong>What you get:</strong> A generic 5-paragraph essay about AI history and applications that could apply to any age group, uses adult vocabulary, and does not match your classroom situation at all. You rewrite it from scratch.</div>
+    </div>
+    <div class="compare-card cc-good">
+      <div class="cc-label">✅ With FOCUS</div>
+      <div class="cc-prompt">"Act as an enthusiastic science teacher [F]. Explain what AI is and why it sometimes gets things wrong [O], for a class of 9-year-olds who have used voice assistants but never thought about how they work [C+U]. Use one simple analogy, keep it to 150 words, and end with a question for class discussion [S]."</div>
+      <div class="cc-result"><strong>What you get:</strong> A classroom-ready explanation at exactly the right reading level, with the analogy you needed, in the right length, ready to use.</div>
+    </div>
+  </div>
+
+  <div class="compare-grid" style="margin-top:12px;">
+    <div class="compare-card cc-bad">
+      <div class="cc-label">❌ Without FOCUS</div>
+      <div class="cc-prompt">"Write me a cover letter."</div>
+      <div class="cc-result"><strong>What you get:</strong> A template cover letter with placeholder brackets for your name and role. Sounds like every other cover letter written by AI. Goes straight to the rejection pile.</div>
+    </div>
+    <div class="compare-card cc-good">
+      <div class="cc-label">✅ With FOCUS</div>
+      <div class="cc-prompt">"Act as a professional career coach [F]. Write a cover letter [O] for a teacher transitioning into instructional design, with 8 years in K-12 but no corporate experience [C], applying to a senior instructional designer role at a healthcare company [U]. 3 short paragraphs, professional but human tone, lead with transferable skills [S]."</div>
+      <div class="cc-result"><strong>What you get:</strong> A specific, human cover letter that addresses the career transition directly. Actually useful.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DEMO BUILDER -->
+<section id="demo" class="demo-section fade-up">
+  <p class="hero-eyebrow" style="display:flex;justify-content:center;font-size:11px;margin-bottom:1rem;">Interactive builder</p>
+  <h2 class="ls-title" style="text-align:center;margin-bottom:.5rem;">Build a FOCUS prompt.</h2>
+  <p class="ls-sub">Fill in each field and the builder assembles your prompt. Copy it directly into any AI tool.</p>
+  <div class="demo-card" style="margin-top:2rem;">
+    <div class="demo-header">
+      <div><div class="demo-title">FOCUS Prompt Builder</div><div class="demo-sub">Fill in what you know. Leave blank what doesn't apply.</div></div>
+      <button onclick="clearDemo()" style="font-size:12px;color:var(--text-muted);background:none;border:none;cursor:pointer;font-family:var(--sans);">Clear all</button>
+    </div>
+    <div class="demo-body">
+      <div class="demo-fields">
+        <div class="demo-field">
+          <div class="df-label" style="color:var(--mint);">F — Function</div>
+          <textarea class="df-input" id="f-input" placeholder="What role should AI play? e.g. Act as a science teacher…" rows="2"></textarea>
+        </div>
+        <div class="demo-field">
+          <div class="df-label" style="color:var(--blue);">O — Objective</div>
+          <textarea class="df-input" id="o-input" placeholder="What is the goal? e.g. Explain why AI makes mistakes…" rows="2"></textarea>
+        </div>
+        <div class="demo-field">
+          <div class="df-label" style="color:var(--amber);">C — Context</div>
+          <textarea class="df-input" id="c-input" placeholder="What background matters? e.g. My students are 9 years old…" rows="2"></textarea>
+        </div>
+        <div class="demo-field">
+          <div class="df-label" style="color:var(--purple);">U — User</div>
+          <textarea class="df-input" id="u-input" placeholder="Who is the audience? e.g. Grade 4 students with no AI experience…" rows="2"></textarea>
+        </div>
+      </div>
+      <div class="demo-field" style="margin-bottom:1rem;">
+        <div class="df-label" style="color:var(--red);">S — Specifics</div>
+        <textarea class="df-input" id="s-input" placeholder="Format, length, tone, constraints? e.g. Keep under 200 words, use bullet points, no jargon…" rows="2"></textarea>
+      </div>
+      <button class="demo-generate" onclick="buildPrompt()">Build my FOCUS prompt →</button>
+      <div class="demo-output" id="demo-output">
+        <div class="do-label">Your FOCUS Prompt</div>
+        <div class="do-prompt" id="do-prompt-text"></div>
+        <button class="do-copy" onclick="copyPrompt()">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy to clipboard
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases-section">
+  <p class="hero-eyebrow" style="display:flex;justify-content:center;font-size:11px;margin-bottom:1rem;">Real uses</p>
+  <h2 class="ls-title" style="text-align:center;margin-bottom:.5rem;">FOCUS in action.</h2>
+  <p class="ls-sub">Six real contexts. See how FOCUS changes the prompt for each one.</p>
+  <div class="uc-grid" style="margin-top:2rem;">
+    <div class="uc-card fade-up">
+      <div class="uc-icon" style="background:rgba(28,201,160,.1);">📚</div>
+      <div class="uc-title">Classroom lesson</div>
+      <div class="uc-desc">Creating a lesson explanation at the right reading level for your specific students.</div>
+      <div class="uc-prompt">"Act as a 5th grade teacher [F]. Explain what a large language model is [O] for a class studying digital citizenship [C], for 10-year-olds who know how to use Google but have never thought about how it works [U]. One page max, one analogy, no technical terms [S]."</div>
+    </div>
+    <div class="uc-card fade-up delay-1">
+      <div class="uc-icon" style="background:rgba(56,182,255,.1);">✉️</div>
+      <div class="uc-title">Professional email</div>
+      <div class="uc-desc">Drafting communication that sounds like you, not like a robot.</div>
+      <div class="uc-prompt">"Act as my writing assistant [F]. Draft a follow-up email after a difficult parent meeting [O], where I suggested the student needs additional support but the parent pushed back [C], for a parent who communicates formally and was defensive [U]. Under 120 words, calm and collaborative, no blame language [S]."</div>
+    </div>
+    <div class="uc-card fade-up delay-2">
+      <div class="uc-icon" style="background:rgba(240,160,48,.1);">🔍</div>
+      <div class="uc-title">Research summary</div>
+      <div class="uc-desc">Condensing complex material into something actually usable.</div>
+      <div class="uc-prompt">"Act as a research analyst [F]. Summarize the key findings on AI bias in hiring algorithms [O] from an academic perspective [C], for a school board that has no technical background but strong concern for equity [U]. 5 bullet points max, plain language, include one specific example [S]."</div>
+    </div>
+    <div class="uc-card fade-up delay-3">
+      <div class="uc-icon" style="background:rgba(168,85,247,.1);">💻</div>
+      <div class="uc-title">Coding help</div>
+      <div class="uc-desc">Getting code that actually fits your project.</div>
+      <div class="uc-prompt">"Act as a senior Python developer [F]. Write a function that parses a CSV and returns rows where sales exceed a threshold [O]. The project uses pandas and targets Python 3.10+ [C]. For a developer who knows Python basics but is new to pandas [U]. Include type hints, docstring, no external dependencies beyond pandas [S]."</div>
+    </div>
+    <div class="uc-card fade-up delay-4">
+      <div class="uc-icon" style="background:rgba(226,75,74,.1);">🎨</div>
+      <div class="uc-title">Creative writing</div>
+      <div class="uc-desc">Getting creative output with real direction instead of generic results.</div>
+      <div class="uc-prompt">"Act as a short story editor [F]. Write an opening paragraph for a story about a girl who discovers her grandmother was an early AI researcher [O], set in 1968 [C], for young adult readers aged 14–18 who enjoy mystery and family stories [U]. 100 words, third person, start with action not description [S]."</div>
+    </div>
+    <div class="uc-card fade-up delay-5">
+      <div class="uc-icon" style="background:rgba(28,201,160,.1);">📊</div>
+      <div class="uc-title">Grant writing</div>
+      <div class="uc-desc">Framing a proposal for a specific funder's priorities.</div>
+      <div class="uc-prompt">"Act as a nonprofit grant writer [F]. Write the problem statement section [O] for an AI literacy program for rural K-12 students, highlighting the equity gap in technology access [C], for a foundation focused on education equity in underserved communities [U]. 250 words max, evidence-based, compelling but not emotional manipulation [S]."</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK REFERENCE CARD -->
+<div class="quickref">
+  <div class="qr-card fade-up">
+    <h3 class="qr-title">Quick Reference Card</h3>
+    <p class="qr-sub">Print this. Put it next to your computer. Use it every time you open an AI tool.</p>
+    <div class="qr-row">
+      <div class="qr-item">
+        <div class="qr-l" style="color:var(--mint);">F</div>
+        <div class="qr-w">Function</div>
+        <div class="qr-q">What role should AI play?</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-l" style="color:var(--blue);">O</div>
+        <div class="qr-w">Objective</div>
+        <div class="qr-q">What is the actual goal?</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-l" style="color:var(--amber);">C</div>
+        <div class="qr-w">Context</div>
+        <div class="qr-q">What background matters?</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-l" style="color:var(--purple);">U</div>
+        <div class="qr-w">User</div>
+        <div class="qr-q">Who is the audience?</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-l" style="color:var(--red);">S</div>
+        <div class="qr-w">Specifics</div>
+        <div class="qr-q">What format and constraints?</div>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="steal-this-prompt.html" class="btn btn-mint">See example prompts →</a>
+      <a href="ready.html" class="btn btn-ghost">Learn the READY framework</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">AI <span style="color:var(--mint);">•</span> <span style="color:var(--blue);">Kairos</span> Learning Lab</div>
+  <ul class="f-links">
+    <li><a href="ready.html">READY Framework</a></li>
+    <li><a href="steal-this-prompt.html">Prompts</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div style="font-size:12px;color:#1a3a32;">© 2025 AI • Kairos Learning Lab</div>
+</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* BACKGROUND */
+const cv=document.getElementById('bg-canvas'),rnd=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+rnd.setSize(window.innerWidth,window.innerHeight);rnd.setPixelRatio(Math.min(devicePixelRatio,2));rnd.setClearColor(0x041012,1);
+const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,200);cam.position.z=38;
+const N=70,pa=new Float32Array(N*3),va=new Float32Array(N*3);
+for(let i=0;i<N;i++){pa[i*3]=(Math.random()-.5)*70;pa[i*3+1]=(Math.random()-.5)*45;pa[i*3+2]=(Math.random()-.5)*25;va[i*3]=(Math.random()-.5)*.015;va[i*3+1]=(Math.random()-.5)*.01;va[i*3+2]=(Math.random()-.5)*.007;}
+const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pa.slice(),3));
+sc.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0x1cc9a0,size:.22,transparent:true,opacity:.7,sizeAttenuation:true})));
+const cur=pg.attributes.position.array;let t=0,mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
+function anim(){requestAnimationFrame(anim);t+=.007;
+  for(let i=0;i<N;i++){cur[i*3]=pa[i*3]+Math.sin(t*.65+i*.31)*.36;cur[i*3+1]=pa[i*3+1]+Math.cos(t*.48+i*.27)*.26;cur[i*3+2]=pa[i*3+2]+Math.sin(t*.28+i*.19)*.16;pa[i*3]+=va[i*3];pa[i*3+1]+=va[i*3+1];pa[i*3+2]+=va[i*3+2];if(Math.abs(pa[i*3])>36)va[i*3]*=-1;if(Math.abs(pa[i*3+1])>23)va[i*3+1]*=-1;if(Math.abs(pa[i*3+2])>14)va[i*3+2]*=-1;}
+  pg.attributes.position.needsUpdate=true;tx+=(mx*2.2-tx)*.03;ty+=(-my*1.6-ty)*.03;cam.position.x=tx;cam.position.y=ty;cam.lookAt(0,0,0);rnd.render(sc,cam);}
+anim();
+window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();rnd.setSize(innerWidth,innerHeight);});
+
+/* SCROLL OBSERVER */
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');}),{threshold:.07});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+/* DEMO BUILDER */
+function buildPrompt(){
+  const f=document.getElementById('f-input').value.trim();
+  const o=document.getElementById('o-input').value.trim();
+  const c=document.getElementById('c-input').value.trim();
+  const u=document.getElementById('u-input').value.trim();
+  const s=document.getElementById('s-input').value.trim();
+  if(!f&&!o&&!c&&!u&&!s){alert('Fill in at least one field to build a prompt.');return;}
+  let parts=[];
+  if(f) parts.push(`<span class="hl-f">${f}</span>`);
+  if(o) parts.push(`<span class="hl-o">${o}</span>`);
+  if(c) parts.push(`<span class="hl-c">${c}</span>`);
+  if(u) parts.push(`<span class="hl-u">The audience: ${u}</span>`);
+  if(s) parts.push(`<span class="hl-s">${s}</span>`);
+  document.getElementById('do-prompt-text').innerHTML=parts.join(' ');
+  const out=document.getElementById('demo-output');
+  out.classList.add('show');
+  out.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function clearDemo(){
+  ['f-input','o-input','c-input','u-input','s-input'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('demo-output').classList.remove('show');
+}
+function copyPrompt(){
+  const text=document.getElementById('do-prompt-text').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.querySelector('.do-copy');
+    btn.textContent='Copied!';setTimeout(()=>btn.innerHTML='<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy to clipboard',2000);
+  });
+}
+</script>
+
+<script>
+/* ── DROPDOWN NAV — MOBILE SUPPORT ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  const toggle=document.querySelector('.mobile-toggle');
+  const links=document.querySelector('.nav-links');
+  if(toggle&&links){
+    toggle.addEventListener('click',()=>{
+      links.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    // Mobile accordion dropdowns
+    links.querySelectorAll('.has-dropdown > a').forEach(a=>{
+      a.addEventListener('click',e=>{
+        if(window.innerWidth<=768){
+          e.preventDefault();
+          a.parentElement.classList.toggle('open');
+        }
+      });
+    });
+  }
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+});
+
+</script>
+</body>
+</html>

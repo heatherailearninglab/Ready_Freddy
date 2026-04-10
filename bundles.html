@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — AI • Kairos Learning Lab</title>
+
+
+<style>
+/* === INTER FONT RESET === */
+:root { --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+html, body { font-family: var(--font-sans); }
+body, button, input, select, textarea, nav, h1, h2, h3, h4, h5, h6, p, a, li, span, label { font-family: var(--font-sans); }
+/* === END INTER RESET === */
+
+:root{
+  --bg:#1a2332;--bg2:#1f2d40;--card:rgba(26,42,58,0.72);--card-hov:rgba(16,44,62,0.95);
+  --mint:#1CC9A0;--mint-b:#5de8c8;--mint-g:rgba(28,201,160,0.1);--mint-br:rgba(28,201,160,0.25);
+  --blue:#38B6FF;--blue-g:rgba(56,182,255,0.1);--blue-br:rgba(56,182,255,0.25);
+  --amber:#f0a030;--amber-g:rgba(240,160,48,0.1);--purple:#a855f7;--purple-g:rgba(168,85,247,0.1);
+  --text:#F0F6FF;--text-m:rgba(240,246,255,0.85);--text-mu:rgba(240,246,255,0.55);
+  --head: var(--font-sans);--body: var(--font-sans);
+  --r:12px;--r-lg:14px;--r-pill:999px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:14.5px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+h1,h2,h3,h4{font-family:var(--head);color:var(--text);line-height:1.15;}
+a{color:var(--mint);text-decoration:none;}
+.t-mint{color:var(--mint);}.t-blue{color:var(--blue);}
+
+/* ── CANVAS ── */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.wrap{position:relative;z-index:1;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:54px;background:rgba(22,32,46,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--mint-br);}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-logo img{height:26px;}
+.nav-logo span{font-family:var(--head);font-weight:700;font-size:13.5px;color:var(--text);letter-spacing:.01em;}
+.nl{display:flex;align-items:center;gap:0;list-style:none;}
+.nl>li{position:relative;}
+.nl>li>a{display:flex;align-items:center;gap:3px;font-family:var(--body);font-size:12.5px;font-weight:500;color:var(--text-mu);padding:17px 11px;text-decoration:none;transition:color .15s;white-space:nowrap;}
+.nl>li>a:hover{color:var(--mint);}
+.nl>li>a svg{width:9px;height:5px;opacity:.4;transition:transform .2s,opacity .2s;}
+.nl>li:hover>a svg{opacity:.8;transform:rotate(180deg);}
+.dd{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);min-width:250px;background:rgba(22,32,46,0.97);backdrop-filter:blur(20px);border:1px solid var(--mint-br);border-radius:var(--r);padding:5px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s,transform .15s;box-shadow:0 12px 40px rgba(0,0,0,.45),0 0 20px rgba(28,201,160,.04);}
+.nl>li:hover .dd{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.dd a{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;text-decoration:none;color:var(--text-m);transition:background .1s;}
+.dd a:hover{background:var(--mint-g);}
+.dd-i{font-size:1rem;width:22px;text-align:center;flex-shrink:0;}
+.dd-t{font-size:12px;font-weight:600;color:var(--text);display:block;line-height:1.25;}
+.dd-d{font-size:10.5px;color:var(--text-mu);display:block;line-height:1.25;}
+.dd a:hover .dd-t{color:var(--mint);}
+.n-cta a{display:inline-flex;align-items:center;padding:7px 16px;border-radius:var(--r-pill);font-family:var(--head);font-size:11.5px;font-weight:700;background:linear-gradient(135deg,var(--mint),var(--blue));color:var(--bg);text-decoration:none;transition:transform .15s,box-shadow .15s;box-shadow:0 0 16px rgba(28,201,160,.2);}
+.n-cta a:hover{transform:translateY(-1px);box-shadow:0 0 24px rgba(28,201,160,.35);}
+.mob-tog{display:none;background:none;border:none;cursor:pointer;padding:5px;flex-direction:column;gap:4px;}
+.mob-tog span{display:block;width:18px;height:1.5px;background:var(--text);border-radius:1px;}
+@media(max-width:768px){.mob-tog{display:flex;}.nl,.n-cta{display:none;}}
+
+/* ── BTNS ── */
+.bm{display:inline-flex;align-items:center;justify-content:center;padding:9px 20px;border-radius:var(--r-pill);font-family:var(--head);font-size:12.5px;font-weight:700;background:linear-gradient(135deg,var(--mint),#2ad4b0);color:var(--bg);text-decoration:none;transition:all .15s;border:none;cursor:pointer;box-shadow:0 0 12px rgba(28,201,160,.15);}
+.bm:hover{background:linear-gradient(135deg,var(--mint-b),#5de8c8);transform:translateY(-1px);box-shadow:0 0 20px rgba(28,201,160,.3);}
+.bg{display:inline-flex;align-items:center;justify-content:center;padding:9px 20px;border-radius:var(--r-pill);font-family:var(--head);font-size:12.5px;font-weight:600;background:transparent;color:var(--text-m);border:1px solid var(--mint-br);text-decoration:none;transition:all .15s;cursor:pointer;}
+.bg:hover{border-color:var(--mint);color:var(--mint);transform:translateY(-1px);}
+.bb{display:block;text-align:center;padding:8px 18px;border-radius:var(--r-pill);font-family:var(--head);font-size:12px;font-weight:600;color:var(--text-m);border:1px solid rgba(255,255,255,.1);background:transparent;text-decoration:none;cursor:pointer;transition:all .12s;margin-top:.7rem;}
+.bb:hover{border-color:var(--mint);color:var(--mint);}
+
+/* ── LAYOUT ── */
+.sec{max-width:1040px;margin:0 auto;padding:2rem 1.5rem;}
+.sec-b{border-top:1px solid rgba(255,255,255,.05);}
+.eye{font-family:var(--body);font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:.3rem;}
+.sec h2{font-size:clamp(1.2rem,2.2vw,1.5rem);font-weight:800;letter-spacing:-.015em;margin-bottom:.2rem;}
+.sec .sub{font-size:.82rem;color:var(--text-mu);margin-bottom:1.2rem;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:900px){.g3,.g2{grid-template-columns:1fr;}}
+
+/* ── CARDS ── */
+.c{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-lg);padding:1.3rem;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s;}
+.c:hover{border-color:var(--mint-br);box-shadow:0 0 20px rgba(28,201,160,.05);}
+.c.feat{border-color:var(--mint-br);box-shadow:0 0 30px rgba(28,201,160,.07);}
+.c .cat{font-family:var(--body);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:.25rem;}
+.c h3{font-family:var(--head);font-size:1rem;font-weight:700;margin-bottom:.25rem;letter-spacing:-.01em;}
+.c .desc{font-size:.8rem;color:var(--text-mu);margin-bottom:.6rem;line-height:1.5;}
+.c ul{list-style:none;padding:0;margin:0 0 auto;display:flex;flex-direction:column;gap:.2rem;}
+.c ul li{font-size:.8rem;color:var(--text-m);padding-left:1rem;position:relative;}
+.c ul li::before{content:"•";position:absolute;left:0;color:var(--mint);}
+.pb{margin-top:.9rem;padding-top:.7rem;border-top:1px solid rgba(255,255,255,.05);}
+.p-old{font-size:.8rem;color:var(--text-mu);text-decoration:line-through;}
+.p-now{font-family:var(--head);font-size:1.4rem;font-weight:800;color:var(--mint);}
+.p-save{font-size:.72rem;color:var(--mint);}
+.p-row{display:flex;align-items:baseline;gap:.5rem;}
+.best{background:linear-gradient(135deg,var(--mint),var(--blue));color:var(--bg);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:var(--r-pill);}
+
+/* ── FREE ── */
+.fc{background:var(--card);border:1px solid var(--mint-br);border-radius:var(--r-lg);padding:1.3rem;box-shadow:0 0 20px rgba(28,201,160,.05);}
+.fc h3{font-family:var(--head);font-size:.95rem;font-weight:700;margin-bottom:.2rem;}
+.fc ul{list-style:none;padding:0;margin:.4rem 0;display:flex;flex-direction:column;gap:.15rem;}
+.fc ul li{font-size:.8rem;color:var(--text-m);padding-left:1rem;position:relative;}
+.fc ul li::before{content:"✓";position:absolute;left:0;color:var(--mint);}
+
+/* ── TOOLS ── */
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;}
+@media(max-width:900px){.tg{grid-template-columns:1fr 1fr;}}
+@media(max-width:550px){.tg{grid-template-columns:1fr;}}
+.tc{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-lg);padding:1.1rem;text-decoration:none;color:var(--text);transition:border-color .2s,transform .12s;display:block;}
+.tc:hover{border-color:var(--mint-br);transform:translateY(-2px);}
+.tc .ico{font-size:1.2rem;margin-bottom:.35rem;}
+.tc h4{font-family:var(--head);font-size:.82rem;font-weight:700;margin-bottom:.15rem;}
+.tc p{font-size:.72rem;color:var(--text-mu);line-height:1.4;}
+.tb{font-size:8.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;border-radius:4px;margin-top:.4rem;display:inline-block;}
+.tb-m{background:var(--mint-g);color:var(--mint);border:1px solid var(--mint-br);}
+.tb-b{background:var(--blue-g);color:var(--blue);border:1px solid var(--blue-br);}
+.tb-p{background:var(--purple-g);color:var(--purple);border:1px solid rgba(168,85,247,.22);}
+.tb-a{background:var(--amber-g);color:var(--amber);border:1px solid rgba(240,160,48,.22);}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--mint-br);background:rgba(22,32,46,.92);backdrop-filter:blur(10px);padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;}
+.ft-l{font-family:var(--head);font-size:12px;font-weight:700;color:var(--text-mu);}
+.ft-l .d{color:var(--mint);}.ft-l .k{color:var(--blue);}
+.ft-lk{display:flex;gap:1rem;list-style:none;}
+.ft-lk a{font-size:11px;color:var(--text-mu);text-decoration:none;transition:color .12s;}
+.ft-lk a:hover{color:var(--mint);}
+.ft-c{font-size:10px;color:rgba(255,255,255,.18);}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="wrap">
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="ai-kairos-logo.png" alt="AI Kairos"><span>AI.KAIROS</span></a>
+  <ul class="nl">
+    <li class="has-dropdown"><a href="#">Free Resources <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dd">
+        <a href="assets/downloads/ai-prompt-pack-middle-school.pdf" download><span class="dd-i">📄</span><div><span class="dd-t">Download Free Prompt Pack</span><span class="dd-d">20 prompts for grades 6-8</span></div></a>
+        <a href="assets/downloads/ai-glossary-middle-school.pdf" download><span class="dd-i">📖</span><div><span class="dd-t">Download Glossary</span><span class="dd-d">30 AI terms in plain language</span></div></a>
+        <a href="assets/downloads/Kairos_AI_Literacy_Ecosystem.pdf" download><span class="dd-i">🎓</span><div><span class="dd-t">Download Ecosystem Overview</span><span class="dd-d">13-slide AI literacy deck</span></div></a>
+      </div>
+    </li>
+    <li class="has-dropdown"><a href="#">Shop <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dd">
+        <a href="bundles.html"><span class="dd-i">📦</span><div><span class="dd-t">Bundles</span><span class="dd-d">Curated packs</span></div></a>
+        <a href="bundles.html#journals"><span class="dd-i">📓</span><div><span class="dd-t">Prompt Journals</span><span class="dd-d">Guided journals for every age</span></div></a>
+        <a href="middle-school-kit.html"><span class="dd-i">🏫</span><div><span class="dd-t">Middle School Kit — $29</span><span class="dd-d">Featured product</span></div></a>
+      </div>
+    </li>
+    <li class="has-dropdown"><a href="#">Explore <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dd">
+        <a href="focus.html"><span class="dd-i">🎯</span><div><span class="dd-t">FOCUS Framework</span><span class="dd-d">Structured prompting</span></div></a>
+        <a href="ready.html"><span class="dd-i">⚖️</span><div><span class="dd-t">READY Framework</span><span class="dd-d">Responsible AI decisions</span></div></a>
+        <a href="steal-this-prompt.html"><span class="dd-i">✏️</span><div><span class="dd-t">Steal This Prompt</span><span class="dd-d">Copy-and-use examples</span></div></a>
+        <a href="whatisanllm.html"><span class="dd-i">🤖</span><div><span class="dd-t">What Is an LLM?</span><span class="dd-d">Visual walkthrough</span></div></a>
+        <a href="llmexplainer.html"><span class="dd-i">⚙️</span><div><span class="dd-t">LLM Text Generation</span><span class="dd-d">Tokenization and attention</span></div></a>
+        <a href="llm-short-film.html"><span class="dd-i">🎬</span><div><span class="dd-t">What It's Like to Be an LLM</span><span class="dd-d">Interactive film</span></div></a>
+      </div>
+    </li>
+    <li class="has-dropdown"><a href="#">Learn <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dd">
+        <a href="glossary.html"><span class="dd-i">📖</span><div><span class="dd-t">AI Glossary</span><span class="dd-d">Every term you need</span></div></a>
+        <a href="history.html"><span class="dd-i">📜</span><div><span class="dd-t">History of AI</span><span class="dd-d">1950 to today</span></div></a>
+      </div>
+    </li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="n-cta"><a href="bundles.html">Get Started</a></div>
+  <button class="mob-tog" onclick="document.querySelector('.nl').classList.toggle('open')"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section style="padding:76px 0 32px;text-align:center;max-width:760px;margin:0 auto;padding-left:1.5rem;padding-right:1.5rem;">
+  <div class="eye" style="color:var(--mint);">AI • KAIROS LEARNING LAB</div>
+  <h1 style="font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.025em;margin-bottom:.5rem;">AI literacy tools that <span class="t-mint">actually work.</span></h1>
+  <p style="font-size:.9rem;color:var(--text-mu);margin-bottom:1.2rem;">Curated bundles for every type of learner. Buy more, save more.</p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+    <a href="#free" class="bm">Free Resources</a>
+    <a href="#bundles" class="bg">View Bundles</a>
+  </div>
+</section>
+
+<!-- FREE -->
+<section id="free" class="sec sec-b">
+  <div class="eye" style="color:var(--mint);">FREE DOWNLOADS</div>
+  <h2>Start here. No cost. No sign-up.</h2>
+  <p class="sub">Download, print, and use today.</p>
+  <div class="g3">
+    <div class="fc">
+      <div class="eye" style="color:var(--mint);">FREE</div>
+      <h3>AI Prompt Pack for Middle School</h3>
+      <p style="font-size:.8rem;color:var(--text-mu);">20 ready-to-use prompts for grades 6-8.</p>
+      <ul><li>20 structured classroom prompts</li><li>Teacher quick-start guide</li><li>Student prompt checklist</li><li>Works without live AI tools</li></ul>
+      <a href="assets/downloads/ai-prompt-pack-middle-school.pdf" download class="bm" style="margin-top:.8rem;width:100%;text-align:center;">Download Free Prompt Pack</a>
+    </div>
+    <div class="fc">
+      <div class="eye" style="color:var(--mint);">FREE</div>
+      <h3>AI Literacy Glossary</h3>
+      <p style="font-size:.8rem;color:var(--text-mu);">30 AI terms in plain language for grades 6-8.</p>
+      <ul><li>30 terms in clear language</li><li>Age-appropriate definitions</li><li>Printable reference sheet</li></ul>
+      <a href="assets/downloads/ai-glossary-middle-school.pdf" download class="bg" style="margin-top:.8rem;width:100%;text-align:center;">Download Glossary</a>
+    </div>
+    <div class="fc">
+      <div class="eye" style="color:var(--mint);">FREE</div>
+      <h3>AI Literacy Ecosystem Overview</h3>
+      <p style="font-size:.8rem;color:var(--text-mu);">13-slide deck covering the full AI Kairos approach.</p>
+      <ul><li>What AI actually is</li><li>The 5 Big Ideas of AI education</li><li>FOCUS Prompting Architecture</li><li>4-Step Analog Workflow</li><li>The Three Gates of AI Evaluation</li></ul>
+      <div style="display:flex;gap:6px;margin-top:.8rem;">
+        <a href="assets/downloads/Kairos_AI_Literacy_Ecosystem.pdf" download class="bg" style="flex:1;text-align:center;">Download PDF</a>
+        <a href="assets/downloads/Kairos_AI_Literacy_Ecosystem.pptx" download class="bg" style="flex:1;text-align:center;">Download PPTX</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUNDLES -->
+<section id="bundles" class="sec sec-b">
+  <div class="eye" style="color:var(--mint);">CURATED BUNDLES</div>
+  <h2>Curated bundles for every type of learner.</h2>
+  <p class="sub">Buy more, save more.</p>
+  <div class="g3">
+    <div class="c"><div class="cat" style="color:var(--mint);">TEACHERS</div><h3>The Educator Pack</h3><p class="desc">Everything a teacher needs to bring AI literacy into the classroom from day one.</p>
+      <ul><li>AI in the Classroom: 5-Day Unit</li><li>Prompt Engineering Workshop Pack</li><li>Teaching AI Ethics Without the Jargon</li><li>AI Bias Detection Activities (Free)</li></ul>
+      <div class="pb"><div class="p-row"><span class="p-old">$45</span><span class="p-now">$29</span></div><div class="p-save">+ Save $16</div><a href="https://gumroad.com/l/REPLACE" class="bb">Get Bundle</a></div></div>
+    <div class="c feat"><div style="display:flex;justify-content:space-between;align-items:center;"><div class="cat" style="color:var(--mint);">FAMILIES</div><span class="best">BEST VALUE</span></div><h3>The Family Bundle</h3><p class="desc">One bundle for every age in the house. Perfect for a family AI literacy night.</p>
+      <ul><li>Talking to Your Kids About AI (Free)</li><li>Family AI Night Activity Pack</li><li>Raising AI-Literate Kids</li><li>K-2 Story and Activity Kit</li><li>Sorting Game Pack</li></ul>
+      <div class="pb"><div class="p-row"><span class="p-old">$36</span><span class="p-now">$24</span></div><div class="p-save">+ Save $12</div><a href="https://gumroad.com/l/REPLACE" class="bb">Get Bundle</a></div></div>
+    <div class="c"><div class="cat" style="color:var(--amber);">TEENS</div><h3>Teen Literacy Pack</h3><p class="desc">Built for teens who want to understand and own their AI experience.</p>
+      <ul><li>Your AI, Your Rules</li><li>Spot the Fake — AI Media Literacy</li><li>Using AI Without Losing Your Voice (Free)</li></ul>
+      <div class="pb"><div class="p-row"><span class="p-old">$18</span><span class="p-now">$14</span></div><div class="p-save">+ Save $4</div><a href="https://gumroad.com/l/REPLACE" class="bb">Get Bundle</a></div></div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="sec sec-b">
+  <div class="eye" style="color:var(--blue);">FEATURED PRODUCT</div>
+  <h2>Middle School Responsible AI Starter Kit</h2>
+  <p class="sub">The most complete classroom-ready AI literacy kit for grades 6-8.</p>
+  <div style="display:grid;grid-template-columns:1.3fr .7fr;gap:1.2rem;align-items:start;">
+    <div>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:.2rem;">
+        <li style="font-size:.84rem;color:var(--text-m);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:var(--mint);">•</span>Student packet (25 pages)</li>
+        <li style="font-size:.84rem;color:var(--text-m);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:var(--mint);">•</span>Teacher guide with pacing</li>
+        <li style="font-size:.84rem;color:var(--text-m);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:var(--mint);">•</span>Slide deck (20 slides)</li>
+        <li style="font-size:.84rem;color:var(--text-m);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:var(--mint);">•</span>Discussion prompts and scenario cards</li>
+        <li style="font-size:.84rem;color:var(--text-m);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:var(--mint);">•</span>Reflection activities and rubric</li>
+        <li style="font-size:.84rem;color:var(--text-m);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:var(--mint);">•</span>Color + B&W versions</li>
+      </ul>
+      <div style="margin-top:.8rem;"><div class="p-row"><span class="p-old">$39</span><span class="p-now">$29</span></div><div class="p-save">+ Save $10</div><p style="font-size:.7rem;color:var(--text-mu);margin-top:.15rem;">Instant download. No subscription.</p></div>
+      <div style="display:flex;gap:8px;margin-top:.7rem;"><a href="middle-school-kit.html" class="bm" style="font-size:12px;padding:8px 18px;">See Full Details</a><a href="https://gumroad.com/l/REPLACE" class="bg" style="font-size:12px;padding:8px 18px;">Buy Now</a></div>
+    </div>
+    <div class="c feat" style="text-align:center;padding:1.8rem;">
+      <div style="font-size:2.2rem;margin-bottom:.5rem;">📦</div>
+      <h3 style="font-size:.95rem;">8 Classroom Resources</h3>
+      <p style="font-size:.75rem;color:var(--text-mu);margin-top:.2rem;">Grades 6-8. Print and teach.</p>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNALS -->
+<section id="journals" class="sec sec-b">
+  <div class="eye" style="color:var(--purple);">PROMPT JOURNALS</div>
+  <h2>Prompt Journal Series</h2>
+  <p class="sub">Guided journals. Student + teacher guides. Color and B&W.</p>
+  <div class="g3">
+    <div class="c"><div class="cat" style="color:var(--amber);">K-2</div><h3>Ages 5-7</h3><p class="desc">Draw-first journal. No live AI required.</p><div class="pb"><div class="p-row"><span class="p-old">$15</span><span class="p-now">$11</span></div><div class="p-save">+ Save $4</div><a href="https://gumroad.com/l/REPLACE" class="bb">Get Journal</a></div></div>
+    <div class="c"><div class="cat" style="color:var(--mint);">GRADES 3-5</div><h3>Ages 8-10</h3><p class="desc">Sketch-first prompting with image starters.</p><div class="pb"><div class="p-row"><span class="p-old">$16</span><span class="p-now">$12</span></div><div class="p-save">+ Save $4</div><a href="https://gumroad.com/l/REPLACE" class="bb">Get Journal</a></div></div>
+    <div class="c"><div class="cat" style="color:var(--blue);">GRADES 6-8</div><h3>Ages 11-13</h3><p class="desc">READY framework. Responsible use focus.</p><div class="pb"><div class="p-row"><span class="p-old">$18</span><span class="p-now">$14</span></div><div class="p-save">+ Save $4</div><a href="https://gumroad.com/l/REPLACE" class="bb">Get Journal</a></div></div>
+    <div class="c"><div class="cat" style="color:var(--purple);">GRADES 9-12</div><h3>Ages 14-18</h3><p class="desc">Ethics, bias, authorship, advanced prompting.</p><div class="pb"><div class="p-row"><span class="p-old">$20</span><span class="p-now">$15</span></div><div class="p-save">+ Save $5</div><a href="https://gumroad.com/l/REPLACE" class="bb">Get Journal</a></div></div>
+    <div class="c"><div class="cat" style="color:var(--purple);">HIGHER ED</div><h3>Faculty Guide</h3><p class="desc">FOCUS framework, PD slides, templates.</p><div class="pb"><div class="p-row"><span class="p-old">$32</span><span class="p-now">$25</span></div><div class="p-save">+ Save $7</div><a href="https://gumroad.com/l/REPLACE" class="bb">Get Bundle</a></div></div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="sec sec-b">
+  <div class="eye" style="color:var(--blue);">INTERACTIVE TOOLS</div>
+  <h2>Explore how AI works</h2>
+  <p class="sub">Free interactive explainers.</p>
+  <div class="tg">
+    <a href="focus.html" class="tc"><div class="ico">🎯</div><h4>FOCUS Framework</h4><p>Structured prompting guide.</p><span class="tb tb-m">Interactive</span></a>
+    <a href="ready.html" class="tc"><div class="ico">⚖️</div><h4>READY Framework</h4><p>Responsible AI decisions.</p><span class="tb tb-m">Interactive</span></a>
+    <a href="steal-this-prompt.html" class="tc"><div class="ico">✏️</div><h4>Steal This Prompt</h4><p>Copy-and-use prompt examples.</p><span class="tb tb-a">Prompts</span></a>
+    <a href="whatisanllm.html" class="tc"><div class="ico">🤖</div><h4>What Is an LLM?</h4><p>Visual walkthrough.</p><span class="tb tb-b">Interactive</span></a>
+    <a href="llmexplainer.html" class="tc"><div class="ico">⚙️</div><h4>LLM Text Generation</h4><p>Tokenization and attention.</p><span class="tb tb-b">Interactive</span></a>
+    <a href="llm-short-film.html" class="tc"><div class="ico">🎬</div><h4>What It's Like to Be an LLM</h4><p>Interactive film.</p><span class="tb tb-p">Film</span></a>
+    <a href="glossary.html" class="tc"><div class="ico">📖</div><h4>AI Glossary</h4><p>Every term explained.</p><span class="tb tb-m">Reference</span></a>
+    <a href="history.html" class="tc"><div class="ico">📜</div><h4>History of AI</h4><p>1950 to today.</p><span class="tb tb-b">Reference</span></a>
+    <a href="about.html" class="tc"><div class="ico">👤</div><h4>About</h4><p>The person behind the lab.</p><span class="tb tb-m">About</span></a>
+  </div>
+</section>
+
+<!-- VALUE -->
+<div style="text-align:center;padding:1.5rem;border-top:1px solid rgba(255,255,255,.04);">
+  <p style="font-family:var(--head);font-size:.85rem;color:var(--text-mu);max-width:520px;margin:0 auto;line-height:1.5;">AI literacy is not about using tools. It is about thinking clearly, asking better questions, and making responsible decisions.</p>
+</div>
+
+<footer>
+  <div class="ft-l">AI <span class="d">•</span> <span class="k">Kairos</span> Learning Lab</div>
+  <ul class="ft-lk"><li><a href="bundles.html">Shop</a></li><li><a href="steal-this-prompt.html">Steal This Prompt</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul>
+  <div class="ft-c">aikairos.org — Created by Heather Schneiter</div>
+</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const canvas=document.getElementById('bg-canvas');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.setClearColor(0x1a2332,1);
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight,0.1,200);
+camera.position.set(0,0,42);
+
+// Enhanced neural network - more nodes, brighter
+const N=120,posArr=new Float32Array(N*3),velArr=new Float32Array(N*3);
+for(let i=0;i<N;i++){posArr[i*3]=(Math.random()-.5)*80;posArr[i*3+1]=(Math.random()-.5)*50;posArr[i*3+2]=(Math.random()-.5)*30;velArr[i*3]=(Math.random()-.5)*0.018;velArr[i*3+1]=(Math.random()-.5)*0.012;velArr[i*3+2]=(Math.random()-.5)*0.008;}
+const pGeo=new THREE.BufferGeometry();
+pGeo.setAttribute('position',new THREE.BufferAttribute(posArr.slice(),3));
+scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x1cc9a0,size:0.3,transparent:true,opacity:0.35,sizeAttenuation:true})));
+
+// Secondary particles - blue
+const posB=new Float32Array(N*3);
+for(let i=0;i<N;i++){posB[i*3]=(Math.random()-.5)*90;posB[i*3+1]=(Math.random()-.5)*55;posB[i*3+2]=(Math.random()-.5)*25;}
+const pGeoB=new THREE.BufferGeometry();
+pGeoB.setAttribute('position',new THREE.BufferAttribute(posB.slice(),3));
+scene.add(new THREE.Points(pGeoB,new THREE.PointsMaterial({color:0x38b6ff,size:0.18,transparent:true,opacity:0.2,sizeAttenuation:true})));
+
+// Connection lines - brighter
+const MAX_LINES=N*N,linePos=new Float32Array(MAX_LINES*6),lGeo=new THREE.BufferGeometry();
+lGeo.setAttribute('position',new THREE.BufferAttribute(linePos,3));
+scene.add(new THREE.LineSegments(lGeo,new THREE.LineBasicMaterial({color:0x1cc9a0,transparent:true,opacity:0.05})));
+
+// Wireframe shapes - more visible
+const wireShapes=[];
+[{geo:new THREE.IcosahedronGeometry(4,1),pos:[16,7,-10],rot:[0.002,0.003,0.001],col:0x1cc9a0,op:0.035},
+ {geo:new THREE.OctahedronGeometry(3,0),pos:[-16,-6,-6],rot:[-0.003,0.002,0.001],col:0x38b6ff,op:0.03},
+ {geo:new THREE.TetrahedronGeometry(3.2,0),pos:[2,-12,-14],rot:[0.001,-0.002,0.003],col:0x1cc9a0,op:0.025},
+ {geo:new THREE.DodecahedronGeometry(2.5,0),pos:[-10,10,-8],rot:[0.002,0.001,-0.002],col:0x38b6ff,op:0.025}
+].forEach(d=>{const m=new THREE.Mesh(d.geo,new THREE.MeshBasicMaterial({color:d.col,wireframe:true,transparent:true,opacity:d.op}));m.position.set(...d.pos);m.userData.rot=d.rot;scene.add(m);wireShapes.push(m);});
+
+let mouseX=0,mouseY=0,targetX=0,targetY=0;
+document.addEventListener('mousemove',e=>{mouseX=(e.clientX/window.innerWidth-.5)*2;mouseY=(e.clientY/window.innerHeight-.5)*2;});
+const cur=pGeo.attributes.position.array;let t=0;
+function animate(){
+  requestAnimationFrame(animate);t+=0.006;
+  for(let i=0;i<N;i++){cur[i*3]=posArr[i*3]+Math.sin(t*.6+i*.28)*.4;cur[i*3+1]=posArr[i*3+1]+Math.cos(t*.45+i*.24)*.3;cur[i*3+2]=posArr[i*3+2]+Math.sin(t*.25+i*.17)*.18;posArr[i*3]+=velArr[i*3];posArr[i*3+1]+=velArr[i*3+1];posArr[i*3+2]+=velArr[i*3+2];if(Math.abs(posArr[i*3])>40)velArr[i*3]*=-1;if(Math.abs(posArr[i*3+1])>26)velArr[i*3+1]*=-1;if(Math.abs(posArr[i*3+2])>16)velArr[i*3+2]*=-1;}
+  pGeo.attributes.position.needsUpdate=true;
+  let lc=0;for(let i=0;i<N;i++){for(let j=i+1;j<N;j++){const dx=cur[i*3]-cur[j*3],dy=cur[i*3+1]-cur[j*3+1],dz=cur[i*3+2]-cur[j*3+2];if(dx*dx+dy*dy+dz*dz<15*15){linePos[lc*6]=cur[i*3];linePos[lc*6+1]=cur[i*3+1];linePos[lc*6+2]=cur[i*3+2];linePos[lc*6+3]=cur[j*3];linePos[lc*6+4]=cur[j*3+1];linePos[lc*6+5]=cur[j*3+2];lc++;if(lc>=MAX_LINES-1)break;}}if(lc>=MAX_LINES-1)break;}
+  lGeo.setDrawRange(0,lc*2);lGeo.attributes.position.needsUpdate=true;
+  wireShapes.forEach(s=>{s.rotation.x+=s.userData.rot[0];s.rotation.y+=s.userData.rot[1];s.rotation.z+=s.userData.rot[2];});
+  targetX+=(mouseX*2.5-targetX)*.025;targetY+=(-mouseY*1.8-targetY)*.025;
+  camera.position.x=targetX;camera.position.y=targetY;camera.lookAt(0,0,0);
+  renderer.render(scene,camera);
+}
+animate();
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));});
+</script>
+</body>
+</html>

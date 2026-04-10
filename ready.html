@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>READY Framework — AI • Kairos Learning Lab</title>
+
+<style>
+/* === INTER FONT RESET === */
+:root { --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+html, body { font-family: var(--font-sans); }
+body, button, input, select, textarea, nav, h1, h2, h3, h4, h5, h6, p, a, li, span, label { font-family: var(--font-sans); }
+/* === END INTER RESET === */
+
+:root{
+  --bg:#041012;--bg2:#07131A;--bg-card:rgba(7,19,26,0.82);
+  --mint:#1CC9A0;--mint-g:rgba(28,201,160,0.1);--mint-b:rgba(28,201,160,0.22);
+  --blue:#38B6FF;--blue-g:rgba(56,182,255,0.1);--blue-b:rgba(56,182,255,0.22);
+  --amber:#f0a030;--amber-g:rgba(240,160,48,0.1);--amber-b:rgba(240,160,48,0.22);
+  --purple:#a855f7;--pur-g:rgba(168,85,247,0.1);--pur-b:rgba(168,85,247,0.22);
+  --red:#e24b4a;--teal:#0dd5c0;
+  --text:#F8FBFF;--text-mid:rgba(248,251,255,0.85);--text-muted:rgba(248,251,255,0.55);
+  --display: var(--font-sans);--sans: var(--font-sans);
+  --r:12px;--r-pill:999px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.site{position:relative;z-index:1;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0.9rem 3rem;background:rgba(4,16,18,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--mint-b);}
+.nav-logo{text-decoration:none;display:flex;align-items:center;}
+.nav-logo-img{height:34px;width:auto;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{font-size:13px;color:var(--text-muted);text-decoration:none;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--mint);}
+.nav-actions{display:flex;gap:8px;}
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:14px;font-weight:500;padding:10px 22px;border-radius:var(--r-pill);text-decoration:none;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-mint{background:linear-gradient(135deg,var(--mint),var(--blue));color:#041012;font-weight:600;box-shadow:0 0 20px rgba(28,201,160,0.25);}
+.btn-mint:hover{box-shadow:0 0 32px rgba(28,201,160,0.45);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--text-mid);border:1px solid var(--mint-b);}
+.btn-ghost:hover{color:var(--mint);border-color:var(--mint);transform:translateY(-2px);}
+
+@keyframes rise{to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.6);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}.d4{transition-delay:.32s;}
+
+/* ══ HERO ══ */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 3rem 4rem;position:relative;border-bottom:1px solid var(--mint-b);overflow:hidden;gap:3rem;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(28,201,160,0.07) 0%,transparent 55%);pointer-events:none;}
+.hero-left{opacity:0;transform:translateY(28px);animation:rise .9s ease forwards .1s;position:relative;z-index:1;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--mint);padding:6px 18px;border:1px solid var(--mint-b);border-radius:var(--r-pill);background:var(--mint-g);margin-bottom:1.2rem;letter-spacing:.01em;}
+.hero-h1{font-family:var(--display);font-size:clamp(3rem,6vw,5.5rem);font-weight:900;letter-spacing:-.04em;line-height:.96;color:var(--text);margin-bottom:1rem;}
+.ready-word{background:linear-gradient(135deg,var(--mint),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:1.05rem;color:var(--text-mid);line-height:1.75;max-width:500px;margin-bottom:2rem;font-weight:400;}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* Infographic wheel on right */
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center;min-height:380px;opacity:0;animation:rise .9s ease forwards .35s;}
+.wheel-canvas{width:100%;max-width:380px;aspect-ratio:1;}
+
+/* ══ WHAT / WHY STRIP ══ */
+.why-strip{background:rgba(6,20,16,.85);border-top:1px solid var(--mint-b);border-bottom:1px solid var(--mint-b);padding:3rem;backdrop-filter:blur(10px);}
+.why-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.wi-left h2{font-family:var(--display);font-size:1.8rem;font-weight:800;letter-spacing:-.025em;line-height:1.1;margin-bottom:.6rem;}
+.wi-left h2 span{color:var(--mint);}
+.wi-left p{font-size:14px;color:var(--text-muted);line-height:1.75;font-weight:300;}
+.wi-right{display:flex;flex-direction:column;gap:10px;}
+.why-item{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:.9rem 1rem;}
+.wi-ico{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:1px;}
+.wi-txt strong{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.wi-txt span{font-size:12px;color:var(--text-muted);line-height:1.55;}
+
+/* ══ LETTERS ══ */
+.letters-wrap{max-width:1100px;margin:0 auto;padding:5rem 3rem;}
+.sec-eye{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);text-align:center;margin-bottom:.5rem;}
+.sec-title{font-family:var(--display);font-size:clamp(1.8rem,3vw,2.4rem);font-weight:800;letter-spacing:-.025em;text-align:center;margin-bottom:.4rem;}
+.sec-sub{font-size:15px;color:var(--text-muted);text-align:center;max-width:540px;margin:0 auto 3rem;line-height:1.7;}
+
+.r-card{
+  border-radius:18px;overflow:hidden;margin-bottom:14px;
+  display:grid;grid-template-columns:100px 1fr;
+  background:var(--bg-card);border:1px solid rgba(255,255,255,.06);
+  backdrop-filter:blur(12px);transition:border-color .2s,transform .18s;
+}
+.r-card:hover{transform:translateX(4px);}
+.rc-left{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:1.5rem 1rem;border-right:1px solid rgba(255,255,255,.06);}
+.rc-big{font-family:var(--display);font-size:3.5rem;font-weight:900;line-height:1;letter-spacing:-.04em;}
+.rc-step{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
+.rc-right{padding:1.5rem 2rem;}
+.rc-title{font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:.3rem;}
+.rc-q{font-size:13px;color:var(--text-muted);font-style:italic;margin-bottom:.7rem;}
+.rc-desc{font-size:13.5px;color:var(--text-muted);line-height:1.72;font-weight:300;margin-bottom:.8rem;}
+.rc-bullets{display:flex;flex-direction:column;gap:5px;}
+.rc-b{font-size:12.5px;color:var(--text-muted);padding:5px 10px;border-radius:6px;border-left:2px solid;display:flex;gap:7px;align-items:flex-start;line-height:1.5;}
+.rc-b::before{content:'→';flex-shrink:0;font-size:11px;margin-top:1px;}
+
+/* ══ INTERACTIVE SELF-CHECK ══ */
+.check-section{padding:4rem 3rem;max-width:1100px;margin:0 auto;}
+.check-card{background:var(--bg-card);border:1px solid var(--mint-b);border-radius:18px;overflow:hidden;backdrop-filter:blur(12px);}
+.check-header{padding:1.5rem 2rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.check-title{font-family:var(--display);font-size:1.15rem;font-weight:800;color:var(--text);margin-bottom:.2rem;}
+.check-sub{font-size:13px;color:var(--text-muted);}
+.check-body{padding:1.5rem 2rem;}
+.scenario-strip{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:1.2rem;}
+.sc-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.4rem;}
+.sc-text{font-size:14px;color:var(--text-mid);line-height:1.65;}
+.questions-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem;}
+.q-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .2s;}
+.q-item:hover{border-color:var(--mint-b);}
+.q-item.checked{background:rgba(28,201,160,.06);border-color:var(--mint-b);}
+.q-check{width:18px;height:18px;border-radius:4px;border:1.5px solid rgba(255,255,255,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s;}
+.q-item.checked .q-check{background:var(--mint);border-color:var(--mint);}
+.q-check svg{width:10px;height:10px;stroke:#041012;fill:none;stroke-width:3;opacity:0;transition:opacity .18s;}
+.q-item.checked .q-check svg{opacity:1;}
+.q-text{font-size:13.5px;color:var(--text-mid);line-height:1.55;}
+.q-letter{font-weight:700;}
+.check-result{display:none;padding:1rem 1.2rem;border-radius:var(--r);border-left:3px solid var(--mint);background:var(--mint-g);}
+.check-result.show{display:block;}
+.cr-title{font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--mint);margin-bottom:.3rem;}
+.cr-text{font-size:13px;color:var(--text-mid);line-height:1.65;}
+.check-score{font-family:var(--display);font-size:2rem;font-weight:900;color:var(--mint);text-align:center;margin-bottom:.5rem;}
+.check-btn{width:100%;padding:12px;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--mint),var(--blue));color:#041012;font-family:var(--display);font-size:14px;font-weight:700;border:none;cursor:pointer;margin-top:1rem;transition:all .2s;}
+.check-btn:hover{box-shadow:0 0 24px rgba(28,201,160,.35);transform:translateY(-2px);}
+
+/* ══ SCENARIOS ══ */
+.scenarios-section{padding:4rem 3rem;max-width:1100px;margin:0 auto;}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.scenario-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);overflow:hidden;backdrop-filter:blur(10px);transition:border-color .2s;}
+.scenario-card:hover{border-color:var(--mint-b);}
+.sc-head{padding:1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:10px;}
+.sc-icon{width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.sc-htitle{font-family:var(--display);font-size:.9rem;font-weight:700;color:var(--text);}
+.sc-body{padding:1rem 1.2rem;}
+.sc-situation{font-size:13px;color:var(--text-muted);line-height:1.65;margin-bottom:.8rem;}
+.sc-steps{display:flex;flex-direction:column;gap:4px;}
+.sc-step{font-size:12px;color:var(--text-muted);padding:4px 9px;border-radius:5px;border-left:2px solid;line-height:1.5;}
+
+/* ══ QUICK REF ══ */
+.qr-section{padding:3rem 3rem 5rem;max-width:1100px;margin:0 auto;}
+.qr-card{background:linear-gradient(135deg,rgba(7,19,26,.95),rgba(4,16,18,.98));border:1px solid var(--mint-b);border-radius:18px;padding:2.5rem;position:relative;overflow:hidden;}
+.qr-card::before{content:'READY';position:absolute;right:-20px;top:-20px;font-family:var(--display);font-size:8rem;font-weight:900;color:rgba(28,201,160,.04);letter-spacing:-.04em;pointer-events:none;}
+.qr-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:1.5rem;}
+.qr-item{text-align:center;padding:.8rem .5rem;border-radius:var(--r);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);}
+.qr-l{font-family:var(--display);font-size:1.8rem;font-weight:900;margin-bottom:2px;}
+.qr-w{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.qr-q{font-size:10.5px;color:var(--text-muted);line-height:1.4;}
+
+footer{border-top:1px solid var(--mint-b);background:rgba(4,16,18,.92);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.f-logo{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text-muted);}
+.f-links{display:flex;gap:1.5rem;list-style:none;}
+.f-links a{font-size:13px;color:var(--text-muted);text-decoration:none;transition:color .2s;}.f-links a:hover{color:var(--mint);}
+
+@media(max-width:900px){
+  nav{padding:.75rem 1.2rem;}.nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:7rem 1.2rem 3rem;}.hero-right{min-height:260px;}
+  .why-inner{grid-template-columns:1fr;}
+  .letters-wrap,.check-section,.scenarios-section,.qr-section{padding-left:1.2rem;padding-right:1.2rem;}
+  .r-card{grid-template-columns:70px 1fr;}.rc-big{font-size:2.6rem;}.rc-left{padding:1rem .7rem;}
+  .sc-grid{grid-template-columns:1fr;}
+  .qr-grid{grid-template-columns:repeat(3,1fr);}
+  footer{flex-direction:column;text-align:center;}.f-links{justify-content:center;}
+}
+@media(max-width:560px){
+  .hero-h1{font-size:clamp(2.4rem,10vw,3.2rem);}
+  .qr-grid{grid-template-columns:repeat(3,1fr);}
+}
+
+/* ── DROPDOWN NAV SYSTEM ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(4,14,11,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--mint-border);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.nav-logo-img{height:32px;width:auto;display:block;}
+.nav-links{display:flex;align-items:center;gap:0;list-style:none;margin:0;padding:0;}
+.nav-links > li{position:relative;}
+.nav-links > li > a{display:flex;align-items:center;font-family:var(--sans);font-size:13.5px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:20px 14px;transition:color 0.2s;white-space:nowrap;}
+.nav-links > li > a:hover,.nav-links > li > a.active{color:var(--mint);}
+.nav-links > li > a svg{opacity:0.5;transition:transform 0.2s,opacity 0.2s;}
+.nav-links > li:hover > a svg{opacity:1;transform:rotate(180deg);}
+
+/* Dropdown panel */
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(4px);min-width:280px;background:rgba(7,19,26,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--mint-border);border-radius:var(--r-lg);padding:8px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 0.2s,transform 0.2s,visibility 0.2s;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 30px rgba(28,201,160,0.05);}
+.dropdown-wide{min-width:320px;}
+.has-dropdown:hover .dropdown{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+
+/* Dropdown items */
+.dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r-md);text-decoration:none;color:var(--text-mid);transition:background 0.15s,color 0.15s;}
+.dd-item:hover{background:var(--mint-ghost);color:var(--text);}
+.dd-icon{font-size:1.2rem;flex-shrink:0;width:28px;text-align:center;}
+.dd-title{display:block;font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--text);line-height:1.3;}
+.dd-desc{display:block;font-size:11.5px;color:var(--text-muted);line-height:1.4;margin-top:1px;}
+.dd-item:hover .dd-title{color:var(--mint);}
+
+/* Nav actions */
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+
+/* Mobile toggle */
+.mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
+.mobile-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.2s;}
+
+/* Mobile responsive */
+@media(max-width:1024px){
+  nav{padding:0 1.5rem;}
+  .nav-links > li > a{padding:20px 10px;font-size:12.5px;}
+}
+@media(max-width:768px){
+  .mobile-toggle{display:flex;}
+  .nav-links,.nav-actions .btn{display:none;}
+  nav{height:56px;}
+  
+  /* Mobile menu open state */
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;bottom:0;background:rgba(4,14,11,0.98);backdrop-filter:blur(20px);padding:1.5rem;gap:0;overflow-y:auto;z-index:999;}
+  .nav-links.open > li > a{padding:14px 0;font-size:15px;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .nav-links.open .dropdown{position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;min-width:100%;background:transparent;border:none;box-shadow:none;padding:0 0 8px 16px;display:none;}
+  .nav-links.open .has-dropdown.open .dropdown{display:block;}
+}
+
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="site">
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="ai-kairos-logo.png" alt="AI • Kairos Learning Lab" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Free Resources <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="assets/downloads/ai-prompt-pack-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📄</span>
+          <div><span class="dd-title">Download Free Prompt Pack</span><span class="dd-desc">20 prompts for grades 6-8</span></div>
+        </a>
+        <a href="assets/downloads/ai-glossary-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">Download Glossary</span><span class="dd-desc">30 AI terms in plain language</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Shop <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="bundles.html" class="dd-item">
+          <span class="dd-icon">📦</span>
+          <div><span class="dd-title">Bundles</span><span class="dd-desc">Curated packs for teachers, families, teens</span></div>
+        </a>
+        <a href="bundles.html#journals" class="dd-item">
+          <span class="dd-icon">📓</span>
+          <div><span class="dd-title">Prompt Journals</span><span class="dd-desc">Guided journals for every age</span></div>
+        </a>
+        <a href="middle-school-kit.html" class="dd-item">
+          <span class="dd-icon">🏫</span>
+          <div><span class="dd-title">Middle School Kit</span><span class="dd-desc">Featured product — $29</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Explore <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown dropdown-wide">
+        <a href="focus.html" class="dd-item">
+          <span class="dd-icon">🎯</span>
+          <div><span class="dd-title">FOCUS Framework</span><span class="dd-desc">Structured prompting guide</span></div>
+        </a>
+        <a href="ready.html" class="dd-item">
+          <span class="dd-icon">⚖️</span>
+          <div><span class="dd-title">READY Framework</span><span class="dd-desc">Responsible AI decision tool</span></div>
+        </a>
+        <a href="steal-this-prompt.html" class="dd-item">
+          <span class="dd-icon">✏️</span>
+          <div><span class="dd-title">Steal This Prompt</span><span class="dd-desc">Copy-and-use prompt examples</span></div>
+        </a>
+        <a href="whatisanllm.html" class="dd-item">
+          <span class="dd-icon">🤖</span>
+          <div><span class="dd-title">What Is an LLM?</span><span class="dd-desc">Visual walkthrough</span></div>
+        </a>
+        <a href="llmexplainer.html" class="dd-item">
+          <span class="dd-icon">⚙️</span>
+          <div><span class="dd-title">LLM Text Generation</span><span class="dd-desc">Tokenization and attention explained</span></div>
+        </a>
+        <a href="llm-short-film.html" class="dd-item">
+          <span class="dd-icon">🎬</span>
+          <div><span class="dd-title">What It's Like to Be an LLM</span><span class="dd-desc">Interactive film experience</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Learn <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="glossary.html" class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">AI Glossary</span><span class="dd-desc">Every term you need</span></div>
+        </a>
+        <a href="history.html" class="dd-item">
+          <span class="dd-icon">📜</span>
+          <div><span class="dd-title">History of AI</span><span class="dd-desc">Timeline from 1950 to today</span></div>
+        </a>
+      </div>
+    </li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="bundles.html" class="btn btn-mint">Get Started</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow"><span style="width:6px;height:6px;border-radius:50%;background:var(--mint);animation:pulse 2s ease infinite;flex-shrink:0;"></span>AI Kairos — AI Literacy Framework</div>
+    <h1 class="hero-h1">The <span class="ready-word">READY</span><br>Framework</h1>
+    <p class="hero-sub">Five principles for thinking critically about AI — not just using it. READY is the mental model that turns AI users into AI thinkers.</p>
+    <div class="hero-ctas">
+      <a href="#letters" class="btn btn-mint">Explore the framework →</a>
+      <a href="#self-check" class="btn btn-ghost">Take the self-check</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <canvas class="wheel-canvas" id="wheel-canvas" width="380" height="380"></canvas>
+  </div>
+</section>
+
+<!-- WHY STRIP -->
+<div class="why-strip">
+  <div class="why-inner">
+    <div class="wi-left fade-up">
+      <h2>AI literacy is not <span>tool training.</span></h2>
+      <p style="margin-top:.5rem;">Knowing how to type into ChatGPT is not AI literacy. Knowing when to trust it, when to question it, and when to walk away — that is. READY gives you the five habits of thinking that make the difference between using AI and being used by it.</p>
+    </div>
+    <div class="wi-right fade-up d1">
+      <div class="why-item"><div class="wi-ico" style="background:rgba(28,201,160,.12);">🧠</div><div class="wi-txt"><strong>Built for all ages</strong><span>From elementary classrooms to boardrooms — the same five principles apply across every context.</span></div></div>
+      <div class="why-item"><div class="wi-ico" style="background:rgba(56,182,255,.12);">⚡</div><div class="wi-txt"><strong>Applies to every AI tool</strong><span>ChatGPT, Claude, Gemini, Copilot, image generators, search — READY works regardless of the tool.</span></div></div>
+      <div class="why-item"><div class="wi-ico" style="background:rgba(240,160,48,.12);">🔄</div><div class="wi-txt"><strong>A habit, not a checklist</strong><span>You do not run through READY once. It becomes how you think every time AI is involved.</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LETTERS -->
+<section id="letters">
+  <div class="letters-wrap">
+    <div class="sec-eye">The five principles</div>
+    <h2 class="sec-title">What READY means.</h2>
+    <p class="sec-sub">Each letter is a habit of thinking. Together they form a complete framework for interacting with AI responsibly and effectively.</p>
+
+    <!-- R -->
+    <div class="r-card fade-up" style="border-color:rgba(28,201,160,.2);">
+      <div class="rc-left" style="background:rgba(28,201,160,.04);">
+        <div class="rc-big" style="color:var(--mint);">R</div>
+        <div class="rc-step" style="color:var(--mint);">Step 1</div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-title">Recognize</div>
+        <div class="rc-q">"What is this AI system, and what is it actually doing?"</div>
+        <div class="rc-desc">Before you use any AI tool, recognize what it is — and what it isn't. AI tools are not all the same. A chatbot, an image generator, a recommendation algorithm, and a facial recognition system are completely different technologies that work in completely different ways. Recognizing the type, capability, and limitation of what you are using is the foundation of everything else.</div>
+        <div class="rc-bullets">
+          <div class="rc-b" style="background:rgba(28,201,160,.05);border-color:var(--mint);color:var(--text-mid);">What kind of AI is this — generative, predictive, classification?</div>
+          <div class="rc-b" style="background:rgba(28,201,160,.05);border-color:var(--mint);color:var(--text-mid);">What data was it trained on, and when was that training cutoff?</div>
+          <div class="rc-b" style="background:rgba(28,201,160,.05);border-color:var(--mint);color:var(--text-mid);">Is this tool designed for what I am about to use it for?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- E -->
+    <div class="r-card fade-up d1" style="border-color:rgba(56,182,255,.2);">
+      <div class="rc-left" style="background:rgba(56,182,255,.04);">
+        <div class="rc-big" style="color:var(--blue);">E</div>
+        <div class="rc-step" style="color:var(--blue);">Step 2</div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-title">Evaluate</div>
+        <div class="rc-q">"Can I trust this output, and how would I know if it is wrong?"</div>
+        <div class="rc-desc">AI can sound completely confident while being completely wrong. Evaluation means not taking outputs at face value — checking factual claims against sources, questioning the framing, noticing what is missing or oversimplified, and asking whether the AI's answer fits your actual situation. This is not about being suspicious of AI; it is about applying the same critical thinking you would to any source.</div>
+        <div class="rc-bullets">
+          <div class="rc-b" style="background:rgba(56,182,255,.05);border-color:var(--blue);color:var(--text-mid);">Verify important facts from primary or authoritative sources</div>
+          <div class="rc-b" style="background:rgba(56,182,255,.05);border-color:var(--blue);color:var(--text-mid);">Ask: is this output complete, or did it leave out important nuance?</div>
+          <div class="rc-b" style="background:rgba(56,182,255,.05);border-color:var(--blue);color:var(--text-mid);">Notice when the output seems too simple, too perfect, or suspiciously confident</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A -->
+    <div class="r-card fade-up d2" style="border-color:rgba(240,160,48,.2);">
+      <div class="rc-left" style="background:rgba(240,160,48,.04);">
+        <div class="rc-big" style="color:var(--amber);">A</div>
+        <div class="rc-step" style="color:var(--amber);">Step 3</div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-title">Apply</div>
+        <div class="rc-q">"How do I use this output responsibly and effectively?"</div>
+        <div class="rc-desc">After you have recognized what the AI is and evaluated its output, Apply is about making intentional choices about how and whether to use what the AI gave you. Using AI output is not a passive act — it involves judgment about what fits, what needs modification, what to add from your own knowledge, and where it is simply not appropriate to use AI at all.</div>
+        <div class="rc-bullets">
+          <div class="rc-b" style="background:rgba(240,160,48,.05);border-color:var(--amber);color:var(--text-mid);">Modify AI output to fit your specific context — do not just copy and paste</div>
+          <div class="rc-b" style="background:rgba(240,160,48,.05);border-color:var(--amber);color:var(--text-mid);">Add your own judgment, expertise, and knowledge to fill the gaps</div>
+          <div class="rc-b" style="background:rgba(240,160,48,.05);border-color:var(--amber);color:var(--text-mid);">Know when AI output should not be used — legal, medical, safety-critical contexts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- D -->
+    <div class="r-card fade-up d3" style="border-color:rgba(168,85,247,.2);">
+      <div class="rc-left" style="background:rgba(168,85,247,.04);">
+        <div class="rc-big" style="color:var(--purple);">D</div>
+        <div class="rc-step" style="color:var(--purple);">Step 4</div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-title">Develop</div>
+        <div class="rc-q">"Is my own thinking growing, or shrinking?"</div>
+        <div class="rc-desc">The most important long-term question about AI use is whether it is developing your thinking or replacing it. Develop means using AI in ways that grow your understanding, skills, and judgment — not ways that cause you to outsource your thinking and gradually become less capable. This is the most personal and the most consequential of the five principles.</div>
+        <div class="rc-bullets">
+          <div class="rc-b" style="background:rgba(168,85,247,.05);border-color:var(--purple);color:var(--text-mid);">Ask "did I actually learn something from this interaction?"</div>
+          <div class="rc-b" style="background:rgba(168,85,247,.05);border-color:var(--purple);color:var(--text-mid);">Use AI to go deeper into topics you find interesting — not just to avoid them</div>
+          <div class="rc-b" style="background:rgba(168,85,247,.05);border-color:var(--purple);color:var(--text-mid);">Notice when AI is doing your thinking and decide if that is actually what you want</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Y -->
+    <div class="r-card fade-up d4" style="border-color:rgba(226,75,74,.2);">
+      <div class="rc-left" style="background:rgba(226,75,74,.04);">
+        <div class="rc-big" style="color:var(--red);">Y</div>
+        <div class="rc-step" style="color:var(--red);">Step 5</div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-title">You are in control</div>
+        <div class="rc-q">"Who is responsible for the decisions and outputs here?"</div>
+        <div class="rc-desc">The final principle is the most important one for accountability. AI does not have agency, values, or responsibility — you do. Every time you use AI output, you accept responsibility for what happens next. This is not a burden; it is a protection. You are in control means you do not hide behind AI, you do not disclaim responsibility by saying "the AI said so," and you do not give AI decision-making authority that belongs to humans.</div>
+        <div class="rc-bullets">
+          <div class="rc-b" style="background:rgba(226,75,74,.05);border-color:var(--red);color:var(--text-mid);">Your judgment, your values, your accountability — AI is a tool, not a decision-maker</div>
+          <div class="rc-b" style="background:rgba(226,75,74,.05);border-color:var(--red);color:var(--text-mid);">Disclose when AI was used in work you submit — honesty is the first standard</div>
+          <div class="rc-b" style="background:rgba(226,75,74,.05);border-color:var(--red);color:var(--text-mid);">High-stakes decisions affecting real people require human judgment, full stop</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SELF-CHECK -->
+<section id="self-check" class="check-section fade-up">
+  <div class="sec-eye" style="text-align:center;margin-bottom:.5rem;">Interactive</div>
+  <h2 class="sec-title" style="text-align:center;margin-bottom:.4rem;">READY self-check.</h2>
+  <p class="sec-sub">A scenario comes up. Walk through READY. See how you score.</p>
+  <div class="check-card" style="margin-top:2rem;">
+    <div class="check-header">
+      <div class="check-title">Scenario check</div>
+      <div class="check-sub">Read the scenario. Check each question you can honestly answer yes to.</div>
+    </div>
+    <div class="check-body">
+      <div id="scenario-display" class="scenario-strip">
+        <div class="sc-label">Scenario</div>
+        <div class="sc-text" id="sc-text"></div>
+      </div>
+      <div class="questions-list" id="check-questions"></div>
+      <button class="check-btn" onclick="scoreCheck()">See my READY score →</button>
+      <div class="check-result" id="check-result">
+        <div class="check-score" id="score-num"></div>
+        <div class="cr-title" id="score-title"></div>
+        <div class="cr-text" id="score-text"></div>
+        <button style="margin-top:.8rem;font-size:12px;color:var(--mint);background:none;border:none;cursor:pointer;font-family:var(--sans);padding:0;" onclick="nextScenario()">Try another scenario →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REAL SCENARIOS -->
+<section class="scenarios-section fade-up">
+  <div class="sec-eye" style="text-align:center;margin-bottom:.5rem;">Apply READY</div>
+  <h2 class="sec-title" style="text-align:center;margin-bottom:.4rem;">READY in the real world.</h2>
+  <p class="sec-sub">How READY applies to situations you actually encounter.</p>
+  <div class="sc-grid" style="margin-top:2rem;">
+    <div class="scenario-card fade-up">
+      <div class="sc-head"><div class="sc-icon" style="background:rgba(28,201,160,.1);">📰</div><div class="sc-htitle">AI-generated news summary</div></div>
+      <div class="sc-body">
+        <div class="sc-situation">You ask an AI chatbot "What happened with the Supreme Court this week?" and it gives you a confident, detailed answer.</div>
+        <div class="sc-steps">
+          <div class="sc-step" style="background:rgba(28,201,160,.05);border-color:var(--mint);">R: This AI may have a knowledge cutoff. It could be describing old events as current.</div>
+          <div class="sc-step" style="background:rgba(56,182,255,.05);border-color:var(--blue);">E: Verify against a news source before sharing. Confident ≠ current.</div>
+          <div class="sc-step" style="background:rgba(240,160,48,.05);border-color:var(--amber);">A: Use this as a starting point for research, not an endpoint.</div>
+          <div class="sc-step" style="background:rgba(226,75,74,.05);border-color:var(--red);">Y: If you share this, you are responsible for its accuracy.</div>
+        </div>
+      </div>
+    </div>
+    <div class="scenario-card fade-up d1">
+      <div class="sc-head"><div class="sc-icon" style="background:rgba(56,182,255,.1);">✏️</div><div class="sc-htitle">Student uses AI for essay</div></div>
+      <div class="sc-body">
+        <div class="sc-situation">A student uses ChatGPT to write the first draft of a history essay, then submits it with minor edits.</div>
+        <div class="sc-steps">
+          <div class="sc-step" style="background:rgba(28,201,160,.05);border-color:var(--mint);">R: AI cannot do the historical thinking required. It pattern-matches, not analyzes.</div>
+          <div class="sc-step" style="background:rgba(240,160,48,.05);border-color:var(--amber);">A: The student didn't Apply their own thinking — they replaced it.</div>
+          <div class="sc-step" style="background:rgba(168,85,247,.05);border-color:var(--purple);">D: No development happened. The student learned nothing they can use later.</div>
+          <div class="sc-step" style="background:rgba(226,75,74,.05);border-color:var(--red);">Y: Submitting AI work as your own is academic dishonesty — no escaping this.</div>
+        </div>
+      </div>
+    </div>
+    <div class="scenario-card fade-up d2">
+      <div class="sc-head"><div class="sc-icon" style="background:rgba(240,160,48,.1);">🏥</div><div class="sc-htitle">Medical symptom search</div></div>
+      <div class="sc-body">
+        <div class="sc-situation">You describe symptoms to an AI and it gives you a confident diagnosis and suggests a treatment plan.</div>
+        <div class="sc-steps">
+          <div class="sc-step" style="background:rgba(28,201,160,.05);border-color:var(--mint);">R: AI has no ability to examine you, order tests, or access your medical history.</div>
+          <div class="sc-step" style="background:rgba(56,182,255,.05);border-color:var(--blue);">E: Confident AI medical advice is genuinely dangerous. High hallucination risk in medical domains.</div>
+          <div class="sc-step" style="background:rgba(240,160,48,.05);border-color:var(--amber);">A: Use AI for general health literacy. Never use it as medical advice for decisions.</div>
+          <div class="sc-step" style="background:rgba(226,75,74,.05);border-color:var(--red);">Y: Your health is your responsibility. AI cannot be accountable for your body.</div>
+        </div>
+      </div>
+    </div>
+    <div class="scenario-card fade-up d3">
+      <div class="sc-head"><div class="sc-icon" style="background:rgba(168,85,247,.1);">🎨</div><div class="sc-htitle">AI-generated artwork</div></div>
+      <div class="sc-body">
+        <div class="sc-situation">You use an image generator to create visuals for a presentation at work and present them as your design work.</div>
+        <div class="sc-steps">
+          <div class="sc-step" style="background:rgba(28,201,160,.05);border-color:var(--mint);">R: Image generators train on copyrighted work. The ethics of this are actively contested.</div>
+          <div class="sc-step" style="background:rgba(56,182,255,.05);border-color:var(--blue);">E: Does your workplace have an AI disclosure policy? Have you checked?</div>
+          <div class="sc-step" style="background:rgba(240,160,48,.05);border-color:var(--amber);">A: Presenting AI images as "your design work" is misrepresentation.</div>
+          <div class="sc-step" style="background:rgba(226,75,74,.05);border-color:var(--red);">Y: Own the decision — disclose or decline. Do not let AI make you dishonest.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK REF -->
+<div class="qr-section">
+  <div class="qr-card fade-up">
+    <h3 style="font-family:var(--display);font-size:1.5rem;font-weight:800;margin-bottom:.4rem;">READY Quick Reference</h3>
+    <p style="font-size:14px;color:var(--text-muted);max-width:480px;margin-bottom:0;">Five questions to run through every time you interact with AI. Make it a habit.</p>
+    <div class="qr-grid">
+      <div class="qr-item"><div class="qr-l" style="color:var(--mint);">R</div><div class="qr-w">Recognize</div><div class="qr-q">What is this AI doing?</div></div>
+      <div class="qr-item"><div class="qr-l" style="color:var(--blue);">E</div><div class="qr-w">Evaluate</div><div class="qr-q">Can I trust this output?</div></div>
+      <div class="qr-item"><div class="qr-l" style="color:var(--amber);">A</div><div class="qr-w">Apply</div><div class="qr-q">How do I use this well?</div></div>
+      <div class="qr-item"><div class="qr-l" style="color:var(--purple);">D</div><div class="qr-w">Develop</div><div class="qr-q">Is my thinking growing?</div></div>
+      <div class="qr-item"><div class="qr-l" style="color:var(--red);">Y</div><div class="qr-w">You're in control</div><div class="qr-q">Who is responsible here?</div></div>
+    </div>
+    <div style="margin-top:1.5rem;display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="focus.html" class="btn btn-mint">Learn the FOCUS framework →</a>
+      <a href="resources.html" class="btn btn-ghost">Free printable downloads</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">AI <span style="color:var(--mint);">•</span> <span style="color:var(--blue);">Kairos</span> Learning Lab</div>
+  <ul class="f-links">
+    <li><a href="focus.html">FOCUS Framework</a></li>
+    <li><a href="steal-this-prompt.html">Prompts</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div style="font-size:12px;color:#1a3a32;">© 2025 AI • Kairos Learning Lab</div>
+</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* BG */
+const cv=document.getElementById('bg-canvas'),rnd=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+rnd.setSize(innerWidth,innerHeight);rnd.setPixelRatio(Math.min(devicePixelRatio,2));rnd.setClearColor(0x041012,1);
+const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,200);cam.position.z=38;
+const N=70,pa=new Float32Array(N*3),va=new Float32Array(N*3);
+for(let i=0;i<N;i++){pa[i*3]=(Math.random()-.5)*70;pa[i*3+1]=(Math.random()-.5)*45;pa[i*3+2]=(Math.random()-.5)*25;va[i*3]=(Math.random()-.5)*.015;va[i*3+1]=(Math.random()-.5)*.01;va[i*3+2]=(Math.random()-.5)*.007;}
+const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pa.slice(),3));
+sc.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0x1cc9a0,size:.22,transparent:true,opacity:.7,sizeAttenuation:true})));
+const cur=pg.attributes.position.array;let t=0,mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
+function anim(){requestAnimationFrame(anim);t+=.007;
+  for(let i=0;i<N;i++){cur[i*3]=pa[i*3]+Math.sin(t*.65+i*.31)*.36;cur[i*3+1]=pa[i*3+1]+Math.cos(t*.48+i*.27)*.26;cur[i*3+2]=pa[i*3+2]+Math.sin(t*.28+i*.19)*.16;pa[i*3]+=va[i*3];pa[i*3+1]+=va[i*3+1];pa[i*3+2]+=va[i*3+2];if(Math.abs(pa[i*3])>36)va[i*3]*=-1;if(Math.abs(pa[i*3+1])>23)va[i*3+1]*=-1;if(Math.abs(pa[i*3+2])>14)va[i*3+2]*=-1;}
+  pg.attributes.position.needsUpdate=true;tx+=(mx*2.2-tx)*.03;ty+=(-my*1.6-ty)*.03;cam.position.x=tx;cam.position.y=ty;cam.lookAt(0,0,0);rnd.render(sc,cam);}
+anim();
+window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();rnd.setSize(innerWidth,innerHeight);});
+
+/* SCROLL */
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');}),{threshold:.07});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+/* READY WHEEL */
+const wc=document.getElementById('wheel-canvas');
+const wx=wc.getContext('2d');
+const letters=[
+  {l:'R',w:'Recognize',col:'#1CC9A0'},
+  {l:'E',w:'Evaluate', col:'#38B6FF'},
+  {l:'A',w:'Apply',    col:'#f0a030'},
+  {l:'D',w:'Develop',  col:'#a855f7'},
+  {l:'Y',w:'You',      col:'#e24b4a'}
+];
+let wheelT=0;
+function drawWheel(){
+  const W=wc.width,H=wc.height,cx=W/2,cy=H/2,OR=150,IR=65;
+  wx.clearRect(0,0,W,H);
+  const seg=Math.PI*2/5;
+  letters.forEach((lt,i)=>{
+    const a0=wheelT+i*seg-Math.PI/2;
+    const a1=a0+seg*.88;
+    const mid=a0+seg*.44;
+    // outer arc fill
+    wx.beginPath();wx.moveTo(cx+Math.cos(a0)*IR,cy+Math.sin(a0)*IR);
+    wx.arc(cx,cy,OR,a0,a1);wx.arc(cx,cy,IR,a1,a0,true);wx.closePath();
+    wx.fillStyle=lt.col+'22';wx.fill();wx.strokeStyle=lt.col+'55';wx.lineWidth=1.5;wx.stroke();
+    // letter
+    wx.font='bold 28px Inter';wx.fillStyle=lt.col;wx.textAlign='center';wx.textBaseline='middle';
+    const lr=(IR+OR)/2,lx=cx+Math.cos(mid)*lr,ly=cy+Math.sin(mid)*lr;
+    wx.fillText(lt.l,lx,ly);
+    // word
+    wx.font='9px Inter';wx.fillStyle=lt.col+'99';wx.textAlign='center';
+    const wr=(OR+18),wx2=cx+Math.cos(mid)*wr,wy=cy+Math.sin(mid)*wr;
+    wx.fillText(lt.w,wx2,wy);
+  });
+  // center
+  const g=wx.createRadialGradient(cx,cy,0,cx,cy,IR*.9);
+  g.addColorStop(0,'rgba(28,201,160,.25)');g.addColorStop(1,'rgba(28,201,160,.05)');
+  wx.beginPath();wx.arc(cx,cy,IR*.9,0,Math.PI*2);wx.fillStyle=g;wx.fill();
+  wx.font='bold 20px Inter';wx.fillStyle='rgba(248,251,255,.9)';wx.textAlign='center';wx.textBaseline='middle';
+  wx.fillText('READY',cx,cy);
+  wheelT+=.004;
+  requestAnimationFrame(drawWheel);
+}
+drawWheel();
+
+/* SELF-CHECK */
+const SCENARIOS=[
+  {text:'Your teacher assigns a research essay on climate change. You ask Claude to write it for you, make a few edits, and submit it.',
+   qs:[
+     {l:'R',q:'Did I recognize that this AI cannot do actual research or analysis?'},
+     {l:'E',q:'Did I evaluate whether the AI\'s claims are accurate and sourced?'},
+     {l:'A',q:'Did I apply my own thinking and judgment to the content?'},
+     {l:'D',q:'Did my own understanding of the topic develop through this process?'},
+     {l:'Y',q:'Am I taking full responsibility for the work I submitted?'},
+   ]},
+  {text:'A friend forwards you an AI-generated image showing your favorite politician doing something scandalous. You are about to share it.',
+   qs:[
+     {l:'R',q:'Did I recognize this could be AI-generated (deepfake) content?'},
+     {l:'E',q:'Did I evaluate whether this is real before sharing?'},
+     {l:'A',q:'Did I apply a standard of evidence before amplifying it?'},
+     {l:'D',q:'Does sharing this reflect the kind of thinker I want to be?'},
+     {l:'Y',q:'Do I understand I am responsible for what I share?'},
+   ]},
+  {text:'You are using AI to help draft a performance review for an employee. The AI writes a harsh evaluation.',
+   qs:[
+     {l:'R',q:'Did I recognize that AI cannot know this person or their work?'},
+     {l:'E',q:'Did I evaluate the review for fairness and accuracy?'},
+     {l:'A',q:'Did I apply my own knowledge of this person to improve the draft?'},
+     {l:'D',q:'Did I develop my own management communication skills in this process?'},
+     {l:'Y',q:'Do I understand that I am accountable for this evaluation, not AI?'},
+   ]},
+];
+let scIdx=0;
+function renderScenario(){
+  const s=SCENARIOS[scIdx];
+  document.getElementById('sc-text').textContent=s.text;
+  const cols=['#1CC9A0','#38B6FF','#f0a030','#a855f7','#e24b4a'];
+  document.getElementById('check-questions').innerHTML=s.qs.map((q,i)=>`
+    <div class="q-item" onclick="toggleCheck(this)">
+      <div class="q-check"><svg viewBox="0 0 10 8"><polyline points="1 4 4 7 9 1"/></svg></div>
+      <div class="q-text"><span class="q-letter" style="color:${cols[i]};">${q.l}</span> — ${q.q}</div>
+    </div>`).join('');
+  document.getElementById('check-result').classList.remove('show');
+}
+function toggleCheck(el){el.classList.toggle('checked');}
+function scoreCheck(){
+  const checked=document.querySelectorAll('.q-item.checked').length;
+  const total=5;
+  const pct=Math.round((checked/total)*100);
+  const results=[
+    [5,'Fully READY 🟢','All five principles applied. This is what AI literacy looks like in practice.'],
+    [4,'Almost there 🟡','Strong critical thinking — one gap to close. Which step did you miss?'],
+    [3,'Developing 🟠','You are thinking critically about some dimensions. Keep building the habit.'],
+    [2,'Early stage 🔴','Two or fewer principles applied. The habit of READY takes practice — keep going.'],
+    [1,'Starting out ⚪','This is why READY exists. Every expert started with zero. You are building awareness.'],
+    [0,'Starting out ⚪','This is why READY exists. Every expert started with zero. You are building awareness.'],
+  ];
+  const r=results.find(([min])=>checked>=min)||results[results.length-1];
+  document.getElementById('score-num').textContent=`${checked}/${total}`;
+  document.getElementById('score-title').textContent=r[1];
+  document.getElementById('score-text').textContent=r[2];
+  document.getElementById('check-result').classList.add('show');
+}
+function nextScenario(){scIdx=(scIdx+1)%SCENARIOS.length;renderScenario();}
+renderScenario();
+</script>
+
+<script>
+/* ── DROPDOWN NAV — MOBILE SUPPORT ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  const toggle=document.querySelector('.mobile-toggle');
+  const links=document.querySelector('.nav-links');
+  if(toggle&&links){
+    toggle.addEventListener('click',()=>{
+      links.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    // Mobile accordion dropdowns
+    links.querySelectorAll('.has-dropdown > a').forEach(a=>{
+      a.addEventListener('click',e=>{
+        if(window.innerWidth<=768){
+          e.preventDefault();
+          a.parentElement.classList.toggle('open');
+        }
+      });
+    });
+  }
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+});
+
+</script>
+</body>
+</html>

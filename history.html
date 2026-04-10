@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History of AI — AI • Kairos Learning Lab</title>
+
+
+<style>
+/* === INTER FONT RESET === */
+:root { --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+html, body { font-family: var(--font-sans); }
+body, button, input, select, textarea, nav, h1, h2, h3, h4, h5, h6, p, a, li, span, label { font-family: var(--font-sans); }
+/* === END INTER RESET === */
+
+:root {
+  /* ═══ LOCKED DESIGN SYSTEM v2.0 ═══════════════════════════════════════════
+     AI • Kairos Learning Lab — mature, accessible, universal AI literacy
+     Dark cinematic tech-forward. Credible, calm, polished, futuristic.
+     ════════════════════════════════════════════════════════════════════════ */
+
+  /* Backgrounds */
+  --bg:          #041012;
+  --bg-2:        #07131A;
+  --bg-card:     rgba(7,19,26,0.78);
+  --bg-card-hov: rgba(10,28,38,0.96);
+
+  /* Brand accent colors */
+  --mint:        #1CC9A0;
+  --mint-bright: #5de8c8;
+  --mint-dim:    #0d7a62;
+  --mint-ghost:  rgba(28,201,160,0.08);
+  --mint-border: rgba(28,201,160,0.22);
+
+  --blue:        #38B6FF;
+  --blue-bright: #7fd4ff;
+  --blue-ghost:  rgba(56,182,255,0.08);
+  --blue-border: rgba(56,182,255,0.22);
+
+  --amber:       #f0a030;
+  --amber-ghost: rgba(240,160,48,0.09);
+  --amber-border:rgba(240,160,48,0.22);
+
+  --purple:      #a855f7;
+  --purple-ghost:rgba(168,85,247,0.08);
+  --purple-border:rgba(168,85,247,0.22);
+
+  --red:         #e24b4a;
+  --red-ghost:   rgba(226,75,74,0.08);
+  --red-border:  rgba(226,75,74,0.22);
+
+  /* Text hierarchy — WCAG AA minimum 4.5:1 on dark bg */
+  --text:        #F8FBFF;                    /* primary — near-white, high contrast  */
+  --text-mid:    rgba(248,251,255,0.88);     /* secondary body text                  */
+  --text-muted:  rgba(248,251,255,0.62);     /* supporting / caption text            */
+
+  /* Typography */
+  --display: var(--font-sans);
+  --sans: var(--font-sans);
+
+  /* Spacing base: 8px system */
+  --sp-1: 8px;  --sp-2: 16px; --sp-3: 24px; --sp-4: 32px;
+  --sp-6: 48px; --sp-8: 64px; --sp-12: 96px;
+
+  /* Radius */
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   18px;
+  --r-xl:   24px;
+  --r-pill: 999px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── GLOBAL TYPOGRAPHY BASELINE ── */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hero headline sizing — locked responsive scale */
+.hero-h1, .sh-h1, .ah-h1, .page-title, .ts-h1 {
+  font-size: clamp(3rem, 7vw, 6.4rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.1 !important;
+}
+@media(max-width: 768px) {
+  .hero-h1, .sh-h1, .ah-h1, .page-title, .ts-h1 {
+    font-size: clamp(2.4rem, 10vw, 3.2rem) !important;
+  }
+}
+
+/* Body text — readable at all ages */
+body, p, .p-body, .sec-sub, .hero-sub, .sh-sub {
+  font-size: 1.0rem;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  color: var(--text-mid);
+}
+
+/* Large supporting paragraph in heroes */
+.hero-sub, .sh-sub, .fc-desc, .page-sub {
+  font-size: 1.1rem;
+  line-height: 1.72;
+  font-weight: 400;
+  max-width: 600px;
+  color: var(--text-mid);
+}
+@media(min-width: 900px) {
+  .hero-sub, .sh-sub, .fc-desc, .page-sub { font-size: 1.15rem; }
+}
+
+/* Primary CTA button — finger-friendly, strong contrast */
+.btn-mint {
+  min-height: 52px;
+  padding: 14px 32px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  background: linear-gradient(135deg, #1CC9A0, #38B6FF) !important;
+  color: #041012 !important;
+  box-shadow: 0 0 24px rgba(28,201,160,0.28), 0 2px 8px rgba(0,0,0,0.35) !important;
+  border: none !important;
+}
+.btn-mint:hover {
+  background: linear-gradient(135deg, #5de8c8, #7fd4ff) !important;
+  box-shadow: 0 0 36px rgba(28,201,160,0.45), 0 4px 16px rgba(0,0,0,0.4) !important;
+  transform: translateY(-2px) !important;
+  color: #041012 !important;
+}
+
+/* Ghost button — visible, not faint */
+.btn-ghost {
+  min-height: 52px;
+  padding: 14px 28px !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  border: 1.5px solid rgba(28,201,160,0.4) !important;
+  color: rgba(248,251,255,0.85) !important;
+  background: rgba(28,201,160,0.06) !important;
+}
+.btn-ghost:hover {
+  border-color: var(--mint) !important;
+  color: var(--mint) !important;
+  background: rgba(28,201,160,0.1) !important;
+}
+
+/* Eyebrow / badge pill */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  padding: 6px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(28,201,160,0.3);
+  background: rgba(28,201,160,0.07);
+  color: var(--mint) !important;
+  margin-bottom: 1.2rem !important;
+}
+
+/* Focus states — accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Card glass effect — updated to new bg */
+.pc, .product-card, .ch-card, .feature-card, .faq-item {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Section headings */
+.sec-title, h2 {
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+/* Section supporting text */
+.sec-sub {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  line-height: 1.72;
+  font-weight: 400;
+  max-width: 580px;
+}
+
+/* Nav links — better contrast */
+.nav-links a { color: rgba(248,251,255,0.6); }
+.nav-links a:hover, .nav-links a.active { color: var(--mint); }
+
+/* Body text in cards — never too faint */
+.p-desc, .ep-text, .faq-a-inner, .cc-desc, .fc-desc, .prod-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.72;
+  font-weight: 400;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.site{position:relative;z-index:1;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(4,14,11,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--mint-border);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+/* ── LOGO IMAGE ── */
+.nav-logo-img{height:36px;width:auto;display:block;}
+
+.logo-mark{width:34px;height:34px;border:1.5px solid var(--mint);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;position:relative;}
+.logo-mark::before{content:'';width:10px;height:10px;background:var(--mint);border-radius:50%;}
+.logo-mark::after{content:'';position:absolute;width:18px;height:1px;background:var(--blue);bottom:8px;}
+.logo-text{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.02em;line-height:1.2;}
+.logo-text .dot{color:var(--mint);}.logo-text .kairos{color:var(--blue);}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{font-size:13.5px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--mint);}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:14px;font-weight:500;padding:10px 22px;border-radius:var(--r-pill);text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn svg{width:14px;height:14px;flex-shrink:0;}
+.btn-mint{background:var(--mint);color:var(--bg);}.btn-mint:hover{background:var(--mint-bright);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--text-mid);border:1px solid var(--mint-border);}.btn-ghost:hover{color:var(--mint);border-color:var(--mint);transform:translateY(-2px);}
+
+@keyframes rise{to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.65);}}
+
+/* BREADCRUMB */
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);margin-bottom:1rem;}
+.breadcrumb a{color:var(--text-muted);text-decoration:none;transition:color 0.2s;}.breadcrumb a:hover{color:var(--mint);}
+.breadcrumb-sep{color:var(--mint-border);}
+
+/* PAGE HERO */
+.page-hero{padding:9rem 3rem 4rem;border-bottom:1px solid var(--mint-border);}
+.page-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:flex-end;flex-wrap:wrap;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--mint);margin-bottom:0.7rem;}
+.page-title{font-family:var(--display);font-size:clamp(2.4rem,5vw,3.8rem);font-weight:800;letter-spacing:-0.03em;line-height:1.0;color:var(--text);margin-bottom:0.8rem;}
+.page-title .t-mint{color:var(--mint);}.page-title .t-blue{color:var(--blue);}
+.page-sub{font-size:16px;color:var(--text-muted);line-height:1.7;font-weight:300;max-width:520px;}
+.hero-right{display:flex;flex-direction:column;gap:10px;align-items:flex-end;flex-shrink:0;}
+.hero-stat-row{display:flex;gap:1.5rem;}
+.hstat{text-align:right;}
+.hstat-num{font-family:var(--display);font-size:2rem;font-weight:800;line-height:1;letter-spacing:-0.02em;}
+.hstat-num.mint{color:var(--mint);}.hstat-num.blue{color:var(--blue);}.hstat-num.amber{color:var(--amber);}
+.hstat-label{font-size:10px;color:var(--text-muted);}
+
+/* ERA FILTER BAR */
+.era-bar{background:rgba(4,14,11,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--mint-border);position:sticky;top:65px;z-index:90;}
+.era-bar-inner{max-width:1100px;margin:0 auto;padding:0.8rem 3rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.era-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);flex-shrink:0;}
+.era-pills{display:flex;gap:6px;flex-wrap:wrap;}
+.era-pill{font-size:12px;font-weight:500;padding:5px 14px;border-radius:var(--r-pill);cursor:pointer;border:1px solid;font-family:var(--sans);transition:all 0.18s;white-space:nowrap;background:transparent;}
+.era-pill.all{color:var(--text-muted);border-color:var(--mint-border);}.era-pill.all.active,.era-pill.all:hover{background:var(--mint-ghost);color:var(--mint);border-color:var(--mint);}
+.era-pill.early{color:var(--blue);border-color:var(--blue-border);}.era-pill.early.active,.era-pill.early:hover{background:var(--blue-ghost);}
+.era-pill.winter{color:var(--red);border-color:var(--red-border);}.era-pill.winter.active,.era-pill.winter:hover{background:var(--red-ghost);}
+.era-pill.revival{color:var(--amber);border-color:var(--amber-border);}.era-pill.revival.active,.era-pill.revival:hover{background:var(--amber-ghost);}
+.era-pill.modern{color:var(--mint);border-color:var(--mint-border);}.era-pill.modern.active,.era-pill.modern:hover{background:var(--mint-ghost);}
+.era-pill.now{color:var(--purple);border-color:var(--purple-border);}.era-pill.now.active,.era-pill.now:hover{background:var(--purple-ghost);}
+.event-count{font-size:12px;color:var(--text-muted);margin-left:auto;white-space:nowrap;}
+.event-count strong{color:var(--text-mid);}
+
+/* TIMELINE WRAPPER */
+.timeline-wrap{max-width:900px;margin:0 auto;padding:4rem 3rem 6rem;position:relative;}
+
+/* CENTER LINE */
+.timeline-wrap::before{
+  content:'';position:absolute;left:50%;transform:translateX(-50%);
+  top:4rem;bottom:6rem;width:2px;
+  background:linear-gradient(to bottom,var(--mint),var(--blue),var(--purple));
+  opacity:0.25;
+}
+
+/* ERA SECTION HEADER */
+.era-header{
+  position:relative;z-index:2;
+  display:flex;align-items:center;justify-content:center;
+  margin:3rem 0 2rem;
+}
+.era-header-pill{
+  font-family:var(--display);font-size:11px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:7px 22px;border-radius:var(--r-pill);
+  border:1px solid;backdrop-filter:blur(10px);
+}
+.era-header-pill.early{color:var(--blue);border-color:var(--blue-border);background:rgba(4,14,11,0.9);}
+.era-header-pill.winter{color:var(--red);border-color:var(--red-border);background:rgba(4,14,11,0.9);}
+.era-header-pill.revival{color:var(--amber);border-color:var(--amber-border);background:rgba(4,14,11,0.9);}
+.era-header-pill.modern{color:var(--mint);border-color:var(--mint-border);background:rgba(4,14,11,0.9);}
+.era-header-pill.now{color:var(--purple);border-color:var(--purple-border);background:rgba(4,14,11,0.9);}
+
+/* EVENT CARD */
+.event{
+  display:grid;grid-template-columns:1fr 60px 1fr;
+  gap:0;margin-bottom:2rem;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.5s ease,transform 0.5s ease;
+  position:relative;z-index:1;
+}
+.event.visible{opacity:1;transform:translateY(0);}
+.event.hidden{display:none;}
+
+/* alternating left / right */
+.event-content{
+  background:var(--bg-card);backdrop-filter:blur(10px);
+  border-radius:var(--r-lg);padding:1.3rem 1.5rem;
+  border:1px solid var(--mint-border);
+  transition:border-color 0.2s,transform 0.2s,background 0.2s;
+  cursor:pointer;
+}
+.event-content:hover{border-color:var(--mint);transform:translateY(-3px);background:var(--bg-card-hov);}
+.event-content.blue-ev{border-color:var(--blue-border);}.event-content.blue-ev:hover{border-color:var(--blue);}
+.event-content.amber-ev{border-color:var(--amber-border);}.event-content.amber-ev:hover{border-color:var(--amber);}
+.event-content.red-ev{border-color:var(--red-border);}.event-content.red-ev:hover{border-color:var(--red);}
+.event-content.purple-ev{border-color:var(--purple-border);}.event-content.purple-ev:hover{border-color:var(--purple);}
+
+.event-left .event-content{grid-column:1;text-align:right;}
+.event-right .event-content{grid-column:3;text-align:left;}
+.event-left .event-dot-col{grid-column:2;grid-row:1;}
+.event-right .event-dot-col{grid-column:2;grid-row:1;}
+.event-left .event-empty{grid-column:3;grid-row:1;}
+.event-right .event-empty{grid-column:1;grid-row:1;}
+
+/* DOT COLUMN */
+.event-dot-col{
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:1.2rem;gap:0;
+}
+.event-dot{
+  width:14px;height:14px;border-radius:50%;
+  border:2px solid;flex-shrink:0;position:relative;
+  transition:transform 0.2s;
+}
+.event-dot.mint{background:var(--mint);border-color:var(--mint);box-shadow:0 0 12px rgba(28,201,160,0.5);}
+.event-dot.blue{background:var(--blue);border-color:var(--blue);box-shadow:0 0 12px rgba(56,182,255,0.5);}
+.event-dot.amber{background:var(--amber);border-color:var(--amber);box-shadow:0 0 12px rgba(240,160,48,0.5);}
+.event-dot.red{background:var(--red);border-color:var(--red);box-shadow:0 0 10px rgba(226,75,74,0.4);}
+.event-dot.purple{background:var(--purple);border-color:var(--purple);box-shadow:0 0 12px rgba(168,85,247,0.5);}
+
+/* event card internals */
+.ev-year{
+  font-family:var(--display);font-size:0.85rem;font-weight:800;
+  letter-spacing:0.04em;margin-bottom:3px;
+}
+.ev-year.mint{color:var(--mint);}
+.ev-year.blue{color:var(--blue);}
+.ev-year.amber{color:var(--amber);}
+.ev-year.red{color:var(--red);}
+.ev-year.purple{color:var(--purple);}
+.ev-title{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);letter-spacing:-0.01em;margin-bottom:5px;line-height:1.2;}
+.ev-who{font-size:11px;color:var(--text-muted);margin-bottom:6px;font-style:italic;}
+.ev-desc{font-size:13px;color:var(--text-muted);line-height:1.65;font-weight:300;}
+.ev-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:var(--r-pill);margin-top:7px;letter-spacing:0.06em;text-transform:uppercase;}
+.ev-tag.mint{background:var(--mint-ghost);color:var(--mint);border:1px solid var(--mint-border);}
+.ev-tag.blue{background:var(--blue-ghost);color:var(--blue);border:1px solid var(--blue-border);}
+.ev-tag.amber{background:var(--amber-ghost);color:var(--amber);border:1px solid var(--amber-border);}
+.ev-tag.red{background:var(--red-ghost);color:var(--red);border:1px solid var(--red-border);}
+.ev-tag.purple{background:var(--purple-ghost);color:var(--purple);border:1px solid var(--purple-border);}
+
+/* EXPANDED DETAIL */
+.ev-detail{max-height:0;overflow:hidden;transition:max-height 0.38s ease,padding 0.3s ease;}
+.ev-detail.open{max-height:400px;}
+.ev-detail-inner{padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);margin-top:10px;}
+.ev-detail-inner p{font-size:13px;color:var(--text-muted);line-height:1.75;font-weight:300;}
+.ev-detail-inner p + p{margin-top:8px;}
+.ev-detail-inner strong{color:var(--text-mid);font-weight:500;}
+.ev-why{margin-top:10px;padding:8px 12px;border-radius:var(--r-sm);font-size:12px;line-height:1.6;}
+.ev-why.mint{background:var(--mint-ghost);border-left:2px solid var(--mint);color:var(--mint-bright);}
+.ev-why.blue{background:var(--blue-ghost);border-left:2px solid var(--blue);color:var(--blue-bright);}
+.ev-why.amber{background:var(--amber-ghost);border-left:2px solid var(--amber);color:var(--amber);}
+.ev-why.purple{background:var(--purple-ghost);border-left:2px solid var(--purple);color:var(--purple);}
+.ev-expand-btn{
+  font-size:11px;font-weight:600;color:var(--text-muted);
+  display:inline-flex;align-items:center;gap:4px;margin-top:8px;
+  transition:color 0.18s;
+}
+.ev-expand-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;transition:transform 0.25s;}
+.ev-expand-btn.open svg{transform:rotate(180deg);}
+.event-content:hover .ev-expand-btn{color:var(--mint);}
+.event-content.blue-ev:hover .ev-expand-btn{color:var(--blue);}
+.event-content.amber-ev:hover .ev-expand-btn{color:var(--amber);}
+
+/* EMPTY STATE */
+.timeline-empty{text-align:center;padding:4rem 2rem;display:none;}
+.timeline-empty.show{display:block;}
+.timeline-empty h3{font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;}
+.timeline-empty p{font-size:14px;color:var(--text-muted);}
+
+/* END NODE */
+.timeline-end{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:2rem;padding-top:2rem;}
+.te-dot{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--blue));box-shadow:0 0 20px rgba(28,201,160,0.4);position:relative;}
+.te-dot::after{content:'?';font-family:var(--display);font-size:11px;font-weight:900;color:var(--bg);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.te-label{font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);}
+.te-text{font-size:13px;color:var(--text-muted);text-align:center;max-width:280px;line-height:1.6;}
+
+/* CTA BAND */
+.cta-band{background:rgba(6,22,16,0.85);border-top:1px solid var(--mint-border);border-bottom:1px solid var(--mint-border);backdrop-filter:blur(10px);padding:4rem 3rem;text-align:center;}
+.cta-band h2{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--text);letter-spacing:-0.025em;margin-bottom:0.8rem;line-height:1.1;}
+.cta-band h2 .t-mint{color:var(--mint);}
+.cta-band p{font-size:15px;color:var(--text-muted);line-height:1.7;max-width:440px;margin:0 auto 1.8rem;font-weight:300;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--mint-border);background:rgba(4,14,11,0.92);backdrop-filter:blur(10px);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text-muted);}
+.footer-logo .dot{color:var(--mint);}.footer-logo .kairos{color:var(--blue);}
+.footer-links{display:flex;gap:1.5rem;list-style:none;}
+.footer-links a{font-size:13px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}.footer-links a:hover{color:var(--mint);}
+.footer-copy{font-size:12px;color:#2a4a3e;}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}.nav-links{display:none;}
+  .page-hero{padding:8rem 1.5rem 3rem;}.page-hero-inner{grid-template-columns:1fr;}
+  .era-bar-inner{padding:0.8rem 1.5rem;overflow-x:auto;}
+  .timeline-wrap{padding:3rem 1.5rem 4rem;}
+  .timeline-wrap::before{left:20px;transform:none;}
+  .event{grid-template-columns:40px 1fr;gap:0 10px;}
+  .event-left .event-content,.event-right .event-content{grid-column:2;text-align:left;}
+  .event-left .event-dot-col,.event-right .event-dot-col{grid-column:1;grid-row:1;}
+  .event-left .event-empty,.event-right .event-empty{display:none;}
+  .cta-band{padding:3rem 1.5rem;}
+  footer{flex-direction:column;text-align:center;padding:1.5rem;}.footer-links{justify-content:center;}
+}
+
+/* ═══════════════════════════════════════════════════════
+   GLOBAL MOBILE FIXES v1.0 — applies to all pages
+   ═══════════════════════════════════════════════════════ */
+
+/* Prevent ANY horizontal overflow */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+*, *::before, *::after {
+  max-width: 100%;
+}
+
+/* ── NAV — mobile ── */
+@media(max-width: 900px) {
+
+  nav {
+    padding: 0.75rem 1rem !important;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  /* Logo — shrink gracefully */
+  .nav-logo-img {
+    height: 28px !important;
+    flex-shrink: 0;
+  }
+
+  /* Hide nav links (already done on most pages, enforce here) */
+  .nav-links { display: none !important; }
+
+  /* Nav actions — show ONE button max on small screens */
+  .nav-actions {
+    display: flex !important;
+    gap: 6px !important;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  /* Hide the ghost (secondary) nav button on mobile */
+  .nav-actions .btn-ghost {
+    display: none !important;
+  }
+  /* Primary nav button — compact */
+  .nav-actions .btn-mint,
+  .nav-actions .btn {
+    font-size: 12px !important;
+    padding: 8px 14px !important;
+    min-height: 36px !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media(max-width: 480px) {
+  nav { padding: 0.7rem 0.9rem !important; }
+  .nav-logo-img { height: 24px !important; }
+  .nav-actions .btn-mint,
+  .nav-actions .btn { font-size: 11px !important; padding: 7px 12px !important; }
+}
+
+/* ── EMAIL / SUBSCRIBE ROWS — stack on mobile ── */
+@media(max-width: 700px) {
+  .email-row, .erow, .nc-right .email-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .email-row .ein,
+  .erow .ein,
+  .email-in {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  .email-row .btn,
+  .erow .btn,
+  .email-row a.btn,
+  .erow a.btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 13px 20px !important;
+    font-size: 14px !important;
+  }
+
+  /* Connect/notify cards — single column */
+  .connect-card,
+  .notify-card,
+  .nc-card {
+    grid-template-columns: 1fr !important;
+    padding: 1.8rem !important;
+  }
+  .cc-right,
+  .nc-right {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* ── CARDS & GRIDS — prevent overflow ── */
+@media(max-width: 900px) {
+  /* Any 2-col or 3-col grid → single column */
+  .pgrid-4, .pgrid-3, .pgrid-2,
+  .products-grid, .fz-grid,
+  .series-grid, .infographic-grid,
+  .merch-grid, .channel-grid-2, .channel-grid-3,
+  .bc-bundle-visual {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  
+  /* FAQ two-col layout → single column */
+  .faq-layout {
+    grid-template-columns: 1fr !important;
+    padding: 2rem 1rem 3rem !important;
+  }
+  .faq-sidebar { display: none !important; }
+
+  /* Bundle card */
+  .bundle-card {
+    grid-template-columns: 1fr !important;
+    padding: 1.8rem !important;
+  }
+  .bc-chars { display: none !important; }
+
+  /* Featured channel card */
+  .featured-channel {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Accordion items — no overflow */
+  .faq-item, .accordion-item {
+    overflow: hidden !important;
+  }
+  .faq-a-inner, .ep-body, .faq-a {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Hero inner grids */
+  .hero-inner, .sh-inner .sh-top,
+  .page-hero-inner, .ah-inner {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Podcast grid */
+  .podcast-grid { grid-template-columns: 1fr !important; }
+  
+  /* App section */
+  .as-inner { grid-template-columns: 1fr !important; }
+  
+  /* Section padding */
+  .sec, .products-section, .faq-layout,
+  .bundle-section, .notify-section,
+  .channels-section, .podcast-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media(max-width: 600px) {
+  .pgrid-4, .pgrid-3,
+  .products-grid, .fz-grid,
+  .series-grid, .infographic-grid,
+  .merch-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Filter pills — scroll horizontally instead of wrapping weirdly */
+  .fpills, .cat-pills, .era-pills {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 4px !important;
+  }
+  .fpill, .cpill, .era-pill {
+    flex-shrink: 0 !important;
+  }
+  
+  /* Section padding tight on small phones */
+  section, .sec, [class*="-section"],
+  .collab-band, .bundle-band, .philosophy {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .fb-inner, .faq-bar-inner, .era-bar-inner {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    flex-wrap: wrap !important;
+  }
+  
+  /* Text — no overflow */
+  h1, h2, h3, p, li, span, div {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+  
+  /* Hero heading — tighter on tiny phones */
+  .hero-h1, .sh-h1, .page-title, .ts-h1 {
+    font-size: clamp(2.2rem, 9vw, 3rem) !important;
+  }
+}
+
+
+/* ── DROPDOWN NAV SYSTEM ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(4,14,11,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--mint-border);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.nav-logo-img{height:32px;width:auto;display:block;}
+.nav-links{display:flex;align-items:center;gap:0;list-style:none;margin:0;padding:0;}
+.nav-links > li{position:relative;}
+.nav-links > li > a{display:flex;align-items:center;font-family:var(--sans);font-size:13.5px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:20px 14px;transition:color 0.2s;white-space:nowrap;}
+.nav-links > li > a:hover,.nav-links > li > a.active{color:var(--mint);}
+.nav-links > li > a svg{opacity:0.5;transition:transform 0.2s,opacity 0.2s;}
+.nav-links > li:hover > a svg{opacity:1;transform:rotate(180deg);}
+
+/* Dropdown panel */
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(4px);min-width:280px;background:rgba(7,19,26,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--mint-border);border-radius:var(--r-lg);padding:8px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 0.2s,transform 0.2s,visibility 0.2s;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 30px rgba(28,201,160,0.05);}
+.dropdown-wide{min-width:320px;}
+.has-dropdown:hover .dropdown{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+
+/* Dropdown items */
+.dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r-md);text-decoration:none;color:var(--text-mid);transition:background 0.15s,color 0.15s;}
+.dd-item:hover{background:var(--mint-ghost);color:var(--text);}
+.dd-icon{font-size:1.2rem;flex-shrink:0;width:28px;text-align:center;}
+.dd-title{display:block;font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--text);line-height:1.3;}
+.dd-desc{display:block;font-size:11.5px;color:var(--text-muted);line-height:1.4;margin-top:1px;}
+.dd-item:hover .dd-title{color:var(--mint);}
+
+/* Nav actions */
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+
+/* Mobile toggle */
+.mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
+.mobile-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.2s;}
+
+/* Mobile responsive */
+@media(max-width:1024px){
+  nav{padding:0 1.5rem;}
+  .nav-links > li > a{padding:20px 10px;font-size:12.5px;}
+}
+@media(max-width:768px){
+  .mobile-toggle{display:flex;}
+  .nav-links,.nav-actions .btn{display:none;}
+  nav{height:56px;}
+  
+  /* Mobile menu open state */
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;bottom:0;background:rgba(4,14,11,0.98);backdrop-filter:blur(20px);padding:1.5rem;gap:0;overflow-y:auto;z-index:999;}
+  .nav-links.open > li > a{padding:14px 0;font-size:15px;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .nav-links.open .dropdown{position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;min-width:100%;background:transparent;border:none;box-shadow:none;padding:0 0 8px 16px;display:none;}
+  .nav-links.open .has-dropdown.open .dropdown{display:block;}
+}
+
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="site">
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="ai-kairos-logo.png" alt="AI • Kairos Learning Lab" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Free Resources <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="assets/downloads/ai-prompt-pack-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📄</span>
+          <div><span class="dd-title">Download Free Prompt Pack</span><span class="dd-desc">20 prompts for grades 6-8</span></div>
+        </a>
+        <a href="assets/downloads/ai-glossary-middle-school.pdf" download class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">Download Glossary</span><span class="dd-desc">30 AI terms in plain language</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Shop <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="bundles.html" class="dd-item">
+          <span class="dd-icon">📦</span>
+          <div><span class="dd-title">Bundles</span><span class="dd-desc">Curated packs for teachers, families, teens</span></div>
+        </a>
+        <a href="bundles.html#journals" class="dd-item">
+          <span class="dd-icon">📓</span>
+          <div><span class="dd-title">Prompt Journals</span><span class="dd-desc">Guided journals for every age</span></div>
+        </a>
+        <a href="middle-school-kit.html" class="dd-item">
+          <span class="dd-icon">🏫</span>
+          <div><span class="dd-title">Middle School Kit</span><span class="dd-desc">Featured product — $29</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Explore <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown dropdown-wide">
+        <a href="focus.html" class="dd-item">
+          <span class="dd-icon">🎯</span>
+          <div><span class="dd-title">FOCUS Framework</span><span class="dd-desc">Structured prompting guide</span></div>
+        </a>
+        <a href="ready.html" class="dd-item">
+          <span class="dd-icon">⚖️</span>
+          <div><span class="dd-title">READY Framework</span><span class="dd-desc">Responsible AI decision tool</span></div>
+        </a>
+        <a href="steal-this-prompt.html" class="dd-item">
+          <span class="dd-icon">✏️</span>
+          <div><span class="dd-title">Steal This Prompt</span><span class="dd-desc">Copy-and-use prompt examples</span></div>
+        </a>
+        <a href="whatisanllm.html" class="dd-item">
+          <span class="dd-icon">🤖</span>
+          <div><span class="dd-title">What Is an LLM?</span><span class="dd-desc">Visual walkthrough</span></div>
+        </a>
+        <a href="llmexplainer.html" class="dd-item">
+          <span class="dd-icon">⚙️</span>
+          <div><span class="dd-title">LLM Text Generation</span><span class="dd-desc">Tokenization and attention explained</span></div>
+        </a>
+        <a href="llm-short-film.html" class="dd-item">
+          <span class="dd-icon">🎬</span>
+          <div><span class="dd-title">What It's Like to Be an LLM</span><span class="dd-desc">Interactive film experience</span></div>
+        </a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <a href="#" class="nav-drop-trigger">Learn <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown">
+        <a href="glossary.html" class="dd-item">
+          <span class="dd-icon">📖</span>
+          <div><span class="dd-title">AI Glossary</span><span class="dd-desc">Every term you need</span></div>
+        </a>
+        <a href="history.html" class="dd-item">
+          <span class="dd-icon">📜</span>
+          <div><span class="dd-title">History of AI</span><span class="dd-desc">Timeline from 1950 to today</span></div>
+        </a>
+      </div>
+    </li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="bundles.html" class="btn btn-mint">Get Started</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="resources.html">Resources</a>
+        <span class="breadcrumb-sep">/</span>
+        <span style="color:var(--text-mid);">History of AI</span>
+      </div>
+      <div class="eyebrow">Interactive timeline</div>
+      <h1 class="page-title">The <span class="t-mint">history</span> of<br><span class="t-blue">artificial intelligence.</span></h1>
+      <p class="page-sub">From a 1950 thought experiment to a technology that changed everything — click any event to learn why it mattered. Filter by era to find what you need.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-row">
+        <div class="hstat"><div class="hstat-num mint">75+</div><div class="hstat-label">Years of history</div></div>
+        <div class="hstat"><div class="hstat-num blue" id="total-ev">30</div><div class="hstat-label">Key events</div></div>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);text-align:right;">Click any event to expand</div>
+    </div>
+  </div>
+</div>
+
+<!-- ERA FILTER -->
+<div class="era-bar">
+  <div class="era-bar-inner">
+    <span class="era-label">Era:</span>
+    <div class="era-pills">
+      <button class="era-pill all active" onclick="filterEra('all',this)">All eras</button>
+      <button class="era-pill early" onclick="filterEra('early',this)">Early AI (1950–1969)</button>
+      <button class="era-pill winter" onclick="filterEra('winter',this)">AI Winters (1970–1992)</button>
+      <button class="era-pill revival" onclick="filterEra('revival',this)">Deep Learning Revival (1993–2011)</button>
+      <button class="era-pill modern" onclick="filterEra('modern',this)">Modern AI (2012–2021)</button>
+      <button class="era-pill now" onclick="filterEra('now',this)">AI Everywhere (2022–Now)</button>
+    </div>
+    <div class="event-count"><strong id="visible-ev">30</strong> events</div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline-wrap" id="timeline-wrap">
+  <div class="timeline-empty" id="timeline-empty">
+    <h3>No events found</h3>
+    <p>Try selecting a different era above.</p>
+  </div>
+  <!-- injected by JS -->
+</div>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>Now you know the history.<br>Time to build <span class="t-mint">your own literacy.</span></h2>
+  <p>Explore the glossary for definitions, browse free tools, or grab a student journal for your classroom.</p>
+  <div class="cta-btns">
+    <a href="glossary.html" class="btn btn-mint">AI Glossary
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+    <a href="resources.html" class="btn btn-ghost">Free resources</a>
+    <a href="shop.html" class="btn btn-ghost" style="border-color:var(--blue-border);color:var(--blue);">Shop journals</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">AI <span class="dot">•</span> <span class="kairos">Kairos</span> Learning Lab</div>
+  <ul class="footer-links">
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="glossary.html">Glossary</a></li>
+    <li><a href="steal-this-prompt.html">Steal This Prompt</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-copy">&copy; 2025 AI &bull; Kairos Learning Lab</div>
+</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ════════════ TIMELINE DATA ════════════ */
+const EVENTS = [
+  // ── EARLY AI ──
+  { year:1950, era:'early', side:'right', color:'blue',
+    title:'Turing Asks: Can Machines Think?',
+    who:'Alan Turing — mathematician, logician, wartime codebreaker',
+    desc:'Alan Turing published "Computing Machinery and Intelligence," proposing the Turing Test: if a machine can converse so naturally that a person cannot tell it is a machine, should we call it intelligent?',
+    tag:'Foundational idea',
+    detail:'<p>Turing was not building an AI — he was asking a philosophical question that still does not have a clean answer. The Turing Test is often misunderstood as the goal of AI. It was really a thought experiment designed to reframe the question from "can machines think" to "can machines behave indistinguishably from a thinking being?"</p><p>That subtle difference matters enormously. Modern LLMs can often pass informal versions of the Turing Test — but most researchers agree that does not mean they are thinking. It means they are very good at predicting what human-sounding responses look like.</p>',
+    why:'This paper launched a field. Every debate about AI consciousness, rights, and capability traces back to Turing\'s 1950 question.' },
+
+  { year:1956, era:'early', side:'left', color:'blue',
+    title:'"Artificial Intelligence" Is Named',
+    who:'John McCarthy, Marvin Minsky, Claude Shannon — Dartmouth College',
+    desc:'The Dartmouth Summer Research Project coined the term "Artificial Intelligence." Researchers gathered with the optimistic belief that every aspect of learning and intelligence could be simulated by a machine within a generation.',
+    tag:'Field founded',
+    detail:'<p>The Dartmouth proposal famously predicted that a group of researchers working for one summer could make significant progress on most of AI\'s core problems. That turned out to be wildly optimistic — we are still working on many of those problems today.</p><p>But naming the field mattered enormously. It created a community, a shared vocabulary, and a source of funding. John McCarthy, who organized the conference, later invented the programming language LISP and was one of the most influential figures in early AI research.</p>',
+    why:'Every AI course, company, and conference descends from this summer workshop. The name stuck.' },
+
+  { year:1957, era:'early', side:'right', color:'blue',
+    title:'The Perceptron: First Neural Network',
+    who:'Frank Rosenblatt — Cornell Aeronautical Laboratory',
+    desc:'Rosenblatt built the Perceptron — a machine that could learn to recognize patterns by adjusting weights in response to correct and incorrect answers. It was the first physical implementation of a neural network concept.',
+    tag:'Neural networks begin',
+    detail:'<p>The Perceptron was exciting enough that the New York Times wrote about it, predicting it would become capable of walking, talking, seeing, writing, and reproducing itself. This was premature — the Perceptron could only classify linearly separable patterns.</p><p>In 1969, Marvin Minsky and Seymour Papert published "Perceptrons," mathematically showing the limitations of single-layer networks. This significantly cooled enthusiasm for neural network research and contributed to the first AI Winter.</p>',
+    why:'The Perceptron is the ancestor of every modern neural network, including the models powering ChatGPT and Claude.' },
+
+  { year:1966, era:'early', side:'left', color:'blue',
+    title:'ELIZA: First Chatbot',
+    who:'Joseph Weizenbaum — MIT',
+    desc:'ELIZA simulated a psychotherapist by reflecting user statements back as questions. Users often found it deeply meaningful — even after being told it was a program. Weizenbaum was disturbed by how emotionally attached people became to a machine with no understanding.',
+    tag:'First chatbot',
+    detail:'<p>ELIZA worked through pattern matching — if you typed "I am sad," it might respond "Why are you sad?" It had no understanding of sadness. Yet secretaries asked Weizenbaum to leave the room so they could talk to it privately. He found this troubling enough to write a book warning about people over-attributing meaning to machines.</p><p>This tendency — to read human emotion and understanding into AI systems — is still a challenge. Modern LLMs are vastly more sophisticated than ELIZA, but the fundamental dynamic Weizenbaum identified remains relevant.</p>',
+    why:'ELIZA introduced the world to human-computer conversation — and to the problem of people projecting understanding onto machines that have none.' },
+
+  { year:1969, era:'early', side:'right', color:'blue',
+    title:'Shakey: First Mobile AI Robot',
+    who:'SRI International',
+    desc:'Shakey the Robot could perceive its environment through cameras and sensors, plan a sequence of actions, and navigate around obstacles. It was the first AI system to integrate perception, reasoning, and physical action.',
+    tag:'Robotics + AI',
+    detail:'<p>Shakey moved very slowly — its planning algorithms could take hours to decide on a simple action. But it represented a genuine leap: a machine that observed, thought, and then acted in the physical world.</p><p>The planning techniques Shakey used laid the groundwork for modern robotics, autonomous vehicles, and AI planning systems. It also demonstrated the challenge of connecting AI reasoning to real-world physical action — a problem still not fully solved.</p>',
+    why:'Shakey showed that AI could work in physical space, not just on paper — and how hard that actually is.' },
+
+  // ── AI WINTERS ──
+  { year:1973, era:'winter', side:'left', color:'red',
+    title:'First AI Winter Begins',
+    who:'Lighthill Report, UK government',
+    desc:'British mathematician James Lighthill delivered a critical report to the UK government concluding that AI had failed to deliver on its grand promises. Funding was cut dramatically. The first AI Winter had begun.',
+    tag:'AI Winter',
+    detail:'<p>The AI Winter was not a single moment but a gradual cooling. Promises made in the 1950s and 60s — that machines would be thinking like humans within a decade — had not materialized. Early systems that worked on toy problems failed badly on real-world complexity.</p><p>The Lighthill Report was particularly influential in the UK. In the US, the DARPA-funded machine translation project was also cancelled after failing to meet expectations. Researchers who had been celebrities found their funding disappearing.</p>',
+    why:'The first AI Winter taught researchers and funders that real-world AI was far harder than controlled demonstrations suggested.' },
+
+  { year:1980, era:'winter', side:'right', color:'amber',
+    title:'Expert Systems Boom',
+    who:'Edward Feigenbaum and research groups worldwide',
+    desc:'Expert systems encoded human expertise as rules: "IF symptom X THEN consider diagnosis Y." Programs like MYCIN (medical diagnosis) and DENDRAL (chemistry) showed that narrow, rule-based AI could be genuinely useful in specific domains.',
+    tag:'Brief revival',
+    detail:'<p>Expert systems were the AI that finally made money. Companies invested billions in encoding specialist knowledge into programs that could advise on medical diagnoses, financial decisions, and chemical analysis. Japan launched its Fifth Generation Computer Project to build expert systems at national scale.</p><p>But expert systems had a fundamental limitation: they could only do what their rules said. They could not learn or adapt. Updating them required manual reprogramming by experts. And they were catastrophically bad at anything outside their narrow domain.</p>',
+    why:'Expert systems proved AI could have real commercial value — but also showed the limits of rule-based approaches that could not learn.' },
+
+  { year:1987, era:'winter', side:'left', color:'red',
+    title:'Second AI Winter',
+    who:'Market collapse, unmet expectations',
+    desc:'The expert systems market collapsed. Hardware companies that had built specialized "AI machines" went bankrupt. DARPA cut AI funding again after the Strategic Computing Initiative failed to deliver. A second, deeper winter set in.',
+    tag:'AI Winter II',
+    detail:'<p>The second AI Winter was partly about hype. The promise of intelligent machines had been oversold again — this time to corporations that had invested heavily in expert systems that proved too brittle and expensive to maintain.</p><p>Researchers who stayed in the field during this period often hid the words "artificial intelligence" from their grant proposals, using terms like "machine learning," "pattern recognition," or "decision support systems" to get funding. This is why these subfields developed somewhat independently.</p>',
+    why:'The second AI Winter permanently changed how researchers talk about AI — more carefully, with clearer claims about what specific systems can actually do.' },
+
+  // ── DEEP LEARNING REVIVAL ──
+  { year:1997, era:'revival', side:'right', color:'amber',
+    title:'Deep Blue Defeats Kasparov',
+    who:'IBM',
+    desc:'IBM\'s Deep Blue became the first computer to beat a reigning world chess champion, Garry Kasparov, in a match under standard time controls. The match was watched around the world and declared a milestone for AI.',
+    tag:'Landmark moment',
+    detail:'<p>Deep Blue was not using machine learning or neural networks. It was using brute-force search — evaluating hundreds of millions of positions per second using custom chess evaluation functions built by human grandmasters. It was engineered chess, not learning chess.</p><p>Kasparov accused IBM of cheating after one mysterious move he could not explain. IBM refused to release the complete game logs. Whether Deep Blue made a calculation error or a genuinely brilliant move remains disputed. The controversy made the match more famous.</p>',
+    why:'The match announced to the world that AI had surpassed humans at complex games — even if the method was more brute force than intelligence.' },
+
+  { year:2001, era:'revival', side:'left', color:'amber',
+    title:'Roomba: AI in Your Home',
+    who:'iRobot',
+    desc:'The Roomba vacuum cleaner brought AI-powered autonomous robots into ordinary households for the first time. Simple sensors and navigation algorithms allowed it to clean floors without human direction. Millions were sold.',
+    tag:'Consumer AI',
+    detail:'<p>The Roomba was not intelligent in any deep sense — it used bump sensors and random-walk algorithms, not sophisticated AI. But it was the first time most people had an autonomous machine in their home doing a useful task without human control.</p><p>Its success proved that practical AI products did not need to be impressive in demos — they needed to be useful in messy real-world environments. That lesson shaped consumer AI product design for the next two decades.</p>',
+    why:'The Roomba normalized the idea that AI could operate autonomously in real homes — making AI feel accessible rather than distant.' },
+
+  { year:2006, era:'revival', side:'right', color:'amber',
+    title:'Deep Learning Renaissance',
+    who:'Geoffrey Hinton, Yann LeCun, Yoshua Bengio',
+    desc:'Geoffrey Hinton and colleagues published papers showing that deep neural networks — once dismissed — could be trained effectively using new techniques. This started a quiet revolution that would change everything within a decade.',
+    tag:'Deep learning begins',
+    detail:'<p>The key insight was that neural networks with many layers (deep networks) could learn hierarchical representations — edges, then shapes, then objects, then scenes. Earlier networks were too shallow to capture this complexity. New initialization methods and increased computing power made training feasible.</p><p>Hinton, LeCun, and Bengio kept working on neural networks throughout the winters when it was not popular. Their persistence through years of skepticism earned them the 2018 Turing Award — computing\'s Nobel Prize.</p>',
+    why:'This quiet paper became the foundation of every modern AI breakthrough — image recognition, language models, generative AI — all built on deep learning.' },
+
+  { year:2011, era:'revival', side:'left', color:'amber',
+    title:'IBM Watson Wins Jeopardy!',
+    who:'IBM',
+    desc:'IBM\'s Watson system competed against Jeopardy! champions Ken Jennings and Brad Rutter — and won decisively. Unlike Deep Blue, Watson used natural language processing to understand complex clues and retrieve information.',
+    tag:'Natural language AI',
+    detail:'<p>Watson had to process natural language questions with wordplay, metaphors, and cultural references — far harder than chess. It used a combination of information retrieval, statistical analysis, and machine learning to generate and evaluate candidate answers.</p><p>Ken Jennings wrote on his Final Jeopardy answer sheet: "I for one welcome our new computer overlords." The moment became a cultural touchstone for AI capability. However, Watson\'s performance in real medical and business applications after the match was much less impressive than the Jeopardy win suggested.</p>',
+    why:'Watson showed the world that AI could handle human language — not perfectly, but well enough to beat the best human players at a language-based game.' },
+
+  { year:2011, era:'revival', side:'right', color:'amber',
+    title:'Siri Launches on iPhone',
+    who:'Apple (originally SRI International)',
+    desc:'Apple launched Siri as part of iPhone 4S — the first mainstream AI voice assistant. Hundreds of millions of people started talking to AI daily, normalizing the idea of conversational computers.',
+    tag:'Consumer AI',
+    detail:'<p>Siri was originally developed at SRI International (the same lab that built Shakey). Apple acquired it in 2010 and built it into the iPhone. For most people, Siri was their first experience with AI — and also their first experience of AI disappointment, as it frequently misunderstood requests.</p><p>Despite its limitations, Siri established voice interfaces as a normal part of computing. Google Now, Amazon Alexa, and Microsoft Cortana all followed. The voice assistant market normalized the expectation that computers should understand and respond to natural speech.</p>',
+    why:'Siri made AI a daily habit for hundreds of millions of people — even if it was often frustrating, it made AI feel like a normal part of life.' },
+
+  // ── MODERN AI ──
+  { year:2012, era:'modern', side:'left', color:'mint',
+    title:'AlexNet Wins ImageNet',
+    who:'Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton — University of Toronto',
+    desc:'AlexNet, a deep convolutional neural network, destroyed the competition in the ImageNet image recognition challenge — reducing the error rate by nearly half. The AI community immediately recognized this as a turning point.',
+    tag:'Deep learning breakthrough',
+    detail:'<p>The ImageNet competition asked AI systems to classify 1.2 million images into 1,000 categories. Previous best approaches used hand-crafted features. AlexNet used a deep convolutional neural network trained on GPUs — and won so convincingly that every team switched to deep learning the following year.</p><p>This result triggered a massive shift in AI research. Within five years, deep learning had transformed computer vision, speech recognition, natural language processing, and game playing. The modern AI era began with this competition.</p>',
+    why:'AlexNet did not just win a competition — it proved deep learning was the approach, ending decades of debate about the right direction for AI.' },
+
+  { year:2014, era:'modern', side:'right', color:'mint',
+    title:'GANs: AI That Creates',
+    who:'Ian Goodfellow — University of Montreal',
+    desc:'Ian Goodfellow invented Generative Adversarial Networks (GANs) at a party, after an argument about AI image generation. Two neural networks compete — one generates images, one evaluates them — until the generator creates images convincing enough to fool the evaluator.',
+    tag:'Generative AI born',
+    detail:'<p>The story goes that Goodfellow went home and coded the first GAN that same night, then tested it. It worked. He is said to have not slept.</p><p>GANs enabled the first photorealistic AI-generated faces, deepfakes, and artistic style transfer. They were the dominant generative AI approach until diffusion models largely replaced them around 2021-2022. But GANs established the principle that AI could generate, not just classify — a conceptual shift that led directly to DALL-E, Midjourney, and Stable Diffusion.</p>',
+    why:'GANs shifted AI from recognition to creation — proving machines could generate content that humans cannot distinguish from reality.' },
+
+  { year:2016, era:'modern', side:'left', color:'mint',
+    title:'AlphaGo Defeats Lee Sedol',
+    who:'Google DeepMind',
+    desc:'AlphaGo beat world Go champion Lee Sedol 4-1. Unlike chess, Go has more possible positions than atoms in the universe — it was considered too complex for AI for decades. The victory, especially Move 37 in Game 2, shocked experts worldwide.',
+    tag:'Superhuman game AI',
+    detail:'<p>Move 37 was a move no human player would have made — placed in a position humans considered wrong. It was beautiful, strange, and ultimately correct. Lee Sedol left the room for 15 minutes after seeing it. He later said it was the move that made him realize he would lose the match.</p><p>AlphaGo used reinforcement learning — playing millions of games against itself — combined with deep neural networks. Its successor AlphaZero learned chess, Go, and Shogi from scratch in 24 hours and beat the best programs for each. It invented opening strategies humans had never considered.</p>',
+    why:'AlphaGo proved AI could find solutions to complex problems that human experts had not considered — a genuinely unsettling capability.' },
+
+  { year:2017, era:'modern', side:'right', color:'mint',
+    title:'"Attention Is All You Need"',
+    who:'Google Brain team',
+    desc:'A Google paper introduced the Transformer architecture — the engine behind every major language model today. The title itself was a declaration: forget recurrent networks, attention mechanisms are all you need to process language.',
+    tag:'Architecture breakthrough',
+    detail:'<p>The Transformer processed all words in a sentence simultaneously rather than one at a time, using "attention" to figure out which words relate to each other. This allowed far better capture of long-range relationships in text and dramatically faster training on parallel hardware.</p><p>The paper was initially submitted to model machine translation. Its true impact was not immediately understood — even by the authors. Within three years, GPT-3, BERT, T5, and every other frontier language model was built on this architecture. It is one of the most consequential papers in the history of computer science.</p>',
+    why:'Every chatbot, AI writer, and language model you use today — Claude, ChatGPT, Gemini — runs on the Transformer architecture introduced in this paper.' },
+
+  { year:2018, era:'modern', side:'left', color:'mint',
+    title:'GPT-1: Language Modeling at Scale',
+    who:'OpenAI',
+    desc:'OpenAI released GPT-1, demonstrating that training a large Transformer model on vast amounts of text could produce a system that generalized surprisingly well to tasks it was never explicitly trained on.',
+    tag:'Language models begin',
+    detail:'<p>GPT-1 had 117 million parameters — large at the time, tiny by 2023 standards. But it demonstrated a key insight: you could pre-train a model on general text, then fine-tune it on specific tasks with very little labeled data. This "pre-train and fine-tune" approach became the dominant paradigm.</p><p>The GPT paper showed that scale mattered — bigger models trained on more text produced better results. This insight drove the rapid scale-up to GPT-2 (2019), GPT-3 (2020), and eventually GPT-4 (2023).</p>',
+    why:'GPT-1 established the blueprint for every modern AI assistant: train on the internet, fine-tune for specific tasks, deploy at scale.' },
+
+  { year:2020, era:'modern', side:'right', color:'mint',
+    title:'GPT-3: The Jaw-Drop Moment',
+    who:'OpenAI',
+    desc:'GPT-3 had 175 billion parameters and could write essays, code, poetry, and legal documents with startling quality — without any task-specific training. It became the model that convinced the world large language models were something genuinely different.',
+    tag:'Inflection point',
+    detail:'<p>GPT-3 was accessed through a private beta, and the results researchers shared online seemed almost unbelievable. It could write in the style of any author, complete legal documents, generate working code, answer medical questions, and hold long coherent conversations. It hallucinated confidently, but its capabilities seemed qualitatively different from anything before.</p><p>The API generated a wave of AI startups building products on top of it. The modern AI application ecosystem — AI writing tools, coding assistants, content generators — began with GPT-3\'s API in 2020.</p>',
+    why:'GPT-3 was the moment that made AI capability feel real and immediate to people outside research labs — the moment hype became credible.' },
+
+  { year:2021, era:'modern', side:'left', color:'mint',
+    title:'DALL-E and Text-to-Image AI',
+    who:'OpenAI',
+    desc:'DALL-E demonstrated that a large language model trained on text-image pairs could generate entirely new images from text descriptions. "An armchair in the shape of an avocado" became the image that went around the world.',
+    tag:'Image generation',
+    detail:'<p>DALL-E (named as a mashup of Salvador Dalí and WALL-E) showed that the Transformer architecture could work across modalities — not just text. The avocado armchair image demonstrated something genuinely new: AI could visualize concepts that had never existed.</p><p>Later that year, GitHub Copilot launched — an AI code completion tool trained on GitHub repositories that could write substantial portions of working code. For many developers, Copilot was their first daily encounter with AI that actually helped them work faster.</p>',
+    why:'DALL-E and Copilot proved generative AI could be commercially useful — directly creating content people would pay for.' },
+
+  // ── AI EVERYWHERE ──
+  { year:2022, era:'now', side:'right', color:'purple',
+    title:'Stable Diffusion Goes Open Source',
+    who:'Stability AI, CompVis, Runway',
+    desc:'Stable Diffusion was released as an open-source model anyone could run on their own computer. Combined with Midjourney and DALL-E 2, it triggered a global explosion of AI image generation — and intense debates about art, copyright, and creativity.',
+    tag:'AI democratized',
+    detail:'<p>Unlike DALL-E, which required an API, Stable Diffusion ran locally. Artists, developers, and curious people around the world could generate images without paying OpenAI. The open-source release accelerated experimentation dramatically.</p><p>It also triggered the first mainstream debates about AI and creative work: If AI is trained on millions of artists\' work without permission or payment, and then generates work in their style, is that theft? Those legal and ethical questions are still being worked out in courts around the world.</p>',
+    why:'Stable Diffusion democratized AI image generation — and made the copyright and consent questions around training data impossible to ignore.' },
+
+  { year:2022, era:'now', side:'left', color:'purple',
+    title:'ChatGPT: AI Goes Mainstream',
+    who:'OpenAI',
+    desc:'ChatGPT launched on November 30, 2022. It reached 1 million users in 5 days and 100 million users in 2 months — faster than any consumer product in history. AI became a daily conversation topic for people who had never thought about it before.',
+    tag:'Cultural inflection point',
+    detail:'<p>ChatGPT was built on GPT-3.5 fine-tuned with Reinforcement Learning from Human Feedback (RLHF) — a technique that made it far better at following instructions and having natural conversations. The difference from earlier GPT models was stark enough that most people felt they were interacting with something genuinely new.</p><p>The launch changed everything: school AI policies, journalism, stock markets, hiring practices, government regulation discussions, and dinner table conversations. The word "hallucination" entered popular vocabulary. Every technology company announced an AI strategy within weeks.</p>',
+    why:'ChatGPT was the moment AI became a thing everyone had an opinion about — the biggest cultural technology shift since the smartphone.' },
+
+  { year:2023, era:'now', side:'right', color:'purple',
+    title:'GPT-4, Claude, and the AI Race',
+    who:'OpenAI, Anthropic, Google, Meta',
+    desc:'GPT-4 launched with multimodal capabilities. Anthropic released Claude. Google released Bard (later Gemini). Meta open-sourced LLaMA. The frontier model race accelerated dramatically, with new versions releasing every few months.',
+    tag:'Frontier race',
+    detail:'<p>GPT-4 passed the bar exam in the top 10% of test-takers, performed well on medical licensing exams, and could analyze images. Claude was trained with a focus on safety and helpfulness using "Constitutional AI." Gemini was Google\'s attempt to respond to losing search traffic to ChatGPT.</p><p>Meta\'s open-source LLaMA models allowed researchers worldwide to study, fine-tune, and deploy powerful AI without API costs. This accelerated research dramatically and created a two-tier AI ecosystem: closed frontier models and open-source models.</p>',
+    why:'2023 established that powerful AI was not a single company\'s product — it was an industry-wide shift with multiple competing approaches.' },
+
+  { year:2023, era:'now', side:'left', color:'purple',
+    title:'AI Enters Classrooms — and Classrooms Panic',
+    who:'Schools worldwide',
+    desc:'Students began using AI to write essays, complete homework, and pass exams. Schools scrambled to create AI policies — many banning it outright, others trying to integrate it thoughtfully. The debate about academic integrity, critical thinking, and AI in education ignited globally.',
+    tag:'Education disrupted',
+    detail:'<p>The challenge was real: AI could produce passable student work at every level. Plagiarism detection tools failed. Teachers struggled to tell AI writing from student writing. Some schools banned AI completely. Others — including researchers like those at AI Kairos Learning Lab — argued the answer was teaching students to use AI responsibly, not pretending they would not use it.</p><p>The education response varied wildly: some districts blocked ChatGPT on school networks, others assigned students to use it. Research began emerging that students who learned to use AI critically performed better than those who either avoided it entirely or used it uncritically.</p>',
+    why:'This moment is why AI literacy education exists — schools realized they needed a framework, not just a policy.' },
+
+  { year:2024, era:'now', side:'right', color:'purple',
+    title:'AI Agents and Agentic AI',
+    who:'OpenAI, Anthropic, Google DeepMind',
+    desc:'AI systems began acting autonomously — browsing the web, writing and running code, booking appointments, and completing multi-step tasks without human prompting at every step. The shift from AI that answers to AI that acts changed the nature of the technology.',
+    tag:'Agentic AI',
+    detail:'<p>Agent-based AI represents a qualitative shift. Instead of responding to a prompt, agentic AI takes a goal and executes a series of actions — using tools, accessing information, and making decisions to complete it. This raises new questions about oversight, accountability, and what it means for humans to stay "in the loop."</p><p>Claude Computer Use, GPT-4o, and Google\'s Project Astra all demonstrated agents that could navigate computers, write code that ran, and complete real-world tasks. The pace of capability increase made it difficult to predict what these systems would be capable of a year later.</p>',
+    why:'Agentic AI shifts the question from "can AI answer well?" to "should AI act independently?" — a much harder question.' },
+
+  { year:2024, era:'now', side:'left', color:'purple',
+    title:'Multimodal AI Becomes Standard',
+    who:'Multiple companies',
+    desc:'Audio, video, images, and text became standard inputs for frontier AI models. GPT-4o could hold voice conversations in real time. Gemini could analyze video. Claude could read and reason about documents, charts, and images. AI began perceiving the world more like humans do.',
+    tag:'Multimodal AI',
+    detail:'<p>GPT-4o ("o" for omni) demonstrated real-time voice conversation with emotional nuance — it could respond to sarcasm, match the energy of a conversation, and express something resembling personality. The demo showing it solving math problems while someone held a piece of paper to a camera went viral.</p><p>Multimodal AI changed what AI could be used for: reading prescription bottles for the visually impaired, helping non-native speakers understand spoken language, analyzing medical images alongside patient histories. The disability and accessibility use cases became suddenly much more powerful.</p>',
+    why:'Multimodal AI expanded who AI could help and how — making it genuinely useful in situations where text alone was insufficient.' },
+
+  { year:2025, era:'now', side:'right', color:'purple',
+    title:'AI Literacy Becomes a Core Skill',
+    who:'Educators, policymakers, and learners worldwide',
+    desc:'Across K–12 schools, workplaces, and communities, AI literacy emerged as a foundational skill — comparable to reading, writing, and digital literacy. Frameworks for thinking critically about AI became as important as knowing how to use AI tools.',
+    tag:'Where we are now',
+    detail:'<p>The conversation shifted from "how do we use AI?" to "how do we think about AI?" — a distinction that defines the AI literacy movement. Knowing how to prompt an AI is useful. Understanding why it gives confident wrong answers, how its training data shapes its outputs, and when human judgment must override AI outputs is essential.</p><p>Resources like AI Kairos Learning Lab\'s student journals, frameworks like READY and FOCUS, and tools designed to slow students down and make them think rather than just produce — these emerged from a clear need: people needed structure for thinking, not just tools for doing.</p>',
+    why:'You are living in this moment. The decisions made now about how to teach AI literacy — and to whom — will shape how the next generation understands and uses one of the most powerful technologies ever built.' },
+];
+
+/* ════════════ BUILD TIMELINE ════════════ */
+const wrap = document.getElementById('timeline-wrap');
+let side = 0; // alternating
+
+const ERAboundaries = {
+  early:  { year:1950, label:'Early AI (1950–1969)', cls:'early' },
+  winter: { year:1973, label:'AI Winters (1970s–1992)', cls:'winter' },
+  revival:{ year:1993, label:'Deep Learning Revival (1993–2011)', cls:'revival' },
+  modern: { year:2012, label:'Modern AI (2012–2021)', cls:'modern' },
+  now:    { year:2022, label:'AI Everywhere (2022–Now)', cls:'now' },
+};
+
+let lastEra = '';
+
+EVENTS.forEach((ev, idx) => {
+  // insert era header when era changes
+  if(ev.era !== lastEra){
+    const eh = document.createElement('div');
+    eh.className = 'era-header';
+    eh.dataset.era = ev.era;
+    const eBd = ERAboundaries[ev.era];
+    eh.innerHTML = `<div class="era-header-pill ${eBd.cls}">${eBd.label}</div>`;
+    wrap.appendChild(eh);
+    lastEra = ev.era;
+  }
+
+  const isLeft = idx % 2 === 0;
+  const div = document.createElement('div');
+  div.className = `event ${isLeft?'event-left':'event-right'}`;
+  div.dataset.era = ev.era;
+
+  const detailId = `detail-${idx}`;
+  const btnId = `btn-${idx}`;
+
+  div.innerHTML = `
+    ${isLeft ? `
+      <div class="event-content ${ev.color}-ev" onclick="toggleDetail(${idx})">
+        <div class="ev-year ${ev.color}">${ev.year}</div>
+        <div class="ev-title">${ev.title}</div>
+        <div class="ev-who">${ev.who}</div>
+        <div class="ev-desc">${ev.desc}</div>
+        <span class="ev-tag ${ev.color}">${ev.tag}</span>
+        <div class="ev-detail" id="${detailId}">
+          <div class="ev-detail-inner">
+            ${ev.detail}
+            <div class="ev-why ${ev.color === 'red' ? 'amber' : ev.color}">${ev.why}</div>
+          </div>
+        </div>
+        <div class="ev-expand-btn" id="${btnId}">
+          Read more
+          <svg viewBox="0 0 12 12"><path d="M2 4l4 4 4-4"/></svg>
+        </div>
+      </div>
+      <div class="event-dot-col"><div class="event-dot ${ev.color}"></div></div>
+      <div class="event-empty"></div>
+    ` : `
+      <div class="event-empty"></div>
+      <div class="event-dot-col"><div class="event-dot ${ev.color}"></div></div>
+      <div class="event-content ${ev.color}-ev" onclick="toggleDetail(${idx})">
+        <div class="ev-year ${ev.color}">${ev.year}</div>
+        <div class="ev-title">${ev.title}</div>
+        <div class="ev-who">${ev.who}</div>
+        <div class="ev-desc">${ev.desc}</div>
+        <span class="ev-tag ${ev.color}">${ev.tag}</span>
+        <div class="ev-detail" id="${detailId}">
+          <div class="ev-detail-inner">
+            ${ev.detail}
+            <div class="ev-why ${ev.color === 'red' ? 'amber' : ev.color}">${ev.why}</div>
+          </div>
+        </div>
+        <div class="ev-expand-btn" id="${btnId}">
+          Read more
+          <svg viewBox="0 0 12 12"><path d="M2 4l4 4 4-4"/></svg>
+        </div>
+      </div>
+    `}
+  `;
+  wrap.appendChild(div);
+});
+
+// end node
+const endNode = document.createElement('div');
+endNode.className = 'timeline-end';
+endNode.innerHTML = `
+  <div class="te-dot"></div>
+  <div class="te-label">The story continues</div>
+  <div class="te-text">AI is developing faster than any timeline can keep up with. The most important chapter is the one being written right now.</div>
+`;
+wrap.appendChild(endNode);
+
+document.getElementById('total-ev').textContent = EVENTS.length;
+document.getElementById('visible-ev').textContent = EVENTS.length;
+
+/* ════════════ TOGGLE DETAIL ════════════ */
+function toggleDetail(idx){
+  const detail = document.getElementById(`detail-${idx}`);
+  const btn = document.getElementById(`btn-${idx}`);
+  const isOpen = detail.classList.contains('open');
+  detail.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  btn.childNodes[0].textContent = isOpen ? 'Read more' : 'Show less';
+}
+
+/* ════════════ ERA FILTER ════════════ */
+let activeEra = 'all';
+function filterEra(era, btn){
+  activeEra = era;
+  document.querySelectorAll('.era-pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+
+  const events = document.querySelectorAll('.event');
+  const headers = document.querySelectorAll('.era-header');
+  let count = 0;
+
+  events.forEach(ev=>{
+    const show = era==='all' || ev.dataset.era===era;
+    ev.classList.toggle('hidden', !show);
+    if(show) count++;
+  });
+
+  headers.forEach(h=>{
+    const show = era==='all' || h.dataset.era===era;
+    h.style.display = show?'':'none';
+  });
+
+  document.getElementById('empty-state').classList.toggle('show', count===0);
+  document.getElementById('visible-ev').textContent = count;
+  endNode.style.display = era==='all'?'':'none';
+}
+
+/* ════════════ SCROLL REVEAL ════════════ */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.15});
+document.querySelectorAll('.event').forEach(el=>io.observe(el));
+
+/* ════════════ THREE.JS BACKGROUND ════════════ */
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x041012, 1);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 200);
+camera.position.set(0, 0, 38);
+const N=80, posArr=new Float32Array(N*3), velArr=new Float32Array(N*3);
+for(let i=0;i<N;i++){posArr[i*3]=(Math.random()-.5)*70;posArr[i*3+1]=(Math.random()-.5)*45;posArr[i*3+2]=(Math.random()-.5)*25;velArr[i*3]=(Math.random()-.5)*0.015;velArr[i*3+1]=(Math.random()-.5)*0.010;velArr[i*3+2]=(Math.random()-.5)*0.007;}
+const pGeo=new THREE.BufferGeometry();
+pGeo.setAttribute('position',new THREE.BufferAttribute(posArr.slice(),3));
+scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x1cc9a0,size:0.24,transparent:true,opacity:0.7,sizeAttenuation:true})));
+const posB=new Float32Array(N*3);
+for(let i=0;i<N;i++){posB[i*3]=(Math.random()-.5)*80;posB[i*3+1]=(Math.random()-.5)*50;posB[i*3+2]=(Math.random()-.5)*20;}
+const pGeoB=new THREE.BufferGeometry();
+pGeoB.setAttribute('position',new THREE.BufferAttribute(posB.slice(),3));
+scene.add(new THREE.Points(pGeoB,new THREE.PointsMaterial({color:0x38b6ff,size:0.16,transparent:true,opacity:0.4,sizeAttenuation:true})));
+const MAX_LINES=N*N, linePos=new Float32Array(MAX_LINES*6), lGeo=new THREE.BufferGeometry();
+lGeo.setAttribute('position',new THREE.BufferAttribute(linePos,3));
+scene.add(new THREE.LineSegments(lGeo,new THREE.LineBasicMaterial({color:0x1cc9a0,transparent:true,opacity:0.08})));
+const wireShapes=[];
+[{geo:new THREE.IcosahedronGeometry(3.5,0),pos:[14,6,-9],rot:[0.002,0.003,0.001],col:0x1cc9a0},{geo:new THREE.OctahedronGeometry(2.6,0),pos:[-14,-5,-5],rot:[-0.003,0.002,0.001],col:0x38b6ff},{geo:new THREE.TetrahedronGeometry(2.8,0),pos:[1,-11,-12],rot:[0.001,-0.002,0.003],col:0x1cc9a0}].forEach(d=>{const m=new THREE.Mesh(d.geo,new THREE.MeshBasicMaterial({color:d.col,wireframe:true,transparent:true,opacity:0.06}));m.position.set(...d.pos);m.userData.rot=d.rot;scene.add(m);wireShapes.push(m);});
+let mouseX=0,mouseY=0,targetX=0,targetY=0;
+document.addEventListener('mousemove',e=>{mouseX=(e.clientX/window.innerWidth-.5)*2;mouseY=(e.clientY/window.innerHeight-.5)*2;});
+const cur=pGeo.attributes.position.array;let t=0;
+function animate(){
+  requestAnimationFrame(animate);t+=0.007;
+  for(let i=0;i<N;i++){cur[i*3]=posArr[i*3]+Math.sin(t*.65+i*.31)*.36;cur[i*3+1]=posArr[i*3+1]+Math.cos(t*.48+i*.27)*.26;cur[i*3+2]=posArr[i*3+2]+Math.sin(t*.28+i*.19)*.16;posArr[i*3]+=velArr[i*3];posArr[i*3+1]+=velArr[i*3+1];posArr[i*3+2]+=velArr[i*3+2];if(Math.abs(posArr[i*3])>36)velArr[i*3]*=-1;if(Math.abs(posArr[i*3+1])>23)velArr[i*3+1]*=-1;if(Math.abs(posArr[i*3+2])>14)velArr[i*3+2]*=-1;}
+  pGeo.attributes.position.needsUpdate=true;
+  let lc=0;for(let i=0;i<N;i++){for(let j=i+1;j<N;j++){const dx=cur[i*3]-cur[j*3],dy=cur[i*3+1]-cur[j*3+1],dz=cur[i*3+2]-cur[j*3+2];if(dx*dx+dy*dy+dz*dz<13*13){linePos[lc*6]=cur[i*3];linePos[lc*6+1]=cur[i*3+1];linePos[lc*6+2]=cur[i*3+2];linePos[lc*6+3]=cur[j*3];linePos[lc*6+4]=cur[j*3+1];linePos[lc*6+5]=cur[j*3+2];lc++;if(lc>=MAX_LINES-1)break;}}if(lc>=MAX_LINES-1)break;}
+  lGeo.setDrawRange(0,lc*2);lGeo.attributes.position.needsUpdate=true;
+  wireShapes.forEach(s=>{s.rotation.x+=s.userData.rot[0];s.rotation.y+=s.userData.rot[1];s.rotation.z+=s.userData.rot[2];});
+  targetX+=(mouseX*2.2-targetX)*.03;targetY+=(-mouseY*1.6-targetY)*.03;
+  camera.position.x=targetX;camera.position.y=targetY;camera.lookAt(0,0,0);
+  renderer.render(scene,camera);
+}
+animate();
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));});
+</script>
+
+<script>
+/* ── DROPDOWN NAV — MOBILE SUPPORT ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  const toggle=document.querySelector('.mobile-toggle');
+  const links=document.querySelector('.nav-links');
+  if(toggle&&links){
+    toggle.addEventListener('click',()=>{
+      links.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    // Mobile accordion dropdowns
+    links.querySelectorAll('.has-dropdown > a').forEach(a=>{
+      a.addEventListener('click',e=>{
+        if(window.innerWidth<=768){
+          e.preventDefault();
+          a.parentElement.classList.toggle('open');
+        }
+      });
+    });
+  }
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+});
+
+</script>
+</body>
+</html>
